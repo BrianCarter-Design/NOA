@@ -65,24 +65,13 @@
       letter-spacing: -0.05em;
       pointer-events: none;
     }
-
-    .line-mask {
-      display: block;
-      overflow: hidden;
-      padding-bottom: 0.06em;
-    }
-
-    .line-inner {
-      display: block;
-      transform: translateY(110%);
-    }
   </style>
 </head>
 <body>
   <section class="hero">
 
     <video id="vid" autoplay muted loop playsinline>
-      <source src="public/assets/wind.mp4" type="video/mp4" />
+      <source src="/assets/wind.mp4" type="video/mp4" />
     </video>
 
     <canvas id="gl"></canvas>
@@ -96,25 +85,9 @@
       </svg>
     </nav>
 
-    <h1 class="headline">
-      <span class="line-mask"><span class="line-inner">A different</span></span>
-      <span class="line-mask"><span class="line-inner">kind of energy</span></span>
-    </h1>
+    <h1 class="headline">A different<br />kind of energy</h1>
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script>
-    // Headline reveal — lines rise from behind masked baseline
-    window.addEventListener('load', () => {
-      gsap.to('.line-inner', {
-        y: '0%',
-        duration: 1.1,
-        ease: 'power4.out',
-        stagger: 0.12,
-        delay: 0.3,
-      });
-    });
-  </script>
   <script>
     const canvas = document.getElementById('gl');
     const video  = document.getElementById('vid');
@@ -147,18 +120,18 @@
         d.x *= u_aspect;
         float dist = length(d);
 
-        // Gaussian falloff centred on cursor — wider radius
-        float strength = exp(-dist * dist * 8.0);
+        // Gaussian falloff centred on cursor (radius ≈ 0.22 of screen height)
+        float strength = exp(-dist * dist * 20.0);
 
         // 1. Directional warp — pixels pulled in direction of movement
-        vec2 warp = u_velocity * strength * 0.38;
+        vec2 warp = u_velocity * strength * 0.18;
 
         // 2. Radial ripple ring that expands from cursor while moving
-        float ring = exp(-pow(dist - 0.08, 2.0) * 300.0) * u_decay;
-        vec2 radial = (d / (u_aspect + 0.0001)) * ring * 0.055;
+        float ring = exp(-pow(dist - 0.06, 2.0) * 600.0) * u_decay;
+        vec2 radial = (d / (u_aspect + 0.0001)) * ring * 0.025;
 
-        // 3. Lens bulge at rest position
-        float bulge = strength * u_decay * 0.028;
+        // 3. Subtle lens bulge at rest position
+        float bulge = strength * u_decay * 0.012;
         vec2 lensDir = -normalize(d + 0.0001) / vec2(u_aspect, 1.0);
         vec2 lens = lensDir * bulge;
 
@@ -246,11 +219,13 @@
       decay += (speed - decay) * 0.12;
       if (speed < 0.001) decay *= 0.92;
 
+      // Video playback rate: slow at rest, fast when sweeping
+      const targetRate = 0.3 + Math.min(speed, 3.0) * 0.73;
+      video.playbackRate += (targetRate - video.playbackRate) * 0.08;
 
       // Upload video frame
       if (video.readyState >= video.HAVE_CURRENT_DATA) {
         gl.bindTexture(gl.TEXTURE_2D, tex);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
       }
 
