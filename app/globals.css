@@ -1,0 +1,14 @@
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Switzer", sans-serif;
+  }
+}
