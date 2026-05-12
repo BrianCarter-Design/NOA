@@ -61,6 +61,7 @@ const FRAG = `
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef  = useRef<HTMLVideoElement>(null);
+  const textRef   = useRef<HTMLDivElement>(null);
   const rafRef    = useRef<number>(0);
 
   useEffect(() => {
@@ -154,6 +155,13 @@ export default function Hero() {
       gl.uniform1f(uAspect,   aspect);
       gl.uniform1f(uDecay,    Math.min(decay, 1.0));
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+      if (textRef.current) {
+        const tx = vx * -12;
+        const ty = vy * 12;
+        const sk = vx * -1.5;
+        textRef.current.style.transform = `translate(${tx}px, ${ty}px) skewX(${sk}deg)`;
+      }
     };
     frame();
 
@@ -207,7 +215,7 @@ export default function Hero() {
       </div>
 
       {/* Headline with masked line reveal */}
-      <div className="absolute z-10" style={{ bottom: '12%', left: '5%', pointerEvents: 'none' }}>
+      <div ref={textRef} className="absolute z-10" style={{ bottom: '12%', left: '5%', pointerEvents: 'none', willChange: 'transform' }}>
         <h1 style={{ color: '#fff', fontSize: '96px', fontWeight: 400, lineHeight: 1.01, letterSpacing: '-0.05em' }}>
           <span style={{ display: 'block', overflow: 'hidden', paddingBottom: '0.06em' }}>
             <span className="line-inner" style={{ display: 'block', transform: 'translateY(110%)' }}>A different</span>
