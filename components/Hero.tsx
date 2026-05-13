@@ -31,7 +31,6 @@ const VERT = `
 const FRAG = `
   precision highp float;
   uniform sampler2D u_video;
-  uniform sampler2D u_text;
   uniform vec2  u_mouse;
   uniform vec2  u_velocity;
   uniform float u_aspect;
@@ -55,14 +54,7 @@ const FRAG = `
     vec2 lens = lensDir * bulge;
 
     vec2 displaced = clamp(uv + warp + radial + lens, 0.001, 0.999);
-
-    vec4 video = texture2D(u_video, displaced);
-    vec4 txt   = texture2D(u_text,  displaced);
-
-    // unmultiply premultiplied alpha from canvas 2d, then composite
-    float a = txt.a;
-    vec3 textRGB = a > 0.001 ? txt.rgb / a : vec3(0.0);
-    gl_FragColor = vec4(mix(video.rgb, textRGB, a), 1.0);
+    gl_FragColor = texture2D(u_video, displaced);
   }
 `;
 
@@ -76,7 +68,6 @@ export default function Hero() {
     const video  = videoRef.current!;
     const gl     = canvas.getContext('webgl', { alpha: false })!;
 
-    // ── Compile shaders ──
     const compile = (type: number, src: string) => {
       const s = gl.createShader(type)!;
       gl.shaderSource(s, src);
@@ -89,7 +80,6 @@ export default function Hero() {
     gl.linkProgram(prog);
     gl.useProgram(prog);
 
-    // ── Quad ──
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
@@ -97,79 +87,19 @@ export default function Hero() {
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-    // ── Video texture (unit 0) ──
-    const videoTex = gl.createTexture();
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, videoTex);
+    const tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
-    // ── Text texture (unit 1) ──
-    const textTex = gl.createTexture();
-    gl.activeTexture(gl.TEXTURE1);
-    gl.bindTexture(gl.TEXTURE_2D, textTex);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    // seed with 1×1 transparent so the sampler is valid before fonts load
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0,0,0,0]));
-
-    // ── Uniforms ──
     gl.uniform1i(gl.getUniformLocation(prog, 'u_video'), 0);
-    gl.uniform1i(gl.getUniformLocation(prog, 'u_text'),  1);
     const uMouse    = gl.getUniformLocation(prog, 'u_mouse');
     const uVelocity = gl.getUniformLocation(prog, 'u_velocity');
     const uAspect   = gl.getUniformLocation(prog, 'u_aspect');
     const uDecay    = gl.getUniformLocation(prog, 'u_decay');
 
-    // ── Offscreen text canvas ──
-    const textCanvas = document.createElement('canvas');
-    const ctx        = textCanvas.getContext('2d')!;
-    const reveal     = { l0: 0, l1: 0 }; // 0 = hidden, 1 = fully revealed
-    let   textDirty  = false;
-
-    const drawText = () => {
-      const w  = textCanvas.width;
-      const h  = textCanvas.height;
-      ctx.clearRect(0, 0, w, h);
-
-      const fontSize  = Math.round(96 * (w / window.innerWidth));
-      const lineH     = fontSize * 1.07;
-      const baselineY = h * 0.88; // matches bottom:12%
-      const leftX     = w * 0.05; // matches left:5%
-
-      ctx.font      = `400 ${fontSize}px Switzer, sans-serif`;
-      ctx.fillStyle = 'white';
-      ctx.textBaseline = 'alphabetic';
-
-      const lines   = ['A different', 'kind of energy'];
-      const progArr = [reveal.l0, reveal.l1];
-
-      lines.forEach((text, i) => {
-        const lineBase = baselineY - (lines.length - 1 - i) * lineH;
-        const clipTop  = lineBase - lineH * 1.15;
-        const clipH    = lineH * 1.2;
-        const offsetY  = (1 - progArr[i]) * lineH * 1.1;
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(0, clipTop, w, clipH);
-        ctx.clip();
-        ctx.fillText(text, leftX, lineBase + offsetY);
-        ctx.restore();
-      });
-    };
-
-    const syncTextSize = () => {
-      textCanvas.width  = window.innerWidth;
-      textCanvas.height = window.innerHeight;
-      textDirty = true;
-    };
-
-    // ── Mouse ──
     let rawX = 0.5, rawY = 0.5;
     let smoothX = 0.5, smoothY = 0.5;
     let prevSX  = 0.5, prevSY  = 0.5;
@@ -181,19 +111,16 @@ export default function Hero() {
     };
     window.addEventListener('mousemove', onMove);
 
-    // ── Resize ──
     const resize = () => {
       canvas.width  = window.innerWidth  * devicePixelRatio;
       canvas.height = window.innerHeight * devicePixelRatio;
       canvas.style.width  = window.innerWidth  + 'px';
       canvas.style.height = window.innerHeight + 'px';
       gl.viewport(0, 0, canvas.width, canvas.height);
-      syncTextSize();
     };
     window.addEventListener('resize', resize);
     resize();
 
-    // ── Render loop ──
     const frame = () => {
       rafRef.current = requestAnimationFrame(frame);
 
@@ -208,22 +135,10 @@ export default function Hero() {
       decay += (speed - decay) * 0.12;
       if (speed < 0.001) decay *= 0.92;
 
-      // upload video frame
       if (video.readyState >= video.HAVE_CURRENT_DATA) {
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, videoTex);
+        gl.bindTexture(gl.TEXTURE_2D, tex);
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
-      }
-
-      // upload text canvas when reveal animation changes it or on resize
-      if (textDirty) {
-        drawText();
-        gl.activeTexture(gl.TEXTURE1);
-        gl.bindTexture(gl.TEXTURE_2D, textTex);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textCanvas);
-        textDirty = false;
       }
 
       const aspect = canvas.width / canvas.height;
@@ -235,30 +150,18 @@ export default function Hero() {
     };
     frame();
 
-    // ── Autoplay ──
     video.play().catch(() => {
       const resume = () => { video.play(); };
       document.addEventListener('mousemove', resume, { once: true });
       document.addEventListener('click',     resume, { once: true });
     });
 
-    // ── GSAP headline reveal (drives canvas redraws) ──
-    document.fonts.ready.then(() => {
-      syncTextSize();
-      gsap.to(reveal, {
-        l0: 1,
-        duration: 1.1,
-        ease: 'power4.out',
-        delay: 0.4,
-        onUpdate: () => { textDirty = true; },
-      });
-      gsap.to(reveal, {
-        l1: 1,
-        duration: 1.1,
-        ease: 'power4.out',
-        delay: 0.52,
-        onUpdate: () => { textDirty = true; },
-      });
+    gsap.to('.line-inner', {
+      y: '0%',
+      duration: 1.1,
+      ease: 'power4.out',
+      stagger: 0.12,
+      delay: 0.4,
     });
 
     return () => {
@@ -292,6 +195,18 @@ export default function Hero() {
           <NoaLogo />
           <PowerIcon />
         </div>
+      </div>
+
+      {/* Headline */}
+      <div className="absolute z-10" style={{ bottom: '12%', left: '5%', pointerEvents: 'none' }}>
+        <h1 style={{ color: '#fff', fontSize: '96px', fontWeight: 400, lineHeight: 1.01, letterSpacing: '-0.05em' }}>
+          <span style={{ display: 'block', overflow: 'hidden', paddingBottom: '0.06em' }}>
+            <span className="line-inner" style={{ display: 'block', transform: 'translateY(110%)' }}>A different</span>
+          </span>
+          <span style={{ display: 'block', overflow: 'hidden', paddingBottom: '0.06em' }}>
+            <span className="line-inner" style={{ display: 'block', transform: 'translateY(110%)' }}>kind of energy</span>
+          </span>
+        </h1>
       </div>
     </section>
   );
