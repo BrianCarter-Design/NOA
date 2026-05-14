@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import Link from 'next/link';
 
@@ -24,9 +24,9 @@ function PowerIcon() {
 
 function CloseIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.5} strokeLinecap="round" width={24} height={24}>
-      <line x1="5" y1="5" x2="19" y2="19" />
-      <line x1="19" y1="5" x2="5" y2="19" />
+    <svg viewBox="0 0 28 28" fill="none" stroke="white" strokeWidth={1.6} strokeLinecap="round" width={28} height={28}>
+      <line x1="7" y1="7" x2="21" y2="21" />
+      <line x1="21" y1="7" x2="7" y2="21" />
     </svg>
   );
 }
@@ -48,72 +48,15 @@ function ArrowUpRight() {
   );
 }
 
-function SunIcon() {
+function MetricIcon({ name }: { name: string }) {
   return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="white" strokeWidth={1.4} strokeLinecap="round" width={32} height={32}>
-      <circle cx="16" cy="16" r="5" />
-      <line x1="16" y1="3" x2="16" y2="6" />
-      <line x1="16" y1="26" x2="16" y2="29" />
-      <line x1="3" y1="16" x2="6" y2="16" />
-      <line x1="26" y1="16" x2="29" y2="16" />
-      <line x1="6.9" y1="6.9" x2="9.1" y2="9.1" />
-      <line x1="22.9" y1="22.9" x2="25.1" y2="25.1" />
-      <line x1="22.9" y1="9.1" x2="25.1" y2="6.9" />
-      <line x1="6.9" y1="25.1" x2="9.1" y2="22.9" />
-    </svg>
-  );
-}
-
-function WindIcon() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="white" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" width={32} height={32}>
-      <path d="M4 12h16a4 4 0 0 0 0-8" />
-      <path d="M4 18h20a4 4 0 0 1 0 8" />
-      <path d="M4 15h24" />
-    </svg>
-  );
-}
-
-function BoltIcon() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="white" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" width={32} height={32}>
-      <polyline points="18 3 10 17 16 17 14 29 22 15 16 15 18 3" />
-    </svg>
-  );
-}
-
-function TurbineIcon() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="white" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" width={32} height={32}>
-      <circle cx="16" cy="13" r="2" />
-      <path d="M16 11 C16 11 14 4 10 3 C9 3 8.5 4 9 5 C10 7 13 10 15 11" />
-      <path d="M17.7 14 C17.7 14 24 17 25 21 C25.4 22 24.4 22.8 23.4 22.3 C21.4 21.3 19 18 17.5 15.5" />
-      <path d="M14.3 14 C14.3 14 8 17 7 21 C6.6 22 7.6 22.8 8.6 22.3 C10.6 21.3 13 18 14.5 15.5" />
-      <line x1="16" y1="15" x2="16" y2="30" />
-      <line x1="12" y1="30" x2="20" y2="30" />
-    </svg>
-  );
-}
-
-function SolarIcon() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="white" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" width={32} height={32}>
-      <rect x="3" y="8" width="26" height="16" rx="1" />
-      <line x1="3" y1="16" x2="29" y2="16" />
-      <line x1="11" y1="8" x2="11" y2="24" />
-      <line x1="21" y1="8" x2="21" y2="24" />
-      <line x1="14" y1="24" x2="14" y2="28" />
-      <line x1="18" y1="24" x2="18" y2="28" />
-      <line x1="10" y1="28" x2="22" y2="28" />
-    </svg>
-  );
-}
-
-function HydroIcon() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="white" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" width={32} height={32}>
-      <path d="M16 4 C16 4 6 14 6 20 a10 10 0 0 0 20 0 C26 14 16 4 16 4Z" />
-    </svg>
+    <img
+      src={`/assets/icons/${name}.svg`}
+      alt=""
+      width={40}
+      height={40}
+      style={{ width: 40, height: 40, objectFit: 'contain', display: 'block' }}
+    />
   );
 }
 
@@ -123,17 +66,42 @@ interface Weather {
   city: string;
   temp: number;
   wind: number;
+  solarMW: number;
+  windMW:  number;
+  hydroMW: number;
+  loadMW:  number;
+}
+
+// Plausible grid demand: daily peaks (morning + evening), nightly trough,
+// temperature adjustment for heating/cooling, deterministic noise.
+function estimateLoad(temp: number): number {
+  const now    = new Date();
+  const t      = now.getHours() + now.getMinutes() / 60;
+  const minute = now.getMinutes();
+  const hour   = now.getHours();
+
+  const morning = 400 * Math.exp(-Math.pow((t -  8) / 3,   2));
+  const evening = 600 * Math.exp(-Math.pow((t - 19) / 2.5, 2));
+  const trough  = -300 * Math.exp(-Math.pow((t -  4) / 3,  2));
+  const tempD   = temp > 24 ? (temp - 24) * 15 : temp < 18 ? (18 - temp) * 12 : 0;
+  const noise   = ((minute * 7 + hour * 13) % 20) - 10;
+
+  return Math.round(1800 + morning + evening + trough + tempD + noise);
 }
 
 // ── MetricCard ────────────────────────────────────────────────────────────────
 
-function MetricCard({ icon, value, unit }: { icon: React.ReactNode; value: string; unit: string }) {
+function MetricCard({ icon, value, unit }: { icon: React.ReactNode; value: number | null; unit: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
       <div style={{ opacity: 0.7 }}>{icon}</div>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px', lineHeight: 1 }}>
-        <span style={{ fontSize: '40px', fontWeight: 200, color: 'white', letterSpacing: '-0.03em', fontVariantNumeric: 'tabular-nums' }}>
-          {value}
+        <span
+          className="metric-value"
+          data-target={value ?? ''}
+          style={{ fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}
+        >
+          {value ?? '—'}
         </span>
         <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginTop: '6px' }}>
           {unit}
@@ -144,6 +112,11 @@ function MetricCard({ icon, value, unit }: { icon: React.ReactNode; value: strin
 }
 
 // ── Nav ───────────────────────────────────────────────────────────────────────
+
+const PILL_W = 556;
+const PILL_H = 64;
+const PILL_TOP = 36;
+const MENU_M = 16;
 
 const NAV_LINKS = [
   { label: 'How it works',  href: '/how-it-works'  },
@@ -167,10 +140,29 @@ export default function Nav() {
   const [weather,       setWeather]       = useState<Weather | null>(null);
   const [time,          setTime]          = useState('');
 
-  const pillWrapRef = useRef<HTMLDivElement>(null);
-  const pillRef     = useRef<HTMLDivElement>(null);
-  const overlayRef  = useRef<HTMLDivElement>(null);
-  const isAnimating = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isAnimating  = useRef(false);
+  const menuOpenRef  = useRef(false);
+
+  // ── Initial pill position (before paint) ───────────────────────────────────
+  useLayoutEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const positionPill = () => {
+      if (menuOpenRef.current) return;
+      const left = (window.innerWidth - PILL_W) / 2;
+      gsap.set(el, {
+        top:          PILL_TOP,
+        left:         left,
+        width:        PILL_W,
+        height:       PILL_H,
+        borderRadius: 9999,
+      });
+    };
+    positionPill();
+    window.addEventListener('resize', positionPill);
+    return () => window.removeEventListener('resize', positionPill);
+  }, []);
 
   // ── Live clock ──────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -186,8 +178,6 @@ export default function Nav() {
     (async () => {
       try {
         let lat: number, lon: number, city: string;
-
-        // Try browser geolocation
         try {
           const pos = await new Promise<GeolocationPosition>((res, rej) =>
             navigator.geolocation.getCurrentPosition(res, rej, { timeout: 6000 })
@@ -201,27 +191,48 @@ export default function Nav() {
           const g = await r.json();
           city = g.address?.city || g.address?.town || g.address?.suburb || 'Your location';
         } catch {
-          // Fallback: IP geolocation
           const r = await fetch('https://ipapi.co/json/');
           const d = await r.json();
           lat  = d.latitude  ?? -33.9249;
           lon  = d.longitude ?? 18.4241;
           city = d.city      ?? 'Cape Town';
         }
-
         const r = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&wind_speed_unit=kmh&timezone=auto`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,wind_speed_120m,shortwave_radiation,cloud_cover&wind_speed_unit=kmh&timezone=auto`
         );
         const d = await r.json();
 
+        // Solar: GHI(W/m²) × 3,000,000 m² × 0.20 efficiency → MW
+        const ghi     = d.current.shortwave_radiation ?? 0;
+        const solarMW = Math.round(ghi * 0.6);
+
+        // Wind: cubic power curve at hub-height (120m), 1 GW rated farm
+        const wind120Mps = (d.current.wind_speed_120m ?? 0) / 3.6;
+        const cutIn = 3, rated = 12, cutOut = 25, windCap = 1000;
+        let windMW = 0;
+        if (wind120Mps >= cutIn && wind120Mps <= cutOut) {
+          windMW = wind120Mps >= rated
+            ? windCap
+            : Math.round(windCap * Math.pow((wind120Mps - cutIn) / (rated - cutIn), 3));
+        }
+
+        // Hydro: regional baseline modulated by cloud cover (moisture proxy)
+        const cloudCover = d.current.cloud_cover ?? 0;
+        const hydroMW    = Math.round(250 + (cloudCover / 100) * 500);
+
+        const temp   = Math.round(d.current.temperature_2m);
+        const loadMW = estimateLoad(temp);
+
         setWeather({
           city,
-          temp: Math.round(d.current.temperature_2m),
-          wind: Math.round(d.current.wind_speed_10m),
+          temp,
+          wind:    Math.round(d.current.wind_speed_10m),
+          solarMW,
+          windMW,
+          hydroMW,
+          loadMW,
         });
-      } catch {
-        // silently fail — values show as '—'
-      }
+      } catch {}
     })();
   }, []);
 
@@ -229,282 +240,284 @@ export default function Nav() {
   useEffect(() => {
     let lastY = window.scrollY;
     const onScroll = () => {
-      if (menuOpen) return;
+      if (menuOpenRef.current) return;
       const y = window.scrollY;
       if (y > lastY && y > 80) {
-        gsap.to(pillWrapRef.current, { y: -120, duration: 0.45, ease: 'power3.inOut', overwrite: true });
+        gsap.to(containerRef.current, { y: -120, duration: 0.45, ease: 'power3.inOut', overwrite: 'auto' });
       } else {
-        gsap.to(pillWrapRef.current, { y: 0,    duration: 0.45, ease: 'power3.inOut', overwrite: true });
+        gsap.to(containerRef.current, { y: 0,    duration: 0.45, ease: 'power3.inOut', overwrite: 'auto' });
       }
       lastY = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [menuOpen]);
+  }, []);
 
   // ── Open ────────────────────────────────────────────────────────────────────
   const openMenu = useCallback(() => {
-    if (isAnimating.current) return;
+    if (isAnimating.current || menuOpenRef.current) return;
     isAnimating.current = true;
+    menuOpenRef.current = true;
+    setMenuOpen(true);
 
-    const pill    = pillRef.current!;
-    const overlay = overlayRef.current!;
-    const pr      = pill.getBoundingClientRect();
-    const m       = 16;
-
-    // Reset items below clip
+    // Reset body content
     gsap.set('.menu-nav-item', { y: '115%' });
     gsap.set('.menu-meta',     { opacity: 0, y: 12 });
 
-    gsap.set(overlay, {
-      visibility: 'visible',
-      top:          pr.top,
-      left:         pr.left,
-      width:        pr.width,
-      height:       pr.height,
-      borderRadius: 9999,
-    });
-
-    setMenuOpen(true);
-
-    gsap.to(overlay, {
-      top:          m,
-      left:         m,
-      width:        window.innerWidth  - m * 2,
-      height:       window.innerHeight - m * 2,
+    // Container morph
+    gsap.to(containerRef.current, {
+      top:          MENU_M,
+      left:         MENU_M,
+      width:        window.innerWidth  - MENU_M * 2,
+      height:       window.innerHeight - MENU_M * 2,
       borderRadius: 37,
-      duration:     0.75,
+      y:            0,
+      duration:     0.85,
       ease:         'power4.inOut',
       onComplete: () => {
         isAnimating.current = false;
-        gsap.to('.menu-nav-item', {
-          y:        '0%',
-          duration: 0.9,
-          ease:     'power4.out',
-          stagger:  0.08,
-        });
-        gsap.to('.menu-meta', {
-          opacity:  1,
-          y:        0,
-          duration: 0.65,
-          ease:     'power3.out',
-          stagger:  0.07,
-          delay:    0.05,
+        gsap.to('.menu-nav-item', { y: '0%',   duration: 0.9,  ease: 'power4.out', stagger: 0.08 });
+        gsap.to('.menu-meta',     { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.06 });
+
+        // Count-up the metric numbers
+        document.querySelectorAll<HTMLElement>('.metric-value').forEach((el, i) => {
+          const target = parseFloat(el.dataset.target || '');
+          if (isNaN(target)) return;
+          el.textContent = '0';
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val:      target,
+            duration: 1.4,
+            ease:     'power2.out',
+            delay:    0.15 + i * 0.06,
+            onUpdate: () => { el.textContent = Math.round(obj.val).toString(); },
+          });
         });
       },
     });
+
+    // Icon crossfade (rotation morph)
+    gsap.to('.icon-power', { opacity: 0, rotate:  90, duration: 0.45, ease: 'power3.inOut' });
+    gsap.to('.icon-close', { opacity: 1, rotate:   0, duration: 0.45, ease: 'power3.inOut', delay: 0.15 });
+
+    // Body fade in (begins midway through morph)
+    gsap.to('.menu-body', { opacity: 1, duration: 0.45, ease: 'power2.out', delay: 0.35 });
   }, []);
 
   // ── Close ───────────────────────────────────────────────────────────────────
   const closeMenu = useCallback(() => {
-    if (isAnimating.current) return;
+    if (isAnimating.current || !menuOpenRef.current) return;
     isAnimating.current = true;
     setSolutionsOpen(false);
 
-    const pill    = pillRef.current!;
-    const overlay = overlayRef.current!;
-    const pr      = pill.getBoundingClientRect();
+    // Hide body content first
+    gsap.to('.menu-nav-item', { y: '115%', duration: 0.32, ease: 'power4.in', stagger: 0.03 });
+    gsap.to('.menu-meta',     { opacity: 0, y: 10, duration: 0.26, ease: 'power3.in' });
+    gsap.to('.menu-body',     { opacity: 0, duration: 0.35, ease: 'power3.in', delay: 0.22 });
 
-    gsap.to('.menu-nav-item', { y: '115%', duration: 0.38, ease: 'power4.in', stagger: 0.04 });
-    gsap.to('.menu-meta',     { opacity: 0, y: 10,  duration: 0.28, ease: 'power3.in' });
+    const pillLeft = (window.innerWidth - PILL_W) / 2;
 
-    gsap.to(overlay, {
-      top:          pr.top,
-      left:         pr.left,
-      width:        pr.width,
-      height:       pr.height,
+    // Container morph back
+    gsap.to(containerRef.current, {
+      top:          PILL_TOP,
+      left:         pillLeft,
+      width:        PILL_W,
+      height:       PILL_H,
       borderRadius: 9999,
-      duration:     0.68,
+      y:            0,
+      duration:     0.75,
       ease:         'power4.inOut',
-      delay:        0.2,
+      delay:        0.3,
       onComplete: () => {
-        gsap.set(overlay, { visibility: 'hidden' });
+        menuOpenRef.current = false;
         setMenuOpen(false);
         isAnimating.current = false;
       },
     });
+
+    // Icon crossfade back
+    gsap.to('.icon-close', { opacity: 0, rotate: -90, duration: 0.45, ease: 'power3.inOut', delay: 0.3  });
+    gsap.to('.icon-power', { opacity: 1, rotate:   0, duration: 0.45, ease: 'power3.inOut', delay: 0.45 });
   }, []);
+
+  const handleToggle = () => {
+    if (menuOpen) closeMenu();
+    else          openMenu();
+  };
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
-    <>
-      {/* ── Pill nav ─────────────────────────────────────────────────────────── */}
+    <div
+      ref={containerRef}
+      style={{
+        position:             'fixed',
+        zIndex:               100,
+        display:              'flex',
+        flexDirection:        'column',
+        background:           'rgba(0,0,0,0.16)',
+        backdropFilter:       'blur(100px)',
+        WebkitBackdropFilter: 'blur(100px)',
+        overflow:             'hidden',
+        willChange:           'transform',
+      }}
+    >
+      {/* ── Header (persistent across pill + menu) ─────────────────────────── */}
       <div
-        ref={pillWrapRef}
-        style={{ position: 'fixed', top: '36px', left: '50%', transform: 'translateX(-50%)', zIndex: 50, willChange: 'transform' }}
-      >
-        <div
-          ref={pillRef}
-          style={{
-            display:              'flex',
-            alignItems:           'center',
-            justifyContent:       'space-between',
-            padding:              '0 24px',
-            width:                '556px',
-            height:               '64px',
-            borderRadius:         '9999px',
-            background:           'rgba(0,0,0,0.16)',
-            backdropFilter:       'blur(100px)',
-            WebkitBackdropFilter: 'blur(100px)',
-          }}
-        >
-          <NoaLogo />
-          <button
-            onClick={openMenu}
-            aria-label="Open menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
-          >
-            <PowerIcon />
-          </button>
-        </div>
-      </div>
-
-      {/* ── Menu overlay ─────────────────────────────────────────────────────── */}
-      <div
-        ref={overlayRef}
         style={{
-          position:             'fixed',
-          visibility:           'hidden',
-          zIndex:               100,
-          background:           'rgba(0,0,0,0.16)',
-          backdropFilter:       'blur(100px)',
-          WebkitBackdropFilter: 'blur(100px)',
-          overflow:             'hidden',
+          display:        'flex',
+          alignItems:     'center',
+          justifyContent: 'space-between',
+          padding:        '0 24px',
+          height:         PILL_H,
+          flexShrink:     0,
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, padding: '40px 48px', display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        <NoaLogo />
+        <button
+          onClick={handleToggle}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          style={{
+            background:     'none',
+            border:         'none',
+            cursor:         'pointer',
+            padding:        0,
+            position:       'relative',
+            width:          28,
+            height:         28,
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+          }}
+        >
+          <span className="icon-power" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <PowerIcon />
+          </span>
+          <span className="icon-close" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transform: 'rotate(-90deg)' }}>
+            <CloseIcon />
+          </span>
+        </button>
+      </div>
 
-          {/* Header row */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <NoaLogo />
-            <button
-              onClick={closeMenu}
-              aria-label="Close menu"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <CloseIcon />
-            </button>
-          </div>
+      {/* ── Body (only visible when menu open) ─────────────────────────────── */}
+      <div
+        className="menu-body"
+        style={{
+          flex:          1,
+          opacity:       0,
+          pointerEvents: menuOpen ? 'auto' : 'none',
+          minHeight:     0,
+          padding:       '8px 24px 40px 24px',
+          display:       'flex',
+          gap:           '80px',
+        }}
+      >
+        {/* ── Left: nav links ─────────────────────────────────────────── */}
+        <div style={{ width: '38%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
-          {/* Body: left nav + right panel */}
-          <div style={{ display: 'flex', flex: 1, gap: '80px', minHeight: 0 }}>
-
-            {/* ── Left: nav links ──────────────────────────────────────────── */}
-            <div style={{ width: '38%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-
-              <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {NAV_LINKS.map((link) => (
-                  <div key={link.label}>
-                    <div style={{ overflow: 'hidden', paddingBottom: '6px' }}>
-                      {link.sub ? (
-                        <button
-                          className="menu-nav-item"
-                          onClick={() => setSolutionsOpen(o => !o)}
-                          style={{
-                            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-                            display: 'flex', alignItems: 'center', gap: '12px',
-                            transform: 'translateY(115%)',
-                          }}
-                        >
-                          <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-                            {link.label}
-                          </span>
-                          <ChevronDown open={solutionsOpen} />
-                        </button>
-                      ) : (
-                        <div className="menu-nav-item" style={{ transform: 'translateY(115%)' }}>
-                          <Link href={link.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
-                            <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1, display: 'block' }}>
-                              {link.label}
-                            </span>
-                          </Link>
-                        </div>
-                      )}
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            {NAV_LINKS.map((link) => (
+              <div key={link.label}>
+                <div style={{ overflow: 'hidden', paddingBottom: '6px' }}>
+                  {link.sub ? (
+                    <button
+                      className="menu-nav-item"
+                      onClick={() => setSolutionsOpen(o => !o)}
+                      style={{
+                        background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                        display: 'flex', alignItems: 'center', gap: '12px',
+                        transform: 'translateY(115%)',
+                      }}
+                    >
+                      <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+                        {link.label}
+                      </span>
+                      <ChevronDown open={solutionsOpen} />
+                    </button>
+                  ) : (
+                    <div className="menu-nav-item" style={{ transform: 'translateY(115%)' }}>
+                      <Link href={link.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
+                        <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1, display: 'block' }}>
+                          {link.label}
+                        </span>
+                      </Link>
                     </div>
-
-                    {/* Solutions accordion */}
-                    {link.sub && (
-                      <div style={{ overflow: 'hidden', maxHeight: solutionsOpen ? '220px' : '0', transition: 'max-height 0.45s cubic-bezier(0.4,0,0.2,1)', paddingLeft: '4px' }}>
-                        <div style={{ paddingTop: '4px', paddingBottom: '8px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                          {SOLUTIONS_LINKS.map(sub => (
-                            <Link key={sub.href} href={sub.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
-                              <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(16px, 1.6vw, 22px)', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.02em', display: 'block', padding: '5px 0', transition: 'color 0.2s' }}>
-                                {sub.label}
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </nav>
-
-              {/* Footer */}
-              <div className="menu-meta">
-                <div style={{ height: '1px', background: 'rgba(255,255,255,0.12)', marginBottom: '24px' }} />
-                <div style={{ display: 'flex', gap: '48px' }}>
-                  <div>
-                    <div style={{ color: '#737373', fontSize: '13px', marginBottom: '10px', fontFamily: 'Switzer, sans-serif' }}>Contact</div>
-                    <a href="mailto:info@noagroup.africa" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
-                      info@noagroup.africa <ArrowUpRight />
-                    </a>
-                  </div>
-                  <div>
-                    <div style={{ color: '#737373', fontSize: '13px', marginBottom: '10px', fontFamily: 'Switzer, sans-serif' }}>Social</div>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
-                      LinkedIn <ArrowUpRight />
-                    </a>
-                  </div>
+                  )}
                 </div>
-              </div>
-            </div>
 
-            {/* ── Right: energy & weather panel ────────────────────────────── */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 0 }}>
-
-              {/* Panel header */}
-              <div className="menu-meta" style={{ marginBottom: '20px' }}>
-                <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
-                  Realtime Energy Data Centre
-                </span>
-              </div>
-
-              {/* Weather + time */}
-              <div className="menu-meta" style={{ display: 'flex', gap: '48px', paddingBottom: '24px', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                <div>
-                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Your weather</div>
-                  <div style={{ color: 'white', fontSize: 'clamp(22px, 2.4vw, 32px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif' }}>
-                    {weather?.city ?? '—'}
+                {link.sub && (
+                  <div style={{ overflow: 'hidden', maxHeight: solutionsOpen ? '220px' : '0', transition: 'max-height 0.45s cubic-bezier(0.4,0,0.2,1)', paddingLeft: '4px' }}>
+                    <div style={{ paddingTop: '4px', paddingBottom: '8px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                      {SOLUTIONS_LINKS.map(sub => (
+                        <Link key={sub.href} href={sub.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
+                          <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(16px, 1.6vw, 22px)', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.02em', display: 'block', padding: '5px 0', transition: 'color 0.2s' }}>
+                            {sub.label}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Local time</div>
-                  <div style={{ color: 'white', fontSize: 'clamp(22px, 2.4vw, 32px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
-                    {time || '—'}
-                  </div>
-                </div>
+                )}
               </div>
+            ))}
+          </nav>
 
-              {/* Metrics grid */}
-              <div className="menu-meta" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 40px', flex: 1 }}>
-                <MetricCard icon={<SunIcon />}     value={weather ? `${weather.temp}` : '—'} unit="°C"  />
-                <MetricCard icon={<TurbineIcon />} value="842"                                unit="MW"  />
-                <MetricCard icon={<WindIcon />}    value={weather ? `${weather.wind}` : '—'} unit="KPH" />
-                <MetricCard icon={<SolarIcon />}   value="623"                                unit="MW"  />
-                <MetricCard icon={<BoltIcon />}    value="2000"                               unit="MW"  />
-                <MetricCard icon={<HydroIcon />}   value="535"                                unit="MW"  />
+          <div className="menu-meta">
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.12)', marginBottom: '24px' }} />
+            <div style={{ display: 'flex', gap: '48px' }}>
+              <div>
+                <div style={{ color: '#737373', fontSize: '13px', marginBottom: '10px', fontFamily: 'Switzer, sans-serif' }}>Contact</div>
+                <a href="mailto:info@noagroup.africa" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
+                  info@noagroup.africa <ArrowUpRight />
+                </a>
               </div>
-
-              {/* Description */}
-              <div className="menu-meta" style={{ marginTop: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', padding: '18px 22px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.7, fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
-                Based on the current weather conditions in your location, renewable energy availability from wind, solar, and hydro sources is operating at 78% capacity, enabling the website to run in Green Performance Mode.
+              <div>
+                <div style={{ color: '#737373', fontSize: '13px', marginBottom: '10px', fontFamily: 'Switzer, sans-serif' }}>Social</div>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
+                  LinkedIn <ArrowUpRight />
+                </a>
               </div>
-
             </div>
           </div>
         </div>
+
+        {/* ── Right: energy & weather panel ──────────────────────────── */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 0 }}>
+
+          <div className="menu-meta" style={{ marginBottom: '20px' }}>
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
+              Realtime Energy Data Centre
+            </span>
+          </div>
+
+          <div className="menu-meta" style={{ display: 'flex', gap: '48px', paddingBottom: '24px', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+            <div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Your weather</div>
+              <div style={{ color: 'white', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif' }}>
+                {weather?.city ?? '—'}
+              </div>
+            </div>
+            <div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Local time</div>
+              <div style={{ color: 'white', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
+                {time || '—'}
+              </div>
+            </div>
+          </div>
+
+          <div className="menu-meta" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 40px', flex: 1 }}>
+            <MetricCard icon={<MetricIcon name="sun" />}         value={weather?.temp ?? null}    unit="°C"  />
+            <MetricCard icon={<MetricIcon name="solar" />}       value={weather?.solarMW ?? null} unit="MW"  />
+            <MetricCard icon={<MetricIcon name="wind" />}        value={weather?.wind ?? null}    unit="KPH" />
+            <MetricCard icon={<MetricIcon name="turbine" />}     value={weather?.windMW ?? null}  unit="MW"  />
+            <MetricCard icon={<MetricIcon name="bolt" />}        value={weather?.loadMW ?? null}  unit="MW"  />
+            <MetricCard icon={<MetricIcon name="hydro" />}       value={weather?.hydroMW ?? null} unit="MW"  />
+          </div>
+
+          <div className="menu-meta" style={{ marginTop: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', padding: '18px 22px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.7, fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
+            Based on the current weather conditions in your location, renewable energy availability from wind, solar, and hydro sources is operating at 78% capacity, enabling the website to run in Green Performance Mode.
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
