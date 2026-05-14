@@ -119,6 +119,7 @@ const PILL_TOP = 36;
 const MENU_M = 16;
 
 const NAV_LINKS = [
+  { label: 'Home',          href: '/'               },
   { label: 'How it works',  href: '/how-it-works'  },
   { label: 'Solutions',     href: '/solutions',     sub: true },
   { label: 'About NOA',     href: '/about'          },
@@ -345,6 +346,27 @@ export default function Nav() {
     else          openMenu();
   };
 
+  // ── Pill hover (closed state only) ──────────────────────────────────────────
+  const handlePillEnter = useCallback(() => {
+    if (menuOpenRef.current || isAnimating.current) return;
+    gsap.to(containerRef.current, {
+      scale:     1.04,
+      duration:  0.4,
+      ease:      'power2.out',
+      overwrite: 'auto',
+    });
+  }, []);
+
+  const handlePillLeave = useCallback(() => {
+    if (menuOpenRef.current) return;
+    gsap.to(containerRef.current, {
+      scale:    1,
+      duration: 0.5,
+      ease:     'power3.out',
+      overwrite:'auto',
+    });
+  }, []);
+
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
     <div
@@ -363,6 +385,9 @@ export default function Nav() {
     >
       {/* ── Header (persistent across pill + menu) ─────────────────────────── */}
       <div
+        onMouseEnter={handlePillEnter}
+        onMouseLeave={handlePillLeave}
+        onClick={() => { if (!menuOpenRef.current && !isAnimating.current) openMenu(); }}
         style={{
           display:        'flex',
           alignItems:     'center',
@@ -370,11 +395,12 @@ export default function Nav() {
           padding:        '0 24px',
           height:         PILL_H,
           flexShrink:     0,
+          cursor:         menuOpen ? 'default' : 'pointer',
         }}
       >
         <NoaLogo />
         <button
-          onClick={handleToggle}
+          onClick={(e) => { e.stopPropagation(); if (menuOpenRef.current) closeMenu(); }}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           style={{
             background:     'none',
