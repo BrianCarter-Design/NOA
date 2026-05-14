@@ -343,9 +343,9 @@ export default function Nav() {
             width:                '556px',
             height:               '64px',
             borderRadius:         '9999px',
-            background:           'rgba(0,0,0,0.15)',
-            backdropFilter:       'blur(21.5px)',
-            WebkitBackdropFilter: 'blur(21.5px)',
+            background:           'rgba(0,0,0,0.16)',
+            backdropFilter:       'blur(100px)',
+            WebkitBackdropFilter: 'blur(100px)',
           }}
         >
           <NoaLogo />
@@ -366,9 +366,9 @@ export default function Nav() {
           position:             'fixed',
           visibility:           'hidden',
           zIndex:               100,
-          background:           'rgba(10,10,10,0.93)',
-          backdropFilter:       'blur(48px)',
-          WebkitBackdropFilter: 'blur(48px)',
+          background:           'rgba(0,0,0,0.16)',
+          backdropFilter:       'blur(100px)',
+          WebkitBackdropFilter: 'blur(100px)',
           overflow:             'hidden',
         }}
       >
