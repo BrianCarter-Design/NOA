@@ -272,6 +272,7 @@ export default function Nav() {
       width:        window.innerWidth  - MENU_M * 2,
       height:       window.innerHeight - MENU_M * 2,
       borderRadius: 37,
+      scale:        1,
       y:            0,
       duration:     0.85,
       ease:         'power4.inOut',
