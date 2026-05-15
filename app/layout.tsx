@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "NOA — A different kind of energy",
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <SmoothScroll />
         <Nav />
         {children}
       </body>

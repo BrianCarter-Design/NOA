@@ -86,11 +86,11 @@ function Footer() {
       <div style={{ background: '#013436', borderRadius: 30, padding: '88px 88px 20px', display: 'flex', flexDirection: 'column', gap: 120 }}>
         <div style={{ display: 'flex', gap: 24, alignItems: 'stretch' }}>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 21.6, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
               NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
             </p>
             <Link href="/about" className="anim-fade" style={{ textDecoration: 'none', display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17.2, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
               <div style={{ height: 2, background: '#fff' }} />
             </Link>
           </div>
@@ -217,7 +217,7 @@ export default function About() {
             <h1 style={{ margin: 0, fontFamily: 'Switzer, sans-serif', fontWeight: 400, lineHeight: 1.02 }}>
               {['Reimagining energy', 'from the ground up'].map((line, i) => (
                 <div key={i} style={{ overflow: 'hidden', paddingBottom: '0.04em' }}>
-                  <div className="abt-hero-line" style={{ fontSize: 'clamp(42px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform', display: 'block' }}>
+                  <div className="abt-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform', display: 'block' }}>
                     {line}
                   </div>
                 </div>
@@ -244,7 +244,7 @@ export default function About() {
           <Label text="WHO IS NOA" />
           <h2 className="anim-heading">
             <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 700, fontSize: 40, color: '#000', letterSpacing: '-1px', lineHeight: 1.2, display: 'block' }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 40, color: '#000', letterSpacing: '-1px', lineHeight: 1.2, display: 'block' }}>
                 More than an energy company
               </span>
             </MaskLine>
@@ -286,7 +286,7 @@ export default function About() {
           <Label text="WHO WE WORK WITH" />
           <div className="anim-heading">
             <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px,4.5vw,64px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.05, display: 'block', maxWidth: 1007 }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.05, display: 'block', maxWidth: 1007 }}>
                 Bringing together key stakeholders across the energy ecosystem.
               </span>
             </MaskLine>
@@ -327,7 +327,7 @@ export default function About() {
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 64 }}>
           <div className="anim-heading">
             <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px,4.5vw,64px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.05, display: 'block' }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.05, display: 'block' }}>
                 What drives us forward
               </span>
             </MaskLine>
@@ -341,7 +341,7 @@ export default function About() {
                 <img src={item.icon} alt="" style={{ width: 32, height: 32 }} />
                 <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#00696e', letterSpacing: '-0.4px', lineHeight: 1, margin: 0 }}>{item.title}</p>
                 <div style={{ height: 1, background: 'rgba(0,0,0,0.15)' }} />
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{item.text}</p>
+                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{item.text}</p>
               </div>
             ))}
           </div>
@@ -359,7 +359,7 @@ export default function About() {
           <Label text="ESG / SUSTAINABILITY SNAPSHOT" dark />
           <div className="anim-heading">
             <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 36, color: '#fff', letterSpacing: '-1px', lineHeight: 1.1, display: 'block', maxWidth: 400 }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', letterSpacing: '-1px', lineHeight: 1.1, display: 'block', maxWidth: 400 }}>
                 Scaling renewable energy in South Africa
               </span>
             </MaskLine>
@@ -372,8 +372,8 @@ export default function About() {
           <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
             <img src={imgWindIcon} alt="" style={{ width: 60, height: 60, objectFit: 'contain' }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 32, color: '#99ddd8', lineHeight: 1 }}>Wind</span>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 32, color: '#fff', lineHeight: 1 }}>Acme Capital</span>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#99ddd8', lineHeight: 1 }}>Wind</span>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', lineHeight: 1 }}>Acme Capital</span>
             </div>
           </div>
 
@@ -409,7 +409,7 @@ export default function About() {
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
           <Label text="WHY NOA?" />
-          <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 30, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.28, textAlign: 'right', maxWidth: 637, margin: 0 }}>
+          <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.28, textAlign: 'right', maxWidth: 637, margin: 0 }}>
             NOA differentiates itself by offering its portfolio of customers cutting-edge solutions.
           </p>
         </div>
@@ -431,7 +431,7 @@ export default function About() {
                 )}
                 <p style={{
                   fontFamily: 'Switzer, sans-serif', fontWeight: 400,
-                  fontSize: 'clamp(32px,3.8vw,54px)',
+                  fontSize: 'clamp(36px, 3.8vw, 52px)',
                   color: i === activeDiff ? '#00696e' : 'rgba(125,151,152,0.5)',
                   letterSpacing: '-1px', lineHeight: 1.25, margin: 0, whiteSpace: 'nowrap',
                   transition: 'color 0.3s ease',
@@ -477,7 +477,7 @@ export default function About() {
           <h2 style={{ margin: 0 }}>
             {['Built by energy experts with', 'decades of experience.'].map((line, i) => (
               <MaskLine key={i}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(48px,6.7vw,96px)', color: 'transparent', letterSpacing: '-4.8px', lineHeight: 0.85, display: 'block', backgroundImage: 'linear-gradient(to top, #00696e, rgba(0,105,110,0.24))', WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>
+                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)', color: 'transparent', letterSpacing: '-4.8px', lineHeight: 0.85, display: 'block', backgroundImage: 'linear-gradient(to top, #00696e, rgba(0,105,110,0.24))', WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>
                   {line}
                 </span>
               </MaskLine>
@@ -526,7 +526,7 @@ export default function About() {
 
         {/* Team footer */}
         <div className="anim-fade" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-          <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, maxWidth: 504, margin: 0 }}>
+          <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, maxWidth: 504, margin: 0 }}>
             Our team brings together industry veterans, and driven professionals and specialists that are united by a shared purpose: to make a meaningful impact by shaping Africa&apos;s energy future.
           </p>
           <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
@@ -557,10 +557,10 @@ export default function About() {
               }}
             >
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 600, fontSize: 26, color: '#6d758f', lineHeight: 1.5, margin: 0 }}>{col.heading}</p>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 21, color: '#6d758f', lineHeight: 1.5, margin: 0, whiteSpace: 'pre-line' }}>{col.sub}</p>
+                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 24, color: '#6d758f', lineHeight: 1.5, margin: 0 }}>{col.heading}</p>
+                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#6d758f', lineHeight: 1.5, margin: 0, whiteSpace: 'pre-line' }}>{col.sub}</p>
               </div>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 600, fontSize: 21, color: '#6d758f', margin: 0 }}>{col.cta}</p>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 20, color: '#6d758f', margin: 0 }}>{col.cta}</p>
             </div>
           ))}
         </div>
@@ -571,7 +571,7 @@ export default function About() {
         <div className="anim-fade" style={{ position: 'relative', height: 463, borderRadius: 30, overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: 64 }}>
           <img src={imgCareers} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 30 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(1,52,54,0.45)', borderRadius: 30 }} />
-          <p style={{ position: 'relative', zIndex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(48px,6.7vw,96px)', color: '#82dfda', letterSpacing: '-4.8px', lineHeight: 0.96, maxWidth: 764, margin: 0 }}>
+          <p style={{ position: 'relative', zIndex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)', color: '#82dfda', letterSpacing: '-4.8px', lineHeight: 0.96, maxWidth: 764, margin: 0 }}>
             Want to join our team? Have a look at our open roles.
           </p>
           <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 24, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', borderRadius: 24, width: 376, flexShrink: 0 }}>

@@ -141,9 +141,10 @@ export default function Nav() {
   const [weather,       setWeather]       = useState<Weather | null>(null);
   const [time,          setTime]          = useState('');
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isAnimating  = useRef(false);
-  const menuOpenRef  = useRef(false);
+  const containerRef  = useRef<HTMLDivElement>(null);
+  const isAnimating   = useRef(false);
+  const menuOpenRef   = useRef(false);
+  const pillFixedRef  = useRef(false);
 
   // ── Initial pill position (before paint) ───────────────────────────────────
   useLayoutEffect(() => {
@@ -238,19 +239,50 @@ export default function Nav() {
     })();
   }, []);
 
-  // ── Scroll hide / show ──────────────────────────────────────────────────────
+  // ── Scroll-direction show / hide ────────────────────────────────────────────
   useEffect(() => {
-    let lastY = window.scrollY;
+    const el = containerRef.current;
+    if (!el) return;
+
+    const THRESHOLD = PILL_TOP + PILL_H + 40;
+    const HIDE_Y    = -(PILL_TOP + PILL_H + 20);
+    let prevY       = window.scrollY;
+
     const onScroll = () => {
-      if (menuOpenRef.current) return;
-      const y = window.scrollY;
-      if (y > lastY && y > 80) {
-        gsap.to(containerRef.current, { y: -120, duration: 0.45, ease: 'power3.inOut', overwrite: 'auto' });
-      } else {
-        gsap.to(containerRef.current, { y: 0,    duration: 0.45, ease: 'power3.inOut', overwrite: 'auto' });
+      if (menuOpenRef.current || isAnimating.current) return;
+
+      const y   = window.scrollY;
+      const dir = y > prevY ? 'down' : 'up';
+      prevY = y;
+
+      if (y <= THRESHOLD) {
+        if (pillFixedRef.current) {
+          pillFixedRef.current = false;
+          gsap.killTweensOf(el);
+          gsap.set(el, { position: 'absolute', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: 0 });
+        }
+        return;
       }
-      lastY = y;
+
+      if (dir === 'up') {
+        if (!pillFixedRef.current) {
+          pillFixedRef.current = true;
+          gsap.set(el, { position: 'fixed', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: HIDE_Y });
+        }
+        gsap.to(el, { y: 0, duration: 0.55, ease: 'power3.out', overwrite: 'auto' });
+      } else if (pillFixedRef.current) {
+        gsap.to(el, {
+          y: HIDE_Y, duration: 0.35, ease: 'power3.in', overwrite: 'auto',
+          onComplete: () => {
+            if (!menuOpenRef.current) {
+              pillFixedRef.current = false;
+              gsap.set(el, { position: 'absolute', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: 0 });
+            }
+          },
+        });
+      }
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -261,6 +293,10 @@ export default function Nav() {
     isAnimating.current = true;
     menuOpenRef.current = true;
     setMenuOpen(true);
+
+    // Switch to fixed so the morph animates relative to the viewport
+    const rect = containerRef.current!.getBoundingClientRect();
+    gsap.set(containerRef.current, { position: 'fixed', top: rect.top, left: rect.left, y: 0 });
 
     // Reset body content
     gsap.set('.menu-nav-item', { y: '115%' });
@@ -333,9 +369,11 @@ export default function Nav() {
       ease:         'power4.inOut',
       delay:        0.3,
       onComplete: () => {
-        menuOpenRef.current = false;
+        gsap.set(containerRef.current, { position: 'absolute', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2 });
+        pillFixedRef.current = false;
+        menuOpenRef.current  = false;
         setMenuOpen(false);
-        isAnimating.current = false;
+        isAnimating.current  = false;
       },
     });
 
@@ -383,7 +421,7 @@ export default function Nav() {
       onMouseEnter={handlePillEnter}
       onMouseLeave={handlePillLeave}
       style={{
-        position:             'fixed',
+        position:             'absolute',
         zIndex:               100,
         display:              'flex',
         flexDirection:        'column',

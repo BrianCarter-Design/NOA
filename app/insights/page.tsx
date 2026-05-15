@@ -110,11 +110,11 @@ function Footer() {
       <div style={{ background: '#013436', borderRadius: 30, padding: '88px 88px 20px', display: 'flex', flexDirection: 'column', gap: 120 }}>
         <div style={{ display: 'flex', gap: 24, alignItems: 'stretch' }}>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 21.6, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
               NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
             </p>
             <Link href="/about" className="anim-fade" style={{ textDecoration: 'none', display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17.2, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
               <div style={{ height: 2, background: '#fff' }} />
             </Link>
           </div>
@@ -203,7 +203,7 @@ function ArticleCard({ article }: { article: typeof articles[0] }) {
       {/* Text */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
-          <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 22, color: '#000', lineHeight: 1.4, margin: 0 }}>
+          <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 24, color: '#000', lineHeight: 1.4, margin: 0 }}>
             {article.title}
           </p>
           <div
@@ -315,7 +315,7 @@ export default function Insights() {
             <h1 style={{ margin: 0, fontFamily: 'Switzer, sans-serif', fontWeight: 400, lineHeight: 1.05 }}>
               {['Community connect: The people', 'powered by Wind Garden'].map((line, i) => (
                 <div key={i} style={{ overflow: 'hidden', paddingBottom: '0.04em' }}>
-                  <div className="ins-hero-line" style={{ fontSize: 'clamp(42px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform', display: 'block' }}>
+                  <div className="ins-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform', display: 'block' }}>
                     {line}
                   </div>
                 </div>
@@ -328,11 +328,11 @@ export default function Insights() {
             {/* Meta row */}
             <div className="anim-fade" style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
               <div style={{ borderRight: '1px solid rgba(255,255,255,0.4)', paddingRight: 8, paddingLeft: 8, display: 'flex', flexDirection: 'column', gap: 8, minWidth: 90 }}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 200, fontSize: 16, color: '#fff', lineHeight: 1.4 }}>Date</span>
+                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', lineHeight: 1.4 }}>Date</span>
                 <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#fff' }}>Feb, 2026</span>
               </div>
               <div style={{ paddingLeft: 8, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 200, fontSize: 16, color: '#fff', lineHeight: 1.4 }}>Category</span>
+                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', lineHeight: 1.4 }}>Category</span>
                 <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#fff' }}>News</span>
               </div>
             </div>
@@ -360,7 +360,7 @@ export default function Insights() {
           {/* Title */}
           <div className="anim-heading" style={{ flexShrink: 0 }}>
             <MaskLine>
-              <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px, 4.4vw, 64px)', color: '#00696e', letterSpacing: '-4.8px', margin: 0, lineHeight: 1 }}>
+              <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', margin: 0, lineHeight: 1 }}>
                 Latest insights
               </h2>
             </MaskLine>

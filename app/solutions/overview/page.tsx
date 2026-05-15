@@ -124,11 +124,11 @@ function Footer() {
       <div style={{ background: '#013436', borderRadius: 30, padding: '88px 88px 20px', display: 'flex', flexDirection: 'column', gap: 120 }}>
         <div style={{ display: 'flex', gap: 24, alignItems: 'stretch' }}>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 21.6, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
               NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
             </p>
             <Link href="/about" className="anim-fade" style={{ textDecoration: 'none', display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17.2, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
               <div style={{ height: 2, background: '#fff' }} />
             </Link>
           </div>
@@ -260,15 +260,15 @@ export default function SolutionsOverview() {
             <div style={{ marginBottom: 20 }}><Label text="SOLUTIONS" dark /></div>
             <h1 style={{ margin: 0, fontFamily: 'Switzer, sans-serif', fontWeight: 400, lineHeight: 1 }}>
               <div style={{ overflow: 'hidden', paddingBottom: '0.05em' }}>
-                <div className="sol-hero-line" style={{ fontSize: 'clamp(48px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>Powering every part</div>
+                <div className="sol-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>Powering every part</div>
               </div>
               <div style={{ overflow: 'hidden', paddingBottom: '0.05em' }}>
-                <div className="sol-hero-line" style={{ fontSize: 'clamp(48px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>of the energy value chain</div>
+                <div className="sol-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>of the energy value chain</div>
               </div>
             </h1>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 48, flexShrink: 0, width: 376 }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', lineHeight: 1.6, textAlign: 'right', margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', lineHeight: 1.6, textAlign: 'right', margin: 0 }}>
               We make it easier to generate, trade, and use renewable energy across different parts of the market through flexible, connected solutions.
             </p>
             <GlassCTA label="Talk to an expert" href="/contact" />
@@ -283,7 +283,7 @@ export default function SolutionsOverview() {
             <Label text="WHO WE WORK WITH" />
             <div className="anim-heading">
               <MaskLine>
-                <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px, 4.4vw, 64px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.1, margin: 0, maxWidth: 1007 }}>
+                <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.1, margin: 0, maxWidth: 1007 }}>
                   Bringing together key stakeholders across the energy ecosystem.
                 </h2>
               </MaskLine>
@@ -316,7 +316,7 @@ export default function SolutionsOverview() {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                   <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: dark ? '#fff' : '#00696e', letterSpacing: '-0.4px', lineHeight: 1, margin: 0 }}>{title}</p>
-                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: dark ? 300 : 500, fontSize: 16, color: dark ? '#fff' : 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{desc}</p>
+                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: dark ? '#fff' : 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{desc}</p>
                 </div>
               </Link>
             ))}
@@ -331,7 +331,7 @@ export default function SolutionsOverview() {
           {/* Top row: label + description */}
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
             <Label text="WHY NOA?" />
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 30, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.28, textAlign: 'right', maxWidth: 637, margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.28, textAlign: 'right', maxWidth: 637, margin: 0 }}>
               NOA differentiates itself by offering its portfolio of customers cutting-edge solutions.
             </p>
           </div>
@@ -366,7 +366,7 @@ export default function SolutionsOverview() {
                     style={{
                       fontFamily: 'Switzer, sans-serif',
                       fontWeight: 400,
-                      fontSize: 'clamp(36px, 3.75vw, 54px)',
+                      fontSize: 'clamp(36px, 3.8vw, 52px)',
                       letterSpacing: '-1px',
                       lineHeight: 1.25,
                       color: i === activeIdx ? '#00696e' : 'rgba(125,151,152,0.5)',
@@ -425,7 +425,7 @@ export default function SolutionsOverview() {
               style={{
                 fontFamily: 'Switzer, sans-serif',
                 fontWeight: 400,
-                fontSize: 'clamp(56px, 6.7vw, 96px)',
+                fontSize: 'clamp(56px, 6.5vw, 96px)',
                 letterSpacing: '-4.8px',
                 lineHeight: 0.85,
                 backgroundImage: `url('${imgHeadingBg}')`,
@@ -483,7 +483,7 @@ export default function SolutionsOverview() {
                 <img src={imgAvatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: 1 }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 600, fontSize: 16, color: '#fff', margin: '0 0 4px' }}>John Clark</p>
+                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', margin: '0 0 4px' }}>John Clark</p>
                 <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', margin: 0 }}>Sustainability leadership at Project name</p>
               </div>
               <img src={imgCompanyLogo} alt="" style={{ height: 22, width: 'auto', flexShrink: 0 }} />
@@ -498,7 +498,7 @@ export default function SolutionsOverview() {
           <Label text="FAQ" />
           <div className="anim-heading" style={{ textAlign: 'center', width: '100%' }}>
             <MaskLine>
-              <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 30, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', textAlign: 'center', lineHeight: 1.28, margin: 0 }}>
+              <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', textAlign: 'center', lineHeight: 1.28, margin: 0 }}>
                 What you need to know
               </h2>
             </MaskLine>
@@ -512,14 +512,14 @@ export default function SolutionsOverview() {
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 style={{ width: '100%', display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 28px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
               >
-                <p style={{ flex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17, color: '#000', letterSpacing: '-0.36px', lineHeight: 1.28, margin: 0 }}>{faq.q}</p>
+                <p style={{ flex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#000', letterSpacing: '-0.36px', lineHeight: 1.28, margin: 0 }}>{faq.q}</p>
                 <div style={{ flexShrink: 0, width: 32, height: 22, borderRadius: 12, background: 'rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.35s cubic-bezier(0.4,0,0.2,1)', transform: openFaq === i ? 'none' : 'rotate(180deg)' }}>
                   <img src={imgChevron} alt="" style={{ width: 14, height: 14 }} />
                 </div>
               </button>
               <div style={{ overflow: 'hidden', maxHeight: openFaq === i ? 200 : 0, transition: 'max-height 0.45s cubic-bezier(0.4,0,0.2,1)' }}>
                 <div style={{ padding: '0 28px 24px' }}>
-                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 15, color: 'rgba(0,0,0,0.4)', letterSpacing: '-0.3px', lineHeight: 1.38, margin: 0 }}>{faq.a}</p>
+                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.4)', letterSpacing: '-0.3px', lineHeight: 1.38, margin: 0 }}>{faq.a}</p>
                 </div>
               </div>
             </div>

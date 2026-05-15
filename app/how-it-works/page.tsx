@@ -261,12 +261,12 @@ export default function HowItWorks() {
             </div>
             <h1 style={{ margin: 0, fontFamily: 'Switzer, sans-serif', fontWeight: 400, lineHeight: 1 }}>
               <div style={{ overflow: 'hidden', paddingBottom: '0.05em' }}>
-                <div className="hiw-hero-line" style={{ fontSize: 'clamp(52px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>
+                <div className="hiw-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>
                   The system that
                 </div>
               </div>
               <div style={{ overflow: 'hidden', paddingBottom: '0.05em' }}>
-                <div className="hiw-hero-line" style={{ fontSize: 'clamp(52px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>
+                <div className="hiw-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform' }}>
                   powers it all
                 </div>
               </div>
@@ -275,7 +275,7 @@ export default function HowItWorks() {
 
           {/* Right: description + CTA */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 48, flexShrink: 0, width: 376 }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', lineHeight: 1.6, textAlign: 'right', margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', lineHeight: 1.6, textAlign: 'right', margin: 0 }}>
               Renewable energy wheeling is reshaping how renewable power is shared and accessed across existing electricity networks.
             </p>
             <GlassCTA label="Talk to an expert" href="/contact" />
@@ -357,7 +357,7 @@ export default function HowItWorks() {
             <h2 style={{
               fontFamily: 'Switzer, sans-serif',
               fontWeight: 400,
-              fontSize: 'clamp(48px, 6.7vw, 96px)',
+              fontSize: 'clamp(56px, 6.5vw, 96px)',
               letterSpacing: '-4.8px',
               lineHeight: 0.9,
               background: 'linear-gradient(to bottom, #00696e, rgba(0,105,110,0.22))',
@@ -389,12 +389,12 @@ export default function HowItWorks() {
           <div style={{ position: 'relative', zIndex: 1, padding: '120px 93px 88px' }}>
             <div className="anim-heading" style={{ marginBottom: 37 }}>
               <MaskLine>
-                <div style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(60px, 6.7vw, 96px)', color: '#fff', letterSpacing: '-4.8px', lineHeight: 1.36 }}>
+                <div style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)', color: '#fff', letterSpacing: '-4.8px', lineHeight: 1.36 }}>
                   1. Energy Source
                 </div>
               </MaskLine>
             </div>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 32, color: '#e9f2f2', lineHeight: 1.25, letterSpacing: '-1px', maxWidth: 638, margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#e9f2f2', lineHeight: 1.25, letterSpacing: '-1px', maxWidth: 638, margin: 0 }}>
               Wheeling is the transportation of energy from a renewable energy generating source, such as a wind or solar PV plant.
             </p>
           </div>
@@ -415,7 +415,7 @@ export default function HowItWorks() {
       >
         <div className="anim-heading" style={{ maxWidth: 670, textAlign: 'center' }}>
           <MaskLine>
-            <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 24, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 24, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.6, margin: 0 }}>
               Why does wheeling matter in South Africa?
             </p>
           </MaskLine>
@@ -447,7 +447,7 @@ export default function HowItWorks() {
             <Label text="BENEFITS" dark />
             <div className="anim-heading">
               <MaskLine>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 'clamp(28px, 2.5vw, 36px)', color: '#fff', lineHeight: 1.11, letterSpacing: '-1px', margin: 0 }}>
+                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', lineHeight: 1.11, letterSpacing: '-1px', margin: 0 }}>
                   It's cleaner, cost-effective, and more reliable than Eskom-generated fossil fuel energy
                 </p>
               </MaskLine>
@@ -476,7 +476,7 @@ export default function HowItWorks() {
                   Decarbonisation targets &amp; ESG metrics
                 </p>
               </div>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 20, color: '#fff', lineHeight: 1.4, letterSpacing: '0.4px', margin: 0 }}>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.4, letterSpacing: '0.4px', margin: 0 }}>
                 Our solution design allows NOA's portfolio of customers to reduce Scope 1 and Scope 2 emissions significantly. NOA's aggregator model allows for higher renewable energy penetration, utilising wheeling to enable large-scale...{' '}
                 <span style={{ color: '#82dfda', textDecoration: 'underline', fontWeight: 500, cursor: 'pointer' }}>Read more</span>
               </p>
@@ -501,7 +501,7 @@ export default function HowItWorks() {
                   Energy cost savings
                 </p>
               </div>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 18, color: '#fff', lineHeight: 1.4, margin: 0, textAlign: 'justify' }}>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', lineHeight: 1.4, margin: 0, textAlign: 'justify' }}>
                 NOA's wheeled renewable energy solutions can offer 10–50% cost savings versus Eskom's WEPS (Wholesale Energy Price System) tariff. In addition, NOA's energy prices are inflation-linked, ensuring predictable and manageable cost increases. Due to Eskom's often unpredictable and sharp price increases, NOA's portfolio of customers experience material cost savings over the length of their contracts.
               </p>
             </div>
@@ -530,12 +530,12 @@ export default function HowItWorks() {
         <div style={{ flex: '1 0 0', display: 'flex', flexDirection: 'column', gap: 88 }}>
           <div className="anim-heading">
             <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px, 4.4vw, 64px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.0, display: 'block' }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.0, display: 'block' }}>
                 Different models,
               </span>
             </MaskLine>
             <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px, 4.4vw, 64px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.0, display: 'block' }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.0, display: 'block' }}>
                 different energy outcomes
               </span>
             </MaskLine>
@@ -546,7 +546,7 @@ export default function HowItWorks() {
               <img src={imgHomeIcon} alt="" style={{ width: 32, height: 32 }} />
               <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#00696e', letterSpacing: '-0.4px', margin: 0, lineHeight: 1 }}>Wheeling</p>
               <div style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>
                 Wheeling eliminates these arduous requirements by facilitating energy transportation from one or multiple energy-generating sites located anywhere in South Africa to the end user through the national grid.
               </p>
             </div>
@@ -555,7 +555,7 @@ export default function HowItWorks() {
               <img src={imgSolarPanel} alt="" style={{ width: 32, height: 32 }} />
               <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#00696e', letterSpacing: '-0.4px', margin: 0, lineHeight: 1 }}>Onsite solar</p>
               <div style={{ borderTop: '1px solid rgba(0,0,0,0.12)' }} />
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>
                 Onsite renewable energy supply, such as rooftop solar PV ('behind the meter'), has been used extensively. Still, the amount of clean energy that can be supplied is often limited and capital-intensive.
               </p>
             </div>
@@ -578,7 +578,7 @@ export default function HowItWorks() {
           <Label text="FAQ" />
           <div className="anim-heading" style={{ textAlign: 'center', width: '100%' }}>
             <MaskLine>
-              <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 30, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', textAlign: 'center', lineHeight: 1.28, margin: 0 }}>
+              <h2 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', textAlign: 'center', lineHeight: 1.28, margin: 0 }}>
                 What you need to know
               </h2>
             </MaskLine>
@@ -606,7 +606,7 @@ export default function HowItWorks() {
                   textAlign: 'left',
                 }}
               >
-                <p style={{ flex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17, color: '#000', letterSpacing: '-0.36px', lineHeight: 1.28, margin: 0 }}>
+                <p style={{ flex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#000', letterSpacing: '-0.36px', lineHeight: 1.28, margin: 0 }}>
                   {faq.q}
                 </p>
                 <div
@@ -634,7 +634,7 @@ export default function HowItWorks() {
                 }}
               >
                 <div style={{ padding: '0 28px 24px' }}>
-                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 15, color: 'rgba(0,0,0,0.4)', letterSpacing: '-0.3px', lineHeight: 1.38, margin: 0 }}>
+                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.4)', letterSpacing: '-0.3px', lineHeight: 1.38, margin: 0 }}>
                     {faq.a}
                   </p>
                 </div>
@@ -696,11 +696,11 @@ export default function HowItWorks() {
         >
           <div style={{ display: 'flex', gap: 24, alignItems: 'stretch' }}>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 21.6, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
+              <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
                 NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
               </p>
               <Link href="/about" className="anim-fade" style={{ textDecoration: 'none', display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17.2, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
                   LEARN MORE ABOUT US
                 </span>
                 <div style={{ height: 2, background: '#fff', width: '100%' }} />

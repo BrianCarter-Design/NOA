@@ -104,11 +104,11 @@ function Footer() {
       <div style={{ background: '#013436', borderRadius: 30, padding: '88px 88px 20px', display: 'flex', flexDirection: 'column', gap: 120 }}>
         <div style={{ display: 'flex', gap: 24, alignItems: 'stretch' }}>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 21.6, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
               NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
             </p>
             <Link href="/about" className="anim-fade" style={{ textDecoration: 'none', display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 17.2, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
               <div style={{ height: 2, background: '#fff' }} />
             </Link>
           </div>
@@ -273,8 +273,8 @@ function StageCard({ stage, active, onClick }: { stage: typeof STAGES[0]; active
           <img src={active ? imgArrowUp : imgArrowDown} alt="" style={{ width: '100%', height: '100%' }} />
         </div>
         <span style={{
-          fontFamily: 'Switzer, sans-serif', fontWeight: 500,
-          fontSize: active ? 59 : 32,
+          fontFamily: 'Switzer, sans-serif', fontWeight: 400,
+          fontSize: active ? 56 : 32,
           color: active ? 'rgba(255,255,255,0.62)' : '#00696e',
           letterSpacing: active ? '-3.5px' : '-1.4px',
           lineHeight: 1,
@@ -394,7 +394,7 @@ export default function Projects() {
             <h1 style={{ margin: 0, fontFamily: 'Switzer, sans-serif', fontWeight: 400, lineHeight: 1.05 }}>
               {['Powering projects from', 'concept to clean energy generation'].map((line, i) => (
                 <div key={i} style={{ overflow: 'hidden', paddingBottom: '0.04em' }}>
-                  <div className="proj-hero-line" style={{ fontSize: 'clamp(42px, 5.6vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform', display: 'block' }}>
+                  <div className="proj-hero-line" style={{ fontSize: 'clamp(48px, 5.5vw, 80px)', color: '#fff', letterSpacing: '-0.04em', transform: 'translateY(110%)', willChange: 'transform', display: 'block' }}>
                     {line}
                   </div>
                 </div>
@@ -457,7 +457,7 @@ export default function Projects() {
           <h2 style={{ margin: 0 }}>
             {['How projects move from', 'idea to impact'].map((line, i) => (
               <MaskLine key={i}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(52px,6.7vw,96px)', color: 'transparent', letterSpacing: '-4.8px', lineHeight: 0.85, display: 'block', backgroundImage: 'linear-gradient(to top, #00696e, rgba(0,105,110,0.24))', WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>
+                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)', color: 'transparent', letterSpacing: '-4.8px', lineHeight: 0.85, display: 'block', backgroundImage: 'linear-gradient(to top, #00696e, rgba(0,105,110,0.24))', WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>
                   {line}
                 </span>
               </MaskLine>
@@ -487,7 +487,7 @@ export default function Projects() {
             </div>
           ))}
         </div>
-        <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 30, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', margin: 0, textAlign: 'center' }}>
+        <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', margin: 0, textAlign: 'center' }}>
           Trusted across the energy ecosystem
         </p>
       </section>
@@ -504,7 +504,7 @@ export default function Projects() {
             {['Built on real-world', 'outcomes'].map((line, i) => (
               <MaskLine key={i}>
                 <span style={{
-                  fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(52px,6.7vw,96px)',
+                  fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)',
                   letterSpacing: '-4.8px', lineHeight: 0.85, display: 'block',
                   backgroundImage: `url('${imgHeadingAsset}')`,
                   backgroundSize: 'cover', backgroundPosition: 'center',
@@ -544,7 +544,7 @@ export default function Projects() {
               <img src={imgTestimAvatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 600, fontSize: 16, color: '#fff', margin: 0 }}>John Clark</p>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', margin: 0 }}>John Clark</p>
               <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', margin: 0 }}>Sustainability leadership at Project name</p>
             </div>
             <img src={imgTestimLogo} alt="" style={{ height: 22, objectFit: 'contain' }} />
