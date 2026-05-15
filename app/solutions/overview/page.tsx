@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import HeroBg from '@/components/HeroBg';
 
 /* ── Figma assets ─────────────────────────────────────────────────────────── */
 const imgBackground   = 'https://www.figma.com/api/mcp/asset/742bf7d4-cc54-476d-811a-04b20a8506a6';
@@ -247,11 +248,9 @@ export default function SolutionsOverview() {
   return (
     <div style={{ background: 'transparent', overflowX: 'hidden' }}>
 
-      {/* Fixed hero background */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: -1, pointerEvents: 'none' }}>
+      <HeroBg overlay="rgba(1,52,54,0.5)">
         <img src={imgBackground} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(1,52,54,0.5)' }} />
-      </div>
+      </HeroBg>
 
       {/* ═══ HERO ════════════════════════════════════════════════════════════ */}
       <section style={{ position: 'relative', minHeight: '100vh', background: 'transparent', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 96px 80px' }}>

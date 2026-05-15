@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import HeroBg from '@/components/HeroBg';
 
 /* ── Assets ───────────────────────────────────────────────────────────────── */
 const imgHeroPhoto     = 'https://www.figma.com/api/mcp/asset/9579eec4-d6e9-4fbe-b1ca-d53b7df6120c';
@@ -201,19 +202,11 @@ export default function About() {
   return (
     <div style={{ background: 'transparent', overflowX: 'hidden' }}>
 
-      {/* Fixed hero background — stays in place while content scrolls over */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: -1, pointerEvents: 'none' }}>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
-        >
+      <HeroBg overlay="linear-gradient(170deg, rgba(1,52,54,0.7) 0%, rgba(0,0,0,0.2) 60%)">
+        <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
           <source src="/assets/about_medium.mp4" type="video/mp4" />
         </video>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(170deg, rgba(1,52,54,0.7) 0%, rgba(0,0,0,0.2) 60%)' }} />
-      </div>
+      </HeroBg>
 
       {/* ═══ HERO ════════════════════════════════════════════════════════════ */}
       <section style={{ position: 'relative', minHeight: '100vh', background: 'transparent', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 64px 80px' }}>

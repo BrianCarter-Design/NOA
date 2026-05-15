@@ -151,7 +151,8 @@ export default function Nav() {
     if (!el) return;
     const positionPill = () => {
       if (menuOpenRef.current) return;
-      const left = (window.innerWidth - PILL_W) / 2;
+      const vw   = document.documentElement.clientWidth;
+      const left = (vw - PILL_W) / 2;
       gsap.set(el, {
         top:          PILL_TOP,
         left:         left,
@@ -269,7 +270,7 @@ export default function Nav() {
     gsap.to(containerRef.current, {
       top:          MENU_M,
       left:         MENU_M,
-      width:        window.innerWidth  - MENU_M * 2,
+      width:        document.documentElement.clientWidth  - MENU_M * 2,
       height:       window.innerHeight - MENU_M * 2,
       borderRadius: 37,
       x:            0,
@@ -317,7 +318,7 @@ export default function Nav() {
     gsap.to('.menu-meta',     { opacity: 0, y: 10, duration: 0.26, ease: 'power3.in' });
     gsap.to('.menu-body',     { opacity: 0, duration: 0.35, ease: 'power3.in', delay: 0.22 });
 
-    const pillLeft = (window.innerWidth - PILL_W) / 2;
+    const pillLeft = (document.documentElement.clientWidth - PILL_W) / 2;
 
     // Container morph back
     gsap.to(containerRef.current, {

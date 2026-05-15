@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import HeroBg from '@/components/HeroBg';
 
 const imgBackground = 'https://www.figma.com/api/mcp/asset/fd414098-c960-46ad-9b20-bb6a7d27987a';
 const imgWheeling   = 'https://www.figma.com/api/mcp/asset/790d8452-c44b-4d33-84f3-d7e05be4937a';
@@ -235,11 +236,9 @@ export default function HowItWorks() {
   return (
     <div style={{ background: 'transparent', overflowX: 'hidden' }}>
 
-      {/* Fixed hero background */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: -1, pointerEvents: 'none' }}>
+      <HeroBg overlay="rgba(1,52,54,0.45)">
         <img src={imgBackground} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(1,52,54,0.45)' }} />
-      </div>
+      </HeroBg>
 
       {/* ═══ HERO ═══════════════════════════════════════════════════════════ */}
       <section
