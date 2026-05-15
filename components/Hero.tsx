@@ -23,7 +23,7 @@ export default function Hero() {
         playsInline
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}
       >
-        <source src="/assets/wind.mp4" type="video/mp4" />
+        <source src="/assets/loop.mp4" type="video/mp4" />
       </video>
 
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', pointerEvents: 'none' }} />

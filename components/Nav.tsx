@@ -48,14 +48,14 @@ function ArrowUpRight() {
   );
 }
 
-function MetricIcon({ name }: { name: string }) {
+function MetricIcon({ name, size = 62 }: { name: string; size?: number }) {
   return (
     <img
       src={`/assets/icons/${name}.svg`}
       alt=""
-      width={40}
-      height={40}
-      style={{ width: 40, height: 40, objectFit: 'contain', display: 'block' }}
+      width={size}
+      height={size}
+      style={{ width: size, height: size, objectFit: 'contain', display: 'block' }}
     />
   );
 }
@@ -272,7 +272,7 @@ export default function Nav() {
       width:        window.innerWidth  - MENU_M * 2,
       height:       window.innerHeight - MENU_M * 2,
       borderRadius: 37,
-      scale:        1,
+      x:            0,
       y:            0,
       duration:     0.85,
       ease:         'power4.inOut',
@@ -325,7 +325,8 @@ export default function Nav() {
       left:         pillLeft,
       width:        PILL_W,
       height:       PILL_H,
-      borderRadius: 9999,
+      borderRadius: 37,
+      x:            0,
       y:            0,
       duration:     0.75,
       ease:         'power4.inOut',
@@ -351,20 +352,26 @@ export default function Nav() {
   const handlePillEnter = useCallback(() => {
     if (menuOpenRef.current || isAnimating.current) return;
     gsap.to(containerRef.current, {
-      scale:     1.04,
-      duration:  0.4,
-      ease:      'power2.out',
-      overwrite: 'auto',
+      width:        PILL_W + 20,
+      height:       PILL_H + 8,
+      x:            -10,
+      borderRadius: 37,
+      duration:     0.5,
+      ease:         'power3.out',
+      overwrite:    'auto',
     });
   }, []);
 
   const handlePillLeave = useCallback(() => {
     if (menuOpenRef.current) return;
     gsap.to(containerRef.current, {
-      scale:    1,
-      duration: 0.5,
-      ease:     'power3.out',
-      overwrite:'auto',
+      width:        PILL_W,
+      height:       PILL_H,
+      x:            0,
+      borderRadius: 37,
+      duration:     0.5,
+      ease:         'power3.out',
+      overwrite:    'auto',
     });
   }, []);
 
@@ -372,6 +379,8 @@ export default function Nav() {
   return (
     <div
       ref={containerRef}
+      onMouseEnter={handlePillEnter}
+      onMouseLeave={handlePillLeave}
       style={{
         position:             'fixed',
         zIndex:               100,
@@ -386,8 +395,6 @@ export default function Nav() {
     >
       {/* ── Header (persistent across pill + menu) ─────────────────────────── */}
       <div
-        onMouseEnter={handlePillEnter}
-        onMouseLeave={handlePillLeave}
         onClick={() => { if (!menuOpenRef.current && !isAnimating.current) openMenu(); }}
         style={{
           display:        'flex',
@@ -441,6 +448,12 @@ export default function Nav() {
         {/* ── Left: nav links ─────────────────────────────────────────── */}
         <div style={{ width: '38%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
+          <div>
+            <div className="menu-meta" style={{ marginBottom: '20px' }}>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>&nbsp;</span>
+            </div>
+            <div className="menu-meta" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Menu</div>
+
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             {NAV_LINKS.map((link) => (
               <div key={link.label}>
@@ -487,18 +500,19 @@ export default function Nav() {
               </div>
             ))}
           </nav>
+          </div>
 
           <div className="menu-meta">
             <div style={{ height: '1px', background: 'rgba(255,255,255,0.12)', marginBottom: '24px' }} />
             <div style={{ display: 'flex', gap: '48px' }}>
               <div>
-                <div style={{ color: '#737373', fontSize: '13px', marginBottom: '10px', fontFamily: 'Switzer, sans-serif' }}>Contact</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Contact</div>
                 <a href="mailto:info@noagroup.africa" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
                   info@noagroup.africa <ArrowUpRight />
                 </a>
               </div>
               <div>
-                <div style={{ color: '#737373', fontSize: '13px', marginBottom: '10px', fontFamily: 'Switzer, sans-serif' }}>Social</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Social</div>
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
                   LinkedIn <ArrowUpRight />
                 </a>
@@ -532,7 +546,7 @@ export default function Nav() {
           </div>
 
           <div className="menu-meta" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 40px', flex: 1 }}>
-            <MetricCard icon={<MetricIcon name="sun" />}         value={weather?.temp ?? null}    unit="°C"  />
+            <MetricCard icon={<MetricIcon name="sun" size={56} />}         value={weather?.temp ?? null}    unit="°C"  />
             <MetricCard icon={<MetricIcon name="solar" />}       value={weather?.solarMW ?? null} unit="MW"  />
             <MetricCard icon={<MetricIcon name="wind" />}        value={weather?.wind ?? null}    unit="KPH" />
             <MetricCard icon={<MetricIcon name="turbine" />}     value={weather?.windMW ?? null}  unit="MW"  />

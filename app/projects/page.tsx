@@ -379,7 +379,9 @@ export default function Projects() {
 
       {/* Fixed hero background */}
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: -1, pointerEvents: 'none' }}>
-        <img src={imgHeroBg} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'bottom' }} />
+        <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
+          <source src="/assets/wind.mp4" type="video/mp4" />
+        </video>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(170deg, rgba(1,52,54,0.6) 0%, rgba(0,0,0,0) 60%)' }} />
       </div>
 
