@@ -401,7 +401,7 @@ export default function Nav() {
       >
         <NoaLogo />
         <button
-          onClick={(e) => { e.stopPropagation(); if (menuOpenRef.current) closeMenu(); }}
+          onClick={() => { if (menuOpenRef.current) closeMenu(); }}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           style={{
             background:     'none',
