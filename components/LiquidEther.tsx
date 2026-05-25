@@ -360,7 +360,7 @@ export default function LiquidEther({
         this.line = new THREE.LineSegments(boundaryG, boundaryM);
         this.scene!.add(this.line);
       }
-      update({ dt, isBounce, BFECC }: any) {
+      update({ dt, isBounce, BFECC }: any = {}) {
         this.uniforms.dt.value = dt; this.line!.visible = isBounce; this.uniforms.isBFECC.value = BFECC; super.update();
       }
     }
