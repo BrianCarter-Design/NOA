@@ -380,7 +380,7 @@ export default function Projects() {
 
       <HeroBg overlay="linear-gradient(170deg, rgba(1,52,54,0.6) 0%, rgba(0,0,0,0) 60%)">
         <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
-          <source src="/assets/wind.mp4" type="video/mp4" />
+          <source src="/assets/8371387-uhd_4096_2160_25fps.mp4" type="video/mp4" />
         </video>
       </HeroBg>
 

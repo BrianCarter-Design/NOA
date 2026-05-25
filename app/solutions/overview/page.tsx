@@ -249,7 +249,9 @@ export default function SolutionsOverview() {
     <div style={{ background: 'transparent', overflowX: 'hidden' }}>
 
       <HeroBg overlay="rgba(1,52,54,0.5)">
-        <img src={imgBackground} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
+          <source src="/assets/43633-436237650_medium.mp4" type="video/mp4" />
+        </video>
       </HeroBg>
 
       {/* ═══ HERO ════════════════════════════════════════════════════════════ */}

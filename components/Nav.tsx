@@ -125,6 +125,7 @@ const NAV_LINKS = [
   { label: 'About NOA',     href: '/about'          },
   { label: 'Projects',      href: '/projects'       },
   { label: 'Insights',      href: '/insights'       },
+  { label: 'Contact',       href: '/contact'        },
 ];
 
 const SOLUTIONS_LINKS = [
@@ -239,52 +240,54 @@ export default function Nav() {
     })();
   }, []);
 
-  // ── Scroll-direction show / hide ────────────────────────────────────────────
+  // ── Scroll: pill tracks 1:1 in both directions ──────────────────────────────
+  // anchor shifts on direction change so the pill continues from its current
+  // visual position — it reappears from the top after ~100px of upward scroll
+  // regardless of how far down the page you are.
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    const THRESHOLD = PILL_TOP + PILL_H + 40;
-    const HIDE_Y    = -(PILL_TOP + PILL_H + 20);
-    let prevY       = window.scrollY;
+    const PILL_OFFSCREEN = -(PILL_TOP + PILL_H); // -100: fully above viewport
 
-    const onScroll = () => {
+    let anchor  = 0;
+    let prevY   = window.scrollY;
+    let prevDir = 'none';
+    let pillY   = 0;
+
+    const tick = () => {
       if (menuOpenRef.current || isAnimating.current) return;
 
-      const y   = window.scrollY;
-      const dir = y > prevY ? 'down' : 'up';
-      prevY = y;
+      const y = window.scrollY;
+      if (y === prevY) return;
 
-      if (y <= THRESHOLD) {
-        if (pillFixedRef.current) {
-          pillFixedRef.current = false;
-          gsap.killTweensOf(el);
-          gsap.set(el, { position: 'absolute', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: 0 });
-        }
+      // Detect page navigation: a jump this large can't happen in a single frame
+      // from normal scrolling (~300px @ 60fps = 18,000px/s). Reset pill to visible.
+      if (Math.abs(y - prevY) > 300) {
+        anchor  = y;
+        pillY   = 0;
+        prevY   = y;
+        prevDir = 'none';
+        gsap.set(el, { y: 0 });
         return;
       }
 
-      if (dir === 'up') {
-        if (!pillFixedRef.current) {
-          pillFixedRef.current = true;
-          gsap.set(el, { position: 'fixed', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: HIDE_Y });
-        }
-        gsap.to(el, { y: 0, duration: 0.55, ease: 'power3.out', overwrite: 'auto' });
-      } else if (pillFixedRef.current) {
-        gsap.to(el, {
-          y: HIDE_Y, duration: 0.35, ease: 'power3.in', overwrite: 'auto',
-          onComplete: () => {
-            if (!menuOpenRef.current) {
-              pillFixedRef.current = false;
-              gsap.set(el, { position: 'absolute', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: 0 });
-            }
-          },
-        });
+      const dir = y > prevY ? 'down' : 'up';
+
+      // On direction reversal, reset anchor so pill continues smoothly from
+      // wherever it currently is (no teleport).
+      if (dir !== prevDir && prevDir !== 'none') {
+        anchor = y + pillY;
       }
+
+      prevDir = dir;
+      prevY   = y;
+      pillY   = Math.min(0, Math.max(PILL_OFFSCREEN, -y + anchor));
+      gsap.set(el, { y: pillY });
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    gsap.ticker.add(tick);
+    return () => gsap.ticker.remove(tick);
   }, []);
 
   // ── Open ────────────────────────────────────────────────────────────────────
@@ -369,7 +372,7 @@ export default function Nav() {
       ease:         'power4.inOut',
       delay:        0.3,
       onComplete: () => {
-        gsap.set(containerRef.current, { position: 'absolute', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2 });
+        gsap.set(containerRef.current, { position: 'fixed', top: PILL_TOP, left: (document.documentElement.clientWidth - PILL_W) / 2, y: 0 });
         pillFixedRef.current = false;
         menuOpenRef.current  = false;
         setMenuOpen(false);
@@ -421,7 +424,7 @@ export default function Nav() {
       onMouseEnter={handlePillEnter}
       onMouseLeave={handlePillLeave}
       style={{
-        position:             'absolute',
+        position:             'fixed',
         zIndex:               100,
         display:              'flex',
         flexDirection:        'column',

@@ -301,7 +301,7 @@ export default function Insights() {
 
       <HeroBg overlay="linear-gradient(59deg, rgba(0,0,0,0.55) 10%, rgba(0,0,0,0.1) 75%)">
         <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
-          <source src="/assets/windows.mp4" type="video/mp4" />
+          <source src="/assets/185092-874643408_medium.mp4" type="video/mp4" />
         </video>
       </HeroBg>
 

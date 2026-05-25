@@ -204,7 +204,7 @@ export default function About() {
 
       <HeroBg overlay="linear-gradient(170deg, rgba(1,52,54,0.7) 0%, rgba(0,0,0,0.2) 60%)">
         <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
-          <source src="/assets/about_medium.mp4" type="video/mp4" />
+          <source src="/assets/11168-228530158_medium.mp4" type="video/mp4" />
         </video>
       </HeroBg>
 
