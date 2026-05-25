@@ -466,7 +466,7 @@ export default function LiquidEther({
       init() { this.calcSize(); this.createAllFBO(); this.createShaderPass(); }
       resize() { this.calcSize(); for (const key in this.fbos) this.fbos[key].setSize(this.fboSize.x, this.fboSize.y); }
       update() {
-        this.boundarySpace[this.options.isBounce ? 'set' : 'copy'](this.options.isBounce ? new THREE.Vector2(0,0) : this.cellScale);
+        if (this.options.isBounce) { this.boundarySpace.set(0, 0); } else { this.boundarySpace.copy(this.cellScale); }
         this.advection.update({ dt: this.options.dt, isBounce: this.options.isBounce, BFECC: this.options.BFECC });
         this.externalForce.update({ cursor_size: this.options.cursor_size, mouse_force: this.options.mouse_force, cellScale: this.cellScale });
         let vel = this.fbos.vel_1;
