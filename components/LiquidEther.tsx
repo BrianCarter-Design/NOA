@@ -374,7 +374,7 @@ export default function LiquidEther({
         const mouseM = new THREE.RawShaderMaterial({ vertexShader: mouse_vert, fragmentShader: externalForce_frag, blending: THREE.AdditiveBlending, depthWrite: false, uniforms: { px: { value: simProps.cellScale }, force: { value: new THREE.Vector2(0, 0) }, center: { value: new THREE.Vector2(0, 0) }, scale: { value: new THREE.Vector2(simProps.cursor_size, simProps.cursor_size) } } });
         this.mouse = new THREE.Mesh(mouseG, mouseM); this.scene!.add(this.mouse);
       }
-      update(props: any) {
+      update(props: any = {}) {
         const forceX = (Mouse.diff.x / 2) * props.mouse_force;
         const forceY = (Mouse.diff.y / 2) * props.mouse_force;
         const csX = props.cursor_size * props.cellScale.x, csY = props.cursor_size * props.cellScale.y;
@@ -391,7 +391,7 @@ export default function LiquidEther({
         super({ material: { vertexShader: face_vert, fragmentShader: viscous_frag, uniforms: { boundarySpace: { value: simProps.boundarySpace }, velocity: { value: simProps.src.texture }, velocity_new: { value: simProps.dst_.texture }, v: { value: simProps.viscous }, px: { value: simProps.cellScale }, dt: { value: simProps.dt } } }, output: simProps.dst, output0: simProps.dst_, output1: simProps.dst });
         this.init();
       }
-      update({ viscous: v, iterations, dt }: any) {
+      update({ viscous: v, iterations, dt }: any = {}) {
         let fbo_in: any, fbo_out: any;
         this.uniforms.v.value = v;
         for (let i = 0; i < iterations; i++) {
@@ -408,7 +408,7 @@ export default function LiquidEther({
         super({ material: { vertexShader: face_vert, fragmentShader: divergence_frag, uniforms: { boundarySpace: { value: simProps.boundarySpace }, velocity: { value: simProps.src.texture }, px: { value: simProps.cellScale }, dt: { value: simProps.dt } } }, output: simProps.dst });
         this.init();
       }
-      update({ vel }: any) { this.uniforms.velocity.value = vel.texture; super.update(); }
+      update({ vel }: any = {}) { this.uniforms.velocity.value = vel.texture; super.update(); }
     }
 
     class Poisson extends ShaderPass {
@@ -416,7 +416,7 @@ export default function LiquidEther({
         super({ material: { vertexShader: face_vert, fragmentShader: poisson_frag, uniforms: { boundarySpace: { value: simProps.boundarySpace }, pressure: { value: simProps.dst_.texture }, divergence: { value: simProps.src.texture }, px: { value: simProps.cellScale } } }, output: simProps.dst, output0: simProps.dst_, output1: simProps.dst });
         this.init();
       }
-      update({ iterations }: any) {
+      update({ iterations }: any = {}) {
         let p_in: any, p_out: any;
         for (let i = 0; i < iterations; i++) {
           p_in = i % 2 === 0 ? this.props.output0 : this.props.output1;
@@ -432,7 +432,7 @@ export default function LiquidEther({
         super({ material: { vertexShader: face_vert, fragmentShader: pressure_frag, uniforms: { boundarySpace: { value: simProps.boundarySpace }, pressure: { value: simProps.src_p.texture }, velocity: { value: simProps.src_v.texture }, px: { value: simProps.cellScale }, dt: { value: simProps.dt } } }, output: simProps.dst });
         this.init();
       }
-      update({ vel, pressure }: any) { this.uniforms.velocity.value = vel.texture; this.uniforms.pressure.value = pressure.texture; super.update(); }
+      update({ vel, pressure }: any = {}) { this.uniforms.velocity.value = vel.texture; this.uniforms.pressure.value = pressure.texture; super.update(); }
     }
 
     class Simulation {
