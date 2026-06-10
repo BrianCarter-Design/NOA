@@ -121,7 +121,7 @@ const MENU_M = 16;
 const NAV_LINKS = [
   { label: 'Home',          href: '/'               },
   { label: 'How it works',  href: '/how-it-works'  },
-  { label: 'Solutions',     href: '/solutions',     sub: true },
+  { label: 'Solutions',     href: '/solutions'                },
   { label: 'About NOA',     href: '/about'          },
   { label: 'Projects',      href: '/projects'       },
   { label: 'Insights',      href: '/insights'       },
@@ -137,9 +137,8 @@ const SOLUTIONS_LINKS = [
 ];
 
 export default function Nav() {
-  const [menuOpen,      setMenuOpen]      = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const [weather,       setWeather]       = useState<Weather | null>(null);
+  const [menuOpen,  setMenuOpen]  = useState(false);
+  const [weather,   setWeather]  = useState<Weather | null>(null);
   const [time,          setTime]          = useState('');
 
   const containerRef  = useRef<HTMLDivElement>(null);
@@ -350,7 +349,6 @@ export default function Nav() {
   const closeMenu = useCallback(() => {
     if (isAnimating.current || !menuOpenRef.current) return;
     isAnimating.current = true;
-    setSolutionsOpen(false);
 
     // Hide body content first
     gsap.to('.menu-nav-item', { y: '115%', duration: 0.32, ease: 'power4.in', stagger: 0.03 });
@@ -483,122 +481,77 @@ export default function Nav() {
           pointerEvents: menuOpen ? 'auto' : 'none',
           minHeight:     0,
           padding:       '8px 24px 40px 24px',
-          display:       'flex',
-          gap:           '80px',
+          display:       'grid',
+          gridTemplateColumns: '38% 1fr',
+          gridTemplateRows:    'auto auto 1fr auto',
+          columnGap:     '80px',
         }}
       >
-        {/* ── Left: nav links ─────────────────────────────────────────── */}
-        <div style={{ width: '38%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        {/* ── Row 1: labels ───────────────────────────────────────────── */}
+        <div className="menu-meta" style={{ marginBottom: '20px', alignSelf: 'end' }}>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Menu</span>
+        </div>
+        <div className="menu-meta" style={{ marginBottom: '20px', alignSelf: 'end' }}>
+          <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Realtime Energy Data Centre</span>
+        </div>
 
-          <div>
-            <div className="menu-meta" style={{ marginBottom: '20px' }}>
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>&nbsp;</span>
+        {/* ── Rows 2–3: nav spans left col; weather + metrics fill right ── */}
+        <nav style={{ gridColumn: 1, gridRow: '2 / 4', display: 'flex', flexDirection: 'column', gap: '4px', alignSelf: 'start', paddingTop: '26px' }}>
+          {NAV_LINKS.map((link) => (
+            <div key={link.label} style={{ overflow: 'hidden', paddingBottom: '6px' }}>
+              <div className="menu-nav-item" style={{ transform: 'translateY(115%)' }}>
+                <Link href={link.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
+                  <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1, display: 'block' }}>
+                    {link.label}
+                  </span>
+                </Link>
+              </div>
             </div>
-            <div className="menu-meta" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Menu</div>
-
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {NAV_LINKS.map((link) => (
-              <div key={link.label}>
-                <div style={{ overflow: 'hidden', paddingBottom: '6px' }}>
-                  {link.sub ? (
-                    <button
-                      className="menu-nav-item"
-                      onClick={() => setSolutionsOpen(o => !o)}
-                      style={{
-                        background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-                        display: 'flex', alignItems: 'center', gap: '12px',
-                        transform: 'translateY(115%)',
-                      }}
-                    >
-                      <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-                        {link.label}
-                      </span>
-                      <ChevronDown open={solutionsOpen} />
-                    </button>
-                  ) : (
-                    <div className="menu-nav-item" style={{ transform: 'translateY(115%)' }}>
-                      <Link href={link.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
-                        <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1, display: 'block' }}>
-                          {link.label}
-                        </span>
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                {link.sub && (
-                  <div style={{ overflow: 'hidden', maxHeight: solutionsOpen ? '220px' : '0', transition: 'max-height 0.45s cubic-bezier(0.4,0,0.2,1)', paddingLeft: '4px' }}>
-                    <div style={{ paddingTop: '4px', paddingBottom: '8px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                      {SOLUTIONS_LINKS.map(sub => (
-                        <Link key={sub.href} href={sub.href} onClick={closeMenu} style={{ textDecoration: 'none' }}>
-                          <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 'clamp(16px, 1.6vw, 22px)', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.02em', display: 'block', padding: '5px 0', transition: 'color 0.2s' }}>
-                            {sub.label}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+          ))}
+        </nav>
+        <div className="menu-meta" style={{ display: 'flex', gap: '48px', paddingBottom: '24px', marginBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)', alignSelf: 'start' }}>
+          <div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Your weather</div>
+            <div style={{ color: 'white', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif' }}>
+              {weather?.city ?? '—'}
+            </div>
           </div>
-
-          <div className="menu-meta">
-            <div style={{ height: '1px', background: 'rgba(255,255,255,0.12)', marginBottom: '24px' }} />
-            <div style={{ display: 'flex', gap: '48px' }}>
-              <div>
-                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Contact</div>
-                <a href="mailto:info@noagroup.africa" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
-                  info@noagroup.africa <ArrowUpRight />
-                </a>
-              </div>
-              <div>
-                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Social</div>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
-                  LinkedIn <ArrowUpRight />
-                </a>
-              </div>
+          <div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Local time</div>
+            <div style={{ color: 'white', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
+              {time || '—'}
             </div>
           </div>
         </div>
+        <div className="menu-meta" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 40px', alignSelf: 'start' }}>
+          <MetricCard icon={<MetricIcon name="sun" size={56} />}     value={weather?.temp ?? null}    unit="°C"  />
+          <MetricCard icon={<MetricIcon name="solar" />}             value={weather?.solarMW ?? null} unit="MW"  />
+          <MetricCard icon={<MetricIcon name="wind" />}              value={weather?.wind ?? null}    unit="KPH" />
+          <MetricCard icon={<MetricIcon name="turbine" />}           value={weather?.windMW ?? null}  unit="MW"  />
+          <MetricCard icon={<MetricIcon name="bolt" />}              value={weather?.loadMW ?? null}  unit="MW"  />
+          <MetricCard icon={<MetricIcon name="hydro" />}             value={weather?.hydroMW ?? null} unit="MW"  />
+        </div>
 
-        {/* ── Right: energy & weather panel ──────────────────────────── */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 0 }}>
-
-          <div className="menu-meta" style={{ marginBottom: '20px' }}>
-            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
-              Realtime Energy Data Centre
-            </span>
-          </div>
-
-          <div className="menu-meta" style={{ display: 'flex', gap: '48px', paddingBottom: '24px', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+        {/* ── Row 4: footer ───────────────────────────────────────────── */}
+        <div className="menu-meta" style={{ alignSelf: 'end' }}>
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.12)', marginBottom: '24px' }} />
+          <div style={{ display: 'flex', gap: '48px' }}>
             <div>
-              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Your weather</div>
-              <div style={{ color: 'white', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif' }}>
-                {weather?.city ?? '—'}
-              </div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Contact</div>
+              <a href="mailto:info@noagroup.africa" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
+                info@noagroup.africa <ArrowUpRight />
+              </a>
             </div>
             <div>
-              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Local time</div>
-              <div style={{ color: 'white', fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', fontFamily: 'Switzer, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
-                {time || '—'}
-              </div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginBottom: '6px', fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>Social</div>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '14px', fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Switzer, sans-serif' }}>
+                LinkedIn <ArrowUpRight />
+              </a>
             </div>
           </div>
-
-          <div className="menu-meta" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 40px', flex: 1 }}>
-            <MetricCard icon={<MetricIcon name="sun" size={56} />}         value={weather?.temp ?? null}    unit="°C"  />
-            <MetricCard icon={<MetricIcon name="solar" />}       value={weather?.solarMW ?? null} unit="MW"  />
-            <MetricCard icon={<MetricIcon name="wind" />}        value={weather?.wind ?? null}    unit="KPH" />
-            <MetricCard icon={<MetricIcon name="turbine" />}     value={weather?.windMW ?? null}  unit="MW"  />
-            <MetricCard icon={<MetricIcon name="bolt" />}        value={weather?.loadMW ?? null}  unit="MW"  />
-            <MetricCard icon={<MetricIcon name="hydro" />}       value={weather?.hydroMW ?? null} unit="MW"  />
-          </div>
-
-          <div className="menu-meta" style={{ marginTop: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', padding: '18px 22px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.7, fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
-            Based on the current weather conditions in your location, renewable energy availability from wind, solar, and hydro sources is operating at 78% capacity, enabling the website to run in Green Performance Mode.
-          </div>
+        </div>
+        <div className="menu-meta" style={{ alignSelf: 'end', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', padding: '18px 22px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.7, fontFamily: 'Switzer, sans-serif', letterSpacing: '-0.01em' }}>
+          Based on the current weather conditions in your location, renewable energy availability from wind, solar, and hydro sources is operating at 78% capacity, enabling the website to run in Green Performance Mode.
         </div>
       </div>
     </div>
