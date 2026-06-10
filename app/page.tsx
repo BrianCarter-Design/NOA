@@ -10,6 +10,8 @@ import Hero from '@/components/Hero';
 import Footer from '@/components/Footer';
 import REW2 from '@/components/REW2';
 import WhyNoa from '@/components/WhyNoa';
+import Stakeholders from '@/components/Stakeholders';
+import FAQ from '@/components/FAQ';
 
 /* ── Assets ──────────────────────────────────────────────────────────────── */
 // Arrow icons
@@ -26,26 +28,17 @@ const imgProjArrow  = 'https://www.figma.com/api/mcp/asset/9cc21ad1-c352-4644-93
 const imgArticle1      = '/assets/insight1.jpg'; // man on phone
 const imgArticle2      = '/assets/insight2.jpg'; // two women
 const imgArticle3      = '/assets/insight3.jpg'; // woman, curly hair
-// FAQ chevrons
-const imgChevronDown   = 'https://www.figma.com/api/mcp/asset/2e41c385-e05e-4da9-acbe-4b9f87e26d57';
-const imgChevronRight  = 'https://www.figma.com/api/mcp/asset/f2f25c36-f81b-4696-a4d5-2a2f39af9921';
 const imgArrowDown01   = 'https://www.figma.com/api/mcp/asset/c6efd98d-5546-4def-b88d-aab746b33ae4'; // Figma node 462-5036
 // Form ring/loader logo at top of the contact CTA
 const imgFormLogo      = 'https://www.figma.com/api/mcp/asset/f087ad06-7f0a-49f7-af75-513b4ffd62bb';
 
 /* ── Data ────────────────────────────────────────────────────────────────── */
 const STATS = [
-  { label: 'Industry experience', display: '70+',  desc: '70+ Years combined expertise of the management team.',          border: '#00c0b5' },
-  { label: 'Capital raised',      display: '3.2B', desc: 'R3.9 Billion equity secured to fund growth and projects.',       border: '#d4d4d4' },
-  { label: 'Project pipeline',    display: '2K+',  desc: '2K+MW capacity across planned energy sites.',                   border: '#d4d4d4' },
+  { label: 'Energy experience',       display: '100+', desc: 'Years combined expertise of the senior leadership team.',           border: '#00c0b5' },
+  { label: 'Energy under construction', display: '1,5GW', desc: 'Assets currently under construction across South Africa.',       border: '#d4d4d4' },
+  { label: 'Energy allocated',        display: '1GW',  desc: 'Clean energy already contracted to our portfolio of customers.',    border: '#d4d4d4' },
 ];
 
-const STAKEHOLDERS = [
-  { num: '01', label: 'Investors',   desc: "People or organisations who fund NOA's projects and earn returns from their performance.", href: '/solutions/investors'  },
-  { num: '02', label: 'IPPs',        desc: 'Energy producers who develop and operate power projects, often working alongside NOA.',     href: '/solutions/ipp'        },
-  { num: '03', label: 'Off-takers',  desc: 'Businesses that buy the energy generated through long-term supply agreements.',            href: '/solutions/off-takers' },
-  { num: '04', label: 'Partners',    desc: 'Companies that work with NOA to help build, deliver, or scale energy projects.',           href: '/solutions/partners'   },
-];
 
 const PROJECTS = [
   {
@@ -203,9 +196,7 @@ function GlowCard({ children, className }: { children: React.ReactNode; classNam
 
 /* ── Page ────────────────────────────────────────────────────────────────── */
 export default function Home() {
-  const [openFaq,   setOpenFaq]   = useState<number | null>(0);
-  const [hoverStake, setHoverStake] = useState<number | null>(null);
-  const [showHero,  setShowHero]  = useState(true);
+  const [showHero, setShowHero] = useState(true);
   const [form, setForm]           = useState({ name: '', surname: '', company: '', help: '', email: '', phone: '', message: '' });
   const statsRef = useRef<HTMLElement>(null);
 
@@ -379,9 +370,82 @@ export default function Home() {
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 60, width: '100%' }}>
 
+          {/* ══ INTRO BLOCK (Figma 832-1315) ═════════════════════════════ */}
+          <div className="anim-fade" style={{ background: '#f5f5f5', borderRadius: 40, padding: '100px 60px', display: 'flex', flexDirection: 'column', gap: 73, alignItems: 'center', width: '100%', boxSizing: 'border-box' }}>
+
+            {/* Heading */}
+            <p style={{ ...sw, fontWeight: 400, fontSize: 48, color: '#000b0d', letterSpacing: '-0.96px', lineHeight: '60px', textAlign: 'center', maxWidth: 946, margin: 0 }}>
+              Something has changed in the way businesses think about energy. It had to.
+            </p>
+
+            {/* 4 cards */}
+            <div className="anim-card-group" style={{ display: 'flex', gap: 12, width: '100%', perspective: '1400px' }}>
+
+              {/* 01 — dark teal */}
+              <div
+                className="anim-card"
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                style={{ flex: '1 0 0', background: '#00676d', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
+              >
+                <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#00c0b5', lineHeight: '34px', margin: 0 }}>01</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <p style={{ ...sw, fontWeight: 500, fontSize: 30, color: '#fff', lineHeight: '38px', margin: 0 }}>
+                    Energy strategy{'\n'}has become{'\n'}business strategy.
+                  </p>
+                  <div style={{ width: 92, height: 5, background: '#00c0b5', borderRadius: 2 }} />
+                </div>
+              </div>
+
+              {/* 02 — white */}
+              <div
+                className="anim-card"
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                style={{ flex: '1 0 0', background: '#fff', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
+              >
+                <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#737373', lineHeight: '34px', margin: 0 }}>02</p>
+                <p style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', lineHeight: '24px', margin: 0 }}>
+                  Costs are volatile, reliability cannot be assumed, and the pressure to decarbonise is rising — from your supply chain, your customers, your investors.
+                </p>
+              </div>
+
+              {/* 03 — white */}
+              <div
+                className="anim-card"
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                style={{ flex: '1 0 0', background: '#fff', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
+              >
+                <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#737373', lineHeight: '34px', margin: 0 }}>03</p>
+                <p style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', lineHeight: '24px', margin: 0 }}>
+                  At the same time, the private energy market is opening up — bringing real opportunity, and real complexity. New players, new contract structures, new concepts.
+                </p>
+              </div>
+
+              {/* 04 — white */}
+              <div
+                className="anim-card"
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                style={{ flex: '1 0 0', background: '#fff', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
+              >
+                <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#737373', lineHeight: '34px', margin: 0 }}>04</p>
+                <p style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', lineHeight: '24px', margin: 0 }}>
+                  NOA exists to make this easy to navigate. NOA gives South Africa&apos;s large energy users a route to clean, competitively priced electricity — without adding operational complexity.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
           {/* Intro paragraph */}
-          <p className="anim-text-reveal" style={{ ...sw, fontWeight: 500, fontSize: 32, color: '#d4d4d4', lineHeight: '42px', textAlign: 'center', maxWidth: 832, margin: 0 }}>
-            NOA supplies scalable renewable energy solutions through wheeling and energy trading. By combining solar, wind, battery, and third-party IPP energy sources, we help businesses reduce costs, improve energy reliability, and accelerate their transition to clean energy.
+          <p className="anim-text-reveal" style={{ ...sw, fontWeight: 500, fontSize: 32, color: '#d4d4d4', lineHeight: '42px', textAlign: 'center', maxWidth: 1100, margin: 0 }}>
+            NOA generates clean electricity, aggregates it from a national portfolio of wind, solar and battery energy storage assets, and delivers it to commercial and industrial customers through customised energy supply agreements. We are a fully integrated renewable energy independent power producer, aggregator and NERSA-licensed energy trader.
           </p>
 
           {/* Stat cards */}
@@ -404,171 +468,53 @@ export default function Home() {
       {/* ══ WHY NOA — sticky-stacking rows (reusable component) ═══════════ */}
       <WhyNoa />
 
-      {/* ══ STAKEHOLDERS ════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '0 32px 48px', position: 'relative', zIndex: 10, borderRadius: '0 0 40px 40px' }}>
-        <div style={{ background: '#f5f5f5', borderRadius: 32, padding: '88px 64px', display: 'flex', flexDirection: 'column', gap: 56 }}>
-          {/* Header row */}
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 48 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <p className="anim-fade" style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', margin: 0 }}>Who we work with</p>
-              <h2 className="anim-heading-words" style={{ ...sw, fontWeight: 400, fontSize: 52, color: '#000b0d', letterSpacing: '-1.6px', lineHeight: '60px', margin: 0 }}>
-                Bringing together key stakeholders<br />across the energy ecosystem
-              </h2>
-            </div>
-            <div className="anim-fade" style={{ flexShrink: 0 }}>
-              <Link href="/contact" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10, height: 52, padding: '0 22px',
-                background: '#fff', borderRadius: 14, textDecoration: 'none', border: 'none',
-              }}>
-                <span style={{ ...it, fontWeight: 500, fontSize: 16, color: '#000b0d', letterSpacing: '-0.3px', whiteSpace: 'nowrap' }}>Get Expert Advice</span>
-                <img src={imgArrowUpRight} alt="" style={{ width: 18, height: 18 }} />
-              </Link>
-            </div>
-          </div>
-
-          {/* 4-column cards — white default, teal on hover, 3D tilt-follow */}
-          <div className="anim-card-group" style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14,
-            perspective: '1400px', // shared 3D viewport for the tilt
-          }}>
-            {STAKEHOLDERS.map((s, i) => {
-              const isHover = hoverStake === i;
-              return (
-                <Link
-                  key={s.num}
-                  href={s.href}
-                  className="anim-card"
-                  onMouseEnter={(e) => {
-                    // Instant tilt response while hovering
-                    e.currentTarget.style.transition = 'background-color 0.35s ease, transform 0.12s linear, box-shadow 0.35s ease';
-                    setHoverStake(i);
-                  }}
-                  onMouseMove={(e) => {
-                    const card = e.currentTarget;
-                    const rect = card.getBoundingClientRect();
-                    const px = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 → 0.5
-                    const py = (e.clientY - rect.top)  / rect.height - 0.5;
-                    const max = 8; // degrees of tilt at the corners
-                    card.style.transform =
-                      `translateY(-6px) rotateY(${px * max}deg) rotateX(${-py * max}deg) translateZ(0)`;
-                  }}
-                  onMouseLeave={(e) => {
-                    // Smooth ease-out return when the mouse leaves
-                    e.currentTarget.style.transition = 'background-color 0.35s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease';
-                    e.currentTarget.style.transform = '';
-                    setHoverStake(prev => (prev === i ? null : prev));
-                  }}
-                  style={{
-                    position: 'relative',
-                    background: isHover ? '#00676d' : '#fff',
-                    borderRadius: 24, padding: '36px 32px',
-                    display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-                    textDecoration: 'none', minHeight: 340, boxSizing: 'border-box',
-                    transformStyle: 'preserve-3d',
-                    willChange: 'transform',
-                    boxShadow: isHover
-                      ? '0 30px 50px -18px rgba(0, 103, 109, 0.45), 0 8px 18px -6px rgba(0,0,0,0.15)'
-                      : '0 2px 6px rgba(0,0,0,0.04)',
-                    transition: 'background-color 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease',
-                  }}
-                >
-                  {/* Arrow — pinned to top-right, pops forward in 3D space on hover.
-                      Uses a single src + CSS filter so the icon never re-loads between states. */}
-                  <img
-                    src={imgArrowUpRight}
-                    alt=""
-                    style={{
-                      position: 'absolute', top: 32, right: 32,
-                      width: 20, height: 20,
-                      opacity: isHover ? 1 : 0.5,
-                      filter: isHover ? 'brightness(0) invert(1)' : 'none',
-                      transform: isHover ? 'translateZ(24px)' : 'translateZ(0)',
-                      transition: 'opacity 0.35s ease, filter 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)',
-                      pointerEvents: 'none',
-                    }}
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                    <span style={{ ...it, fontWeight: 400, fontSize: 13, color: isHover ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.3)', letterSpacing: '0.04em', transition: 'color 0.35s ease' }}>{s.num}</span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    <h3 style={{ ...sw, fontWeight: 400, fontSize: 'clamp(24px, 2.5vw, 36px)', color: isHover ? '#fff' : '#000b0d', letterSpacing: '-1.5px', lineHeight: 1.1, margin: 0, transition: 'color 0.35s ease' }}>{s.label}</h3>
-                    <div style={{ height: 1, background: isHover ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)', transition: 'background-color 0.35s ease' }} />
-                    <p style={{ ...it, fontWeight: 400, fontSize: 14, color: isHover ? 'rgba(255,255,255,0.65)' : '#737373', lineHeight: 1.6, margin: 0, transition: 'color 0.35s ease' }}>{s.desc}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ ESG / SUSTAINABILITY ═════════════════════════════════════════════ */}
-      {/*
-          z=2 so Stakeholders (z=4, rounded bottom) overlaps from top
-          and Projects (z=4, rounded top, marginTop:-40) overlaps from bottom.
-          marginTop:-40 tucks ESG's top edge behind Stakeholders' rounded corners.
+      {/* ══ OUR ELECTRONS ════════════════════════════════════════════════════
+          z=2 sits between WhyNoa above and Projects (z=4, marginTop:-40) below.
       */}
-      <section data-parallax-section style={{
+      <section style={{
         position: 'relative', zIndex: 2,
-        marginTop: -40,
-        minHeight: 954,
+        marginTop: 80,
+        minHeight: 900,
         overflow: 'clip',
-        display: 'flex', alignItems: 'center',
+        display: 'flex', alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        padding: '64px 64px 105px',
+        boxSizing: 'border-box',
       }}>
-        {/* Background — parallax */}
-        <img src={imgESGBg} alt="" className="anim-parallax" style={{ position: 'absolute', inset: 0, width: '100%', height: '140%', top: '-20%', objectFit: 'cover', objectPosition: 'center' }} />
+        {/* Background photo */}
+        <img src="/assets/Contact.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
 
         {/* Content */}
-        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 60px', boxSizing: 'border-box', minHeight: 954 }}>
-          <div style={{ display: 'flex', gap: 33, alignItems: 'flex-start', width: '100%' }}>
+        <div className="anim-fade" style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 24, maxWidth: 716, height: 560 }}>
+          {/* Eyebrow + heading + body */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <p style={{ ...it, fontWeight: 400, fontSize: 20, color: 'rgba(255,255,255,0.5)', lineHeight: '30px', margin: 0 }}>Our electrons</p>
+            <h2 style={{ ...sw, fontWeight: 400, fontSize: 48, color: '#fff', letterSpacing: '-0.96px', lineHeight: '60px', margin: 0, maxWidth: 704 }}>
+              The origins of our electrons and why you should know about it
+            </h2>
+            <p style={{ ...it, fontWeight: 400, fontSize: 18, color: '#fff', lineHeight: '24px', margin: 0, maxWidth: 634 }}>
+              NOA generates clean energy from our own wind and solar facilities, while also sourcing additional power from trusted independent power producers (IPPs) across South Africa. By combining our own generation with a carefully selected IPP network, we&apos;re able to deliver more reliable supply and a higher share of renewable energy than any single source alone.
+            </p>
+          </div>
 
-            {/* ── Left column ──────────────────────────────────────────── */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 560 }}>
-              {/* Label + heading */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                <p className="anim-fade" style={{ ...it, fontWeight: 400, fontSize: 16, color: 'rgba(255,255,255,0.5)', margin: 0 }}>ESG / Sustainability snapshot</p>
-                <h2 className="anim-heading-words" style={{ ...sw, fontWeight: 400, fontSize: 52, color: '#fff', letterSpacing: '-1.6px', lineHeight: '60px', margin: 0, maxWidth: 579 }}>
-                  We build energy infrastructure with sustainability at its core
-                </h2>
-              </div>
-
-              {/* CTA */}
-              <Link href="/about" style={{
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                height: 60, padding: '0 24px',
-                background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(54px)', WebkitBackdropFilter: 'blur(54px)',
-                borderRadius: 16, textDecoration: 'none', alignSelf: 'flex-start',
-              }}>
-                <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#fff', whiteSpace: 'nowrap' }}>See our story</span>
-              </Link>
-            </div>
-
-            {/* ── Right: frosted glass card with huge stat ─────────────── */}
-            <div style={{
-              position: 'relative',
-              display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 28,
-              width: 580, height: 560, flexShrink: 0,
-              background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(54px)', WebkitBackdropFilter: 'blur(54px)',
-              borderRadius: 24, padding: '64px 32px', boxSizing: 'border-box',
-              overflow: 'hidden',
+          {/* CTAs */}
+          <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+            <Link href="/how-it-works" style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              height: 58, padding: '0 24px', borderRadius: 16,
+              background: '#fff', backdropFilter: 'blur(21.5px)', WebkitBackdropFilter: 'blur(21.5px)',
+              textDecoration: 'none', flexShrink: 0,
             }}>
-              {/* Arc ring — decorative, bleeds behind the stat number */}
-              <div style={{ position: 'absolute', left: 85, top: 0, width: 495, height: 560, overflow: 'hidden', pointerEvents: 'none' }}>
-                <img src={imgESGRing} alt="" style={{ position: 'absolute', left: 46, top: -103, width: 688, height: 689, maxWidth: 'none' }} />
-              </div>
-
-              {/* 37% — 200px extralight, line-height collapses so glyph floats above.
-                  paddingBottom pushes the caption clear of the visual glyph overflow. */}
-              <p style={{ ...it, fontWeight: 200, fontSize: 200, lineHeight: '40px', color: '#fff', margin: 0, paddingBottom: 72, position: 'relative', zIndex: 1 }}>
-                37%
-              </p>
-
-              {/* Caption */}
-              <p style={{ ...sw, fontWeight: 400, fontSize: 24, lineHeight: '34px', color: '#fff', margin: 0, maxWidth: 410, position: 'relative', zIndex: 1 }}>
-                Lower operational carbon footprint
-              </p>
-            </div>
-
+              <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#000', whiteSpace: 'nowrap' }}>Explore our generation portfolio</span>
+            </Link>
+            <Link href="/contact" style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              height: 58, padding: '0 24px', borderRadius: 16,
+              background: 'rgba(0,0,0,0.17)', backdropFilter: 'blur(21.5px)', WebkitBackdropFilter: 'blur(21.5px)',
+              textDecoration: 'none', flexShrink: 0,
+            }}>
+              <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#fff', whiteSpace: 'nowrap' }}>Talk to an energy expert</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -728,39 +674,7 @@ export default function Home() {
       </section>
 
       {/* ══ FAQ ════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '64px', background: '#fff' }}>
-        <div style={{ background: '#f4f0eb', borderRadius: 24, padding: '88px 64px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 60 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, maxWidth: 670, textAlign: 'center' }}>
-            <p className="anim-fade" style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', margin: 0 }}>FAQ</p>
-            <h2 className="anim-heading-words" style={{ ...sw, fontWeight: 400, fontSize: 52, color: '#000b0d', letterSpacing: '-1.6px', lineHeight: '60px', margin: 0 }}>
-              What you need to know
-            </h2>
-          </div>
-
-          <div className="anim-card-group" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 1070 }}>
-            {FAQS.map((faq, i) => (
-              <div key={i} className="anim-card" style={{ background: '#fff', borderRadius: 24, overflow: 'hidden' }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{
-                  width: '100%', display: 'flex', gap: 24, alignItems: 'flex-start',
-                  padding: '24px 28px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
-                }}>
-                  <p style={{ flex: 1, ...it, fontWeight: 500, fontSize: 16, color: '#000b0d', letterSpacing: '-0.3px', lineHeight: 1.5, margin: 0 }}>{faq.q}</p>
-                  <img
-                    src={openFaq === i ? imgChevronDown : imgChevronRight}
-                    alt=""
-                    style={{ width: 32, height: 22, flexShrink: 0, transition: 'transform 0.3s', transform: openFaq === i ? 'none' : 'rotate(180deg)' }}
-                  />
-                </button>
-                <div style={{ overflow: 'hidden', maxHeight: openFaq === i ? 200 : 0, transition: 'max-height 0.45s cubic-bezier(0.4,0,0.2,1)' }}>
-                  <div style={{ padding: '0 28px 24px' }}>
-                    <p style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', letterSpacing: '-0.3px', lineHeight: 1.55, margin: 0 }}>{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FAQ items={FAQS} />
 
     </div>
     {/* ── End of white wrap. Form section sits OUTSIDE the wrap so its rounded
@@ -883,7 +797,7 @@ export default function Home() {
     {/* ══ FOOTER REVEAL SPACER ════════════════════════════════════════════════
        Transparent scroll space lets the fixed footer (z=0) become visible
        as the user scrolls past the form. */}
-    <div style={{ height: 582 }} />
+    <div style={{ height: 821 }} />
 
     {/* ══ FOOTER ═════════════════════════════════════════════════════════════ */}
     <Footer />

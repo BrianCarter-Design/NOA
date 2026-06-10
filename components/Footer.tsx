@@ -1,29 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useEffect, useState } from 'react';
+import { useState } from 'react';
 
-/* ── Assets (from Figma node 462-5075) ──────────────────────────────────── */
-const imgPhone    = 'https://www.figma.com/api/mcp/asset/10a43fea-15ce-4079-9838-be94d81b1d6b';
-const imgLinkedIn = 'https://www.figma.com/api/mcp/asset/eb7fc5c0-f928-4327-a6c1-09eb79db1914';
-const imgWordmark = 'https://www.figma.com/api/mcp/asset/54d04dcb-f61e-40f6-90d7-d1120f6b6251';
+/* ── Assets ─────────────────────────────────────────────────────────────── */
+const imgWordmark  = 'https://www.figma.com/api/mcp/asset/01998855-d264-412b-afb1-21ef050bc73b';
+const imgPhone     = 'https://www.figma.com/api/mcp/asset/8bb33137-d786-4857-aa49-241b7f824a21';
+const imgLinkedIn  = 'https://www.figma.com/api/mcp/asset/8314d96c-7e8c-4c97-b13f-c3a09c776d31';
+const imgLocation  = 'https://www.figma.com/api/mcp/asset/ec9a4790-1d7f-4d1d-87e6-b617247db167';
 
 /* ── Data ───────────────────────────────────────────────────────────────── */
 const COMPANY_LINKS = [
-  { t: 'Home',         h: '/' },
-  { t: 'How it works', h: '/how-it-works' },
-  { t: 'About',        h: '/about' },
-  { t: 'Projects',     h: '/projects' },
-  { t: 'Insights',     h: '/insights' },
-  { t: 'Careers',      h: '/careers' },
-];
-
-const SOLUTIONS_LINKS = [
-  { t: 'Overview',   h: '/solutions' },
-  { t: 'Investors',  h: '/solutions/investors' },
-  { t: 'IPPs',       h: '/solutions/ipp' },
-  { t: 'Off-takers', h: '/solutions/off-takers' },
-  { t: 'Partners',   h: '/solutions/partners' },
+  { t: 'Home',               h: '/' },
+  { t: 'What we do',         h: '/how-it-works' },
+  { t: 'Customer Solutions', h: '/solutions' },
+  { t: 'Our electrons',      h: '/how-it-works' },
+  { t: 'Who we are',         h: '/about' },
+  { t: 'News and Insights',  h: '/insights' },
+  { t: 'Your career',        h: '/careers' },
 ];
 
 const LEGAL_LINKS = [
@@ -37,8 +31,8 @@ const LEGAL_LINKS = [
 const inter: React.CSSProperties = { fontFamily: 'Inter, Switzer, sans-serif' };
 
 const linkTxt: React.CSSProperties = {
-  ...inter, fontWeight: 400, fontSize: 18,
-  color: 'rgba(255,255,255,0.6)', lineHeight: '24px',
+  ...inter, fontWeight: 400, fontSize: 14,
+  color: 'rgba(255,255,255,0.6)', lineHeight: '20px',
   textDecoration: 'none', margin: 0,
 };
 
@@ -47,157 +41,144 @@ const colHeading: React.CSSProperties = {
   color: '#00c0b5', lineHeight: '24px', margin: 0,
 };
 
-const descTxt: React.CSSProperties = {
-  ...inter, fontWeight: 400, fontSize: 18,
-  color: 'rgba(255,255,255,0.6)', lineHeight: '24px', margin: 0,
-};
-
-const copyrightTxt: React.CSSProperties = {
-  ...inter, fontWeight: 400, fontSize: 18,
-  color: '#00676d', lineHeight: '24px', margin: 0,
-};
-
 /* ── Component ──────────────────────────────────────────────────────────── */
 export default function Footer() {
-  const wordmarkRef = useRef<HTMLDivElement>(null);
-  const footerRef   = useRef<HTMLElement>(null);
-  const [spotlight, setSpotlight] = useState<{ x: number; y: number } | null>(null);
-
-  useEffect(() => {
-    const footer   = footerRef.current;
-    const wordmark = wordmarkRef.current;
-    if (!footer || !wordmark) return;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = wordmark.getBoundingClientRect();
-      setSpotlight({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    };
-    const onLeave = () => setSpotlight(null);
-
-    footer.addEventListener('mousemove', onMove);
-    footer.addEventListener('mouseleave', onLeave);
-    return () => {
-      footer.removeEventListener('mousemove', onMove);
-      footer.removeEventListener('mouseleave', onLeave);
-    };
-  }, []);
+  const [email, setEmail] = useState('');
 
   return (
     <footer
-      ref={footerRef}
       style={{
         position: 'fixed',
         bottom: 0, left: 0, right: 0,
-        height: 582,
-        zIndex: 0, // lowest layer — sits behind opaque page content
+        height: 821,
+        zIndex: -100,
       }}
     >
       <div style={{
         background: '#002223',
-        padding: '70px 88px 0',
+        padding: '70px 88px 48px',
         height: '100%', boxSizing: 'border-box',
         overflow: 'hidden',
         position: 'relative',
+        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
       }}>
 
-        {/* ── Top: 5-column grid ─────────────────────────────────────────── */}
-        <div className="anim-card-group" style={{
+        {/* ── Wordmark — oversized, anchored to bottom ─────────────────── */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: '50%',
+          transform: 'translateX(-50%)',
+          width: 1264, height: 350,
+          pointerEvents: 'none',
+        }}>
+          <img alt="NOA" src={imgWordmark} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }} />
+        </div>
+
+        {/* ── Top: columns ─────────────────────────────────────────────── */}
+        <div style={{
           display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
-          gap: 24, width: '100%', position: 'relative', zIndex: 2,
+          width: '100%', position: 'relative', zIndex: 2,
         }}>
 
-          {/* Col 1 — description + copyright */}
-          <div className="anim-fade" style={{
-            display: 'flex', flexDirection: 'column', gap: 13,
-            width: 393, flexShrink: 0,
-          }}>
-            <p style={{ ...descTxt, maxWidth: 388 }}>
-              NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
-            </p>
-            <p style={copyrightTxt}>Copyright © 2026 NOA Group</p>
-          </div>
-
-          {/* Col 2 — Company */}
-          <div className="anim-card" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 130, flexShrink: 0 }}>
-            <p style={colHeading}>Company</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {COMPANY_LINKS.map(({ t, h }) => (
-                <Link key={t} href={h} style={linkTxt}>{t}</Link>
-              ))}
+          {/* Col 1 — description + newsletter */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 48, width: 393, flexShrink: 0 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <p style={{ ...inter, fontWeight: 400, fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: '20px', margin: 0 }}>
+                NOA is a leading South African renewable energy independent power producer, aggregator and trader. The company enables commercial and industrial customers to decarbonise while securing long-term, competitively priced electricity.
+              </p>
+              <p style={{ ...inter, fontWeight: 400, fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: '20px', margin: 0 }}>
+                Backed by experienced infrastructure investors and led by a team of seasoned energy market professionals, NOA combines owned generation assets with long-term offtake partnerships to build a diversified national renewable portfolio.
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <p style={{ ...inter, fontWeight: 400, fontSize: 18, color: '#00c0b5', lineHeight: '24px', margin: 0 }}>
+                Stay in the loop — subscribe to our newsletter
+              </p>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  style={{
+                    flex: 1, height: 55, borderRadius: 16, border: 'none', outline: 'none',
+                    background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(20px)',
+                    padding: '0 16px', ...inter, fontSize: 14, color: '#00c0b5',
+                    boxSizing: 'border-box',
+                  }}
+                />
+                <button style={{
+                  height: 55, padding: '0 24px', borderRadius: 16, border: 'none',
+                  background: '#00c0b5', cursor: 'pointer',
+                  ...inter, fontWeight: 400, fontSize: 14, color: '#000b0d', whiteSpace: 'nowrap',
+                }}>
+                  Subscribe
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Col 3 — Solutions */}
-          <div className="anim-card" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 130, flexShrink: 0 }}>
-            <p style={colHeading}>Solutions</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {SOLUTIONS_LINKS.map(({ t, h }) => (
-                <Link key={t} href={h} style={linkTxt}>{t}</Link>
-              ))}
-            </div>
-          </div>
+          {/* Right columns group */}
+          <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start', flexShrink: 0 }}>
 
-          {/* Col 4 — Legal */}
-          <div className="anim-card" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 130, flexShrink: 0 }}>
-            <p style={colHeading}>Legal</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {LEGAL_LINKS.map(({ t, h }) => (
-                <Link key={t} href={h} style={linkTxt}>{t}</Link>
-              ))}
+            {/* Col 2 — Company */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <p style={colHeading}>Company</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {COMPANY_LINKS.map(({ t, h }) => (
+                  <Link key={t} href={h} style={linkTxt}>{t}</Link>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Col 5 — Contact us */}
-          <div className="anim-card" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 160, flexShrink: 0 }}>
-            <p style={colHeading}>Contact us</p>
-            <Link href="/contact" style={linkTxt}>Contact form</Link>
-            <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-              <img src={imgPhone} alt="" style={{ width: 24, height: 24, flexShrink: 0 }} />
-              <span style={linkTxt}>021 010 0480</span>
+            {/* Col 3 — Legal */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 130 }}>
+              <p style={colHeading}>Legal</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {LEGAL_LINKS.map(({ t, h }) => (
+                  <Link key={t} href={h} style={linkTxt}>{t}</Link>
+                ))}
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-              <img src={imgLinkedIn} alt="" style={{ width: 24, height: 24, flexShrink: 0 }} />
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={linkTxt}>LinkedIn</a>
+
+            {/* Col 4 — Let's talk */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 415 }}>
+              <p style={colHeading}>Let&apos;s talk</p>
+              <Link href="/contact" style={linkTxt}>Contact form</Link>
+              <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+                <img src={imgPhone} alt="" style={{ width: 24, height: 24, flexShrink: 0 }} />
+                <span style={linkTxt}>021 010 0480</span>
+              </div>
+              <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+                <img src={imgLinkedIn} alt="" style={{ width: 24, height: 24, flexShrink: 0 }} />
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={linkTxt}>LinkedIn</a>
+              </div>
+              <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                <img src={imgLocation} alt="" style={{ width: 24, height: 24, flexShrink: 0, marginTop: 2 }} />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  <span style={linkTxt}>8th Floor, The Edge, 3 Howick Close, Tyger Waterfront, Cape Town 7530</span>
+                  <span style={linkTxt}>7th Floor, Fire Station Building, 16 Baker Street, Rosebank, Johannesburg 2196</span>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
 
-        {/* ── Decorative oversized wordmark, anchored to bottom of viewport ─── */}
-        <div
-          ref={wordmarkRef}
-          className="anim-fade"
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'calc(100% - 176px)', // matches px-88 of the footer
-            maxWidth: 1264,
-            aspectRatio: '1264 / 350',
-            pointerEvents: 'none',
-          }}
-        >
-          <img alt="NOA" src={imgWordmark} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }} />
-          {/* Spotlight — clipped to the wordmark's letter paths */}
-          {spotlight && (
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                pointerEvents: 'none',
-                background: `radial-gradient(circle 260px at ${spotlight.x}px ${spotlight.y}px,
-                  rgba(0,192,181,0.55) 0%,
-                  rgba(0,192,181,0.2) 40%,
-                  transparent 70%)`,
-                WebkitMaskImage: `url(${imgWordmark})`,
-                maskImage: `url(${imgWordmark})`,
-                WebkitMaskSize: '100% 100%',
-                maskSize: '100% 100%',
-                WebkitMaskRepeat: 'no-repeat',
-                maskRepeat: 'no-repeat',
-              }}
-            />
-          )}
+        {/* ── Bottom bar ───────────────────────────────────────────────── */}
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          position: 'relative', zIndex: 2,
+          ...inter, fontWeight: 400, fontSize: 16, color: '#00676d', lineHeight: '24px',
+        }}>
+          <p style={{ margin: 0 }}>Copyright © 2026 NOA Group</p>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+            <span>All Rights Reserved</span>
+            <span>|</span>
+            <Link href="#" style={{ ...inter, fontSize: 16, color: '#00676d', textDecoration: 'none' }}>Terms and Conditions</Link>
+            <span>|</span>
+            <Link href="#" style={{ ...inter, fontSize: 16, color: '#00676d', textDecoration: 'none' }}>Privacy Policy</Link>
+          </div>
         </div>
 
       </div>

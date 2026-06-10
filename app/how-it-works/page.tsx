@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 
 /* ── Assets (from Figma node 310:1481) ───────────────────────────────────── */
 const imgWhatIs       = 'https://www.figma.com/api/mcp/asset/ec3a067b-cb47-497f-b735-2dc762506ab5';
-const imgREWBg        = 'https://www.figma.com/api/mcp/asset/b4975f15-9fee-4ecb-858d-b080e829cf07';
+const imgREWBg        = '/assets/REW2.jpg';
 const imgBenefitsBg   = 'https://www.figma.com/api/mcp/asset/920d7ab8-4e2c-43a4-b8e5-6fc4edabdbd4';
 // Benefit card icons — from Figma node 420-1378
 const imgBioEnergy    = 'https://www.figma.com/api/mcp/asset/8829a963-b247-46fa-ae06-933e81dbb271';

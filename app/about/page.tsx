@@ -1,64 +1,56 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import Link from 'next/link';
 import HeroBg from '@/components/HeroBg';
+import Stakeholders from '@/components/Stakeholders';
+import WhyNoa from '@/components/WhyNoa';
+import Footer from '@/components/Footer';
 
 /* ── Assets ───────────────────────────────────────────────────────────────── */
-const imgHeroPhoto     = 'https://www.figma.com/api/mcp/asset/9579eec4-d6e9-4fbe-b1ca-d53b7df6120c';
-const imgCityBg        = 'https://www.figma.com/api/mcp/asset/16c6bfa5-c565-4c59-9940-58f4b4c4d09e';
-const imgEsgOverlay    = 'https://www.figma.com/api/mcp/asset/096da3b1-144c-41a9-93ba-08dd182acde7';
-const imgAbstractBg    = 'https://www.figma.com/api/mcp/asset/f50d3628-eea7-4ba5-ae75-b3029828e73e';
-const imgTeamPhoto     = 'https://www.figma.com/api/mcp/asset/eb9df139-d6fc-4881-9692-f663ded7ee26';
-const imgCareers       = 'https://www.figma.com/api/mcp/asset/eddd829d-bb41-452d-bb74-1cf2b44479d7';
-const imgArrowDownLeft = 'https://www.figma.com/api/mcp/asset/bec8d563-4859-4f4a-b514-eaa6f7e93951';
-const imgArrowUpRight  = 'https://www.figma.com/api/mcp/asset/3a74d91f-1698-4b38-8cd4-95792415e499';
-const imgArrowUpRight2 = 'https://www.figma.com/api/mcp/asset/753dd0ba-2bfb-47de-9669-c2f9f271a11c';
-const imgArrowLearnMore= 'https://www.figma.com/api/mcp/asset/1e076d36-c30c-4753-9170-6d8931f9229a';
-const imgEarth         = 'https://www.figma.com/api/mcp/asset/3dcaa7c0-802f-4d41-b2a7-f01610ec332f';
-const imgAward         = 'https://www.figma.com/api/mcp/asset/fe09f97f-083e-495d-8299-0dafdfb11f7e';
-const imgDivider       = 'https://www.figma.com/api/mcp/asset/c78c1ff2-b252-4065-a476-e1ab64d49403';
-const imgWindIcon      = 'https://www.figma.com/api/mcp/asset/cb1713ee-455c-4282-b821-152943d638c0';
-const imgArrowSeeWhat  = 'https://www.figma.com/api/mcp/asset/57389514-06f2-49fb-8a31-8184be23e5db';
-const imgArrowCareers  = 'https://www.figma.com/api/mcp/asset/5087df89-606b-4c5b-80d2-c05db6a2d202';
-
-/* Footer */
-const imgMail          = 'https://www.figma.com/api/mcp/asset/2cc15ee5-ca6b-4f7a-8a3a-1a450e0e3b15';
-const imgPhone         = 'https://www.figma.com/api/mcp/asset/e5c1a17b-99c7-4b1a-ba25-9354ae3660fa';
-const imgLinkedIn      = 'https://www.figma.com/api/mcp/asset/8bfbf097-46eb-40e2-938c-804cd8cfb2e0';
-const imgLogo          = 'https://www.figma.com/api/mcp/asset/4f0c9f5f-cbdb-4a88-b285-1c84f9a5d6bd';
+const imgEllipse25         = 'https://www.figma.com/api/mcp/asset/3c224ab1-d1cf-45d9-b1dc-04f5fddf35f2';
+const imgEllipse26         = 'https://www.figma.com/api/mcp/asset/52e7d6ef-98b5-4a4d-9799-08ee29461416';
+const imgEllipse27         = 'https://www.figma.com/api/mcp/asset/c6bd7ccf-9001-4999-8d22-bf876bcffe82';
+const imgGroup1            = 'https://www.figma.com/api/mcp/asset/3e6dc271-b657-4b8e-a83b-989d3676e5cf';
+const imgGroup2            = 'https://www.figma.com/api/mcp/asset/a89095f3-21dd-468c-baae-623253256738';
+const imgJoshHild          = 'https://www.figma.com/api/mcp/asset/3841fe58-fda4-4b78-8ad5-3febe251a9a3';
+const imgRectangle         = 'https://www.figma.com/api/mcp/asset/5efeeac2-7178-4fa1-96e6-fb310513186b';
+const imgRectangle1        = 'https://www.figma.com/api/mcp/asset/a98dd132-bb78-483b-899f-d04439a2412c';
+const imgItem              = 'https://www.figma.com/api/mcp/asset/e76fa9a6-229f-46c8-9055-f8fe4987523d';
+const imgItem1             = 'https://www.figma.com/api/mcp/asset/d460f11a-e32a-4651-832e-9f86b7d6ced6';
+const imgItem2             = 'https://www.figma.com/api/mcp/asset/5c3d9f1e-0c56-4161-99ed-73756318e5cf';
+const imgContact           = 'https://www.figma.com/api/mcp/asset/ea19b520-6286-4517-80ab-bec950629323';
+const imgPath513           = 'https://www.figma.com/api/mcp/asset/9d7fe976-e154-4f59-8d43-db673ccd4f19';
+const imgPower             = 'https://www.figma.com/api/mcp/asset/3960246f-76b7-45c7-aa15-340665358fea';
+const imgArrowUpRight03    = 'https://www.figma.com/api/mcp/asset/d91afa3e-bc36-4b98-a526-5eea17676573';
+const imgArrowUpRight4     = 'https://www.figma.com/api/mcp/asset/5e261bcb-8f99-476f-a694-0327f72e2ad5';
+const img3DScale           = 'https://www.figma.com/api/mcp/asset/c35c5bae-fdb7-49f0-abc0-32c66d2494f0';
+const imgCoins02           = 'https://www.figma.com/api/mcp/asset/276426dd-0206-4f95-a1ba-5bad0bd4ce2e';
+const imgEarth             = 'https://www.figma.com/api/mcp/asset/09271362-68aa-40d6-a10b-67f5c5f13411';
+const imgAward01           = 'https://www.figma.com/api/mcp/asset/e32ddffe-9fd8-4695-ab17-1fca4ede9271';
+const imgArrowDownLeft     = 'https://www.figma.com/api/mcp/asset/95a4041f-0882-4776-af57-771d84353bba';
+const imgArrowDownLeft1    = 'https://www.figma.com/api/mcp/asset/99753c83-6de9-40ad-9a21-51f8cfc13aa2';
+const imgUserSharing       = 'https://www.figma.com/api/mcp/asset/2c98f5db-4d83-4f32-b6c6-094dc0c714b7';
+const imgMail01            = 'https://www.figma.com/api/mcp/asset/46a5f927-f600-4f93-9bdc-6a0878fcc3e1';
+const imgTelephone1        = 'https://www.figma.com/api/mcp/asset/aeefc41a-f159-4cb3-9de7-45e3ce8eb8f5';
+const imgVector25          = 'https://www.figma.com/api/mcp/asset/47825d1d-66f2-4c5b-b10d-b2a524a32ce4';
+const imgVector26          = 'https://www.figma.com/api/mcp/asset/fea0762e-6705-4006-92db-56ca93b21a23';
 
 /* ── Data ─────────────────────────────────────────────────────────────────── */
-const WHO_CARDS = [
-  'Established in 2022, NOA is a leading renewable energy independent power producer, aggregator and energy trader, with a trading license from the National Energy Regulator of South Africa.',
-  'NOA\'s best-in-class management team has extensive experience in building and scaling large-scale energy businesses.',
-  'NOA has raised R3.9 billion in equity capital from Old Mutual\'s African Infrastructure Investment Managers, enabling NOA Trading to expedite the purchase of electrons from trusted independent power producers (IPPs) and fast-track the construction of its fleet of generation facilities. NOA has a significant site pipeline of projects, with 600 MW of NOA-owned assets currently under construction.',
-  'NOA Trading procures energy from NOA-owned wind, solar PV and battery energy storage sites and trusted third-party Independent Power Producers to offer market-leading renewable energy solutions.',
-  'NOA Trading offers its portfolio of customers customised solutions with flexibility in size, contract tenor and security requirements.',
-];
-
-const STAKEHOLDERS = [
-  { num: '01', name: 'Investors',   desc: 'People or organisations who fund NOA\'s projects and earn returns from their performance.',          dark: true  },
-  { num: '02', name: 'IPPs',        desc: 'Energy producers who develop and operate power projects, often working alongside NOA.',                dark: false },
-  { num: '03', name: 'Off-takers',  desc: 'Businesses that buy the energy generated through long-term supply agreements.',                       dark: false },
-  { num: '04', name: 'Partners',    desc: 'Companies that work with NOA to help build, deliver, or scale energy projects.',                      dark: false },
-];
-
-const DIFFERENTIATORS = [
-  { label: 'Aggregator Model',      desc: 'NOA aggregates renewable energy from wind, solar PV and battery energy generation facilities situated in optimal locations across South Africa to provide significantly higher and consistent volumes of renewable energy.' },
-  { label: 'Customisation',         desc: 'NOA offers its portfolio of customers customised solutions with flexibility in size, contract tenor and security requirements.' },
-  { label: 'Flexible Solutions',    desc: 'Flexible pricing and supply structures mean businesses of all sizes can access clean energy without rigid long-term commitments.' },
-  { label: 'Speed of Supply',       desc: 'NOA\'s aggregation model and established IPP relationships mean customers can secure renewable energy faster than traditional routes.' },
-  { label: 'Balance Sheet Friendly',desc: 'Off-balance-sheet structures and no capital expenditure requirements make it easy for businesses to adopt renewable energy.' },
-];
 
 const TEAM = [
-  { name: 'Karel Cornelissen', title: 'CEO & Co-founder', dark: true,  bio: 'As the CEO of NOA Group, Karel leads NOA\'s vision and strategic direction in the renewable energy sector. With a profound commitment to sustainability and innovation, he drives the company\'s mission to revolutionise the energy landscape by deploying wind and solar technologies. With his ...' },
-  { name: 'Iqbal Sirkot',      title: 'Chief Financial Officer',  dark: false, offset: '0%' },
-  { name: 'Lesedi Modise',     title: 'Chief Investment Officer', dark: false, offset: '-206.52%' },
-  { name: 'Erica Hannath',     title: 'Head of People',           dark: false, offset: '-109.75%' },
+  {
+    name:  'Karel Cornelissen',
+    title: 'CEO & Co-founder',
+    dark:  true,
+    bio:   'As the CEO of NOA Group, Karel leads NOA\'s vision and strategic direction in the renewable energy sector. With a profound commitment to sustainability and innovation, he drives the company\'s mission to revolutionise the energy landscape.',
+  },
+  { name: 'Iqbal Sirkot',  title: 'Chief Financial Officer',  dark: false },
+  { name: 'Lesedi Modise', title: 'Chief Investment Officer', dark: false },
+  { name: 'Erica Hannath', title: 'Head of People',           dark: false },
 ];
 
 /* ── Primitives ───────────────────────────────────────────────────────────── */
@@ -80,77 +72,20 @@ function Label({ text, dark = false }: { text: string; dark?: boolean }) {
   );
 }
 
-function Footer() {
-  return (
-    <footer style={{ background: '#fff', padding: '0 24px 24px' }}>
-      <div style={{ background: '#013436', borderRadius: 30, padding: '88px 88px 20px', display: 'flex', flexDirection: 'column', gap: 120 }}>
-        <div style={{ display: 'flex', gap: 24, alignItems: 'stretch' }}>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#fff', lineHeight: 1.67, maxWidth: 423, margin: 0 }}>
-              NOA is a South African renewable energy IPP, aggregator and energy trader delivering flexible clean energy solutions with a licensed trading platform.
-            </p>
-            <Link href="/about" className="anim-fade" style={{ textDecoration: 'none', display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.02em' }}>LEARN MORE ABOUT US</span>
-              <div style={{ height: 2, background: '#fff' }} />
-            </Link>
-          </div>
-          <div className="anim-card-group" style={{ display: 'flex', gap: 80, alignItems: 'flex-start', flexShrink: 0 }}>
-            {[
-              { label: 'Company',   links: ['How it works', 'About', 'Projects', 'Insights', 'Careers'] },
-              { label: 'Solutions', links: ['Overview', 'Investors', 'IPPs', 'Off-takers', 'Partners'] },
-            ].map(col => (
-              <div key={col.label} className="anim-card" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#82dfda', margin: 0 }}>{col.label}</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                  {col.links.map(item => (
-                    <Link key={item} href={`/${item.toLowerCase().replace(/ /g, '-')}`} style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#fff', textDecoration: 'none', whiteSpace: 'nowrap' }}>{item}</Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <div className="anim-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 200 }}>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#82dfda', margin: 0 }}>Contact us</p>
-              {[{ icon: imgMail, label: 'contact@noa.com' }, { icon: imgPhone, label: '(000) 000 - 0000' }, { icon: imgLinkedIn, label: 'LinkedIn' }].map(({ icon, label }) => (
-                <div key={label} style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-                  <div style={{ width: 48, height: 48, borderRadius: 4, background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <img src={icon} alt="" style={{ width: 24, height: 24 }} />
-                  </div>
-                  <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#fff', textDecoration: 'underline', whiteSpace: 'nowrap' }}>{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div className="anim-fade" style={{ width: '100%', aspectRatio: '359/119' }}>
-            <img src={imgLogo} alt="NOA" style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'left' }} />
-          </div>
-          <div style={{ borderTop: '1px solid #737373', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 24, paddingBottom: 24 }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', textDecoration: 'underline', margin: 0 }}>Copyright © 2026 NOA Group</p>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', margin: 0 }}>
-              All Rights Reserved <span style={{ textDecoration: 'underline' }}>|</span> <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>Terms and Conditions</span> <span style={{ textDecoration: 'underline' }}>|</span> <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>Privacy Policy</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 /* ── Page ─────────────────────────────────────────────────────────────────── */
 export default function About() {
-  const [activeDiff, setActiveDiff] = useState(0);
-
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
     gsap.set('.anim-mask-line', { y: '110%' });
     gsap.set('.anim-fade',      { opacity: 0, y: 32 });
     gsap.set('.anim-card',      { opacity: 0, y: 56 });
     gsap.set('.anim-image',     { opacity: 0, scale: 1.06 });
 
+    /* Hero headline */
     gsap.to('.abt-hero-line', { y: '0%', duration: 1.15, ease: 'power4.out', stagger: 0.1, delay: 0.3 });
 
+    /* Masked headings */
     gsap.utils.toArray<Element>('.anim-heading').forEach(heading => {
       gsap.to(heading.querySelectorAll('.anim-mask-line'), {
         y: '0%', duration: 1.05, ease: 'power4.out', stagger: 0.1,
@@ -158,12 +93,14 @@ export default function About() {
       });
     });
 
+    /* Fade-up */
     gsap.utils.toArray<Element>('.anim-fade').forEach(el => {
       gsap.to(el, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 91%', once: true },
       });
     });
 
+    /* Staggered cards */
     gsap.utils.toArray<Element>('.anim-card-group').forEach(group => {
       gsap.to(group.querySelectorAll('.anim-card'), {
         opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.1,
@@ -171,12 +108,14 @@ export default function About() {
       });
     });
 
+    /* Image reveals */
     gsap.utils.toArray<Element>('.anim-image').forEach(el => {
       gsap.to(el, { opacity: 1, scale: 1, duration: 1.3, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 88%', once: true },
       });
     });
 
+    /* Parallax */
     gsap.utils.toArray<Element>('.anim-parallax').forEach(el => {
       gsap.fromTo(el,
         { yPercent: -8 },
@@ -187,30 +126,42 @@ export default function About() {
       );
     });
 
-    return () => { ScrollTrigger.getAll().forEach(t => t.kill()); };
-  }, []);
+    /* Word-by-word headings */
+    const wordInstances: SplitText[] = [];
+    gsap.utils.toArray<Element>('.anim-heading-words').forEach(el => {
+      const split = new SplitText(el, { type: 'words' });
+      wordInstances.push(split);
+      split.words.forEach((word: Element) => {
+        const shell = document.createElement('span');
+        shell.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+        word.parentNode!.insertBefore(shell, word);
+        shell.appendChild(word);
+        (word as HTMLElement).style.display = 'inline-block';
+      });
+      gsap.set(split.words, { y: '110%', opacity: 0 });
+      gsap.to(split.words, {
+        y: '0%', opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.055,
+        scrollTrigger: { trigger: el, start: 'top 87%', once: true },
+      });
+    });
 
-  const handleDiffClick = (i: number) => {
-    if (i === activeDiff) return;
-    const panel = document.getElementById('diff-desc');
-    gsap.to(panel, { opacity: 0, y: 10, duration: 0.18, ease: 'power2.in', onComplete: () => {
-      setActiveDiff(i);
-      gsap.fromTo(panel, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' });
-    }});
-  };
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+      wordInstances.forEach(s => s.revert());
+    };
+  }, []);
 
   return (
     <div style={{ background: 'transparent', overflowX: 'hidden' }}>
 
-      <HeroBg overlay="linear-gradient(170deg, rgba(1,52,54,0.7) 0%, rgba(0,0,0,0.2) 60%)">
+      <HeroBg overlay="linear-gradient(170deg, rgba(1,52,54,0.65) 0%, rgba(0,0,0,0.15) 60%)">
         <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}>
           <source src="/assets/11168-228530158_medium.mp4" type="video/mp4" />
         </video>
       </HeroBg>
 
       {/* ═══ HERO ════════════════════════════════════════════════════════════ */}
-      <section style={{ position: 'relative', minHeight: '100vh', background: 'transparent', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 64px 80px' }}>
-
+      <section style={{ position: 'relative', minHeight: '100vh', background: 'transparent', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 96px 80px' }}>
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 48 }}>
           <div style={{ flex: '1 0 0' }}>
             <div style={{ marginBottom: 20 }}><Label text="ABOUT" dark /></div>
@@ -224,366 +175,290 @@ export default function About() {
               ))}
             </h1>
           </div>
-          <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'flex-end' }}>
-            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 14, color: '#fff', lineHeight: 1.7, maxWidth: 376, textAlign: 'right', margin: 0 }}>
+
+          <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-end', width: 376 }}>
+            <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', lineHeight: 1.6, textAlign: 'right', margin: 0 }}>
               We operate across the full energy value chain, from renewable generation to energy trading, enabling a more flexible and resilient power system for South Africa.
             </p>
-            <div className="anim-fade" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 24, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(54px)', borderRadius: 24, width: 376 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', letterSpacing: '-1px', lineHeight: 1.25 }}>Talk to an expert</span>
-              <div style={{ width: 30, height: 30, transform: 'rotate(-135deg)', flexShrink: 0 }}>
-                <img src={imgArrowDownLeft} alt="" style={{ width: '100%', height: '100%' }} />
+            {/* White "Explore our model" CTA */}
+            <Link href="/how-it-works" className="anim-fade" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', height: 84, borderRadius: 24, background: '#fff', textDecoration: 'none', width: '100%', flexShrink: 0 }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 32, color: '#013436', letterSpacing: '-1px', whiteSpace: 'nowrap' }}>Explore our model</span>
+              <div style={{ width: 30, height: 30, transform: 'rotate(135deg)', flexShrink: 0 }}>
+                <img src={imgArrowUpRight4} alt="" style={{ width: '100%', height: '100%', filter: 'invert(1) brightness(0)' }} />
               </div>
-            </div>
+            </Link>
+            {/* Glass "Talk to an expert" CTA */}
+            <Link href="/contact" className="anim-fade" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', height: 84, borderRadius: 24, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(54px)', WebkitBackdropFilter: 'blur(54px)', textDecoration: 'none', width: '100%', flexShrink: 0 }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontSize: 32, color: '#fff', letterSpacing: '-1px', whiteSpace: 'nowrap' }}>Talk to an expert</span>
+              <div style={{ width: 30, height: 30, transform: 'rotate(135deg)', flexShrink: 0 }}>
+                <img src={imgArrowUpRight03} alt="" style={{ width: '100%', height: '100%' }} />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ═══ WHO IS NOA ══════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', borderRadius: '30px 30px 0 0', marginTop: -30, position: 'relative', zIndex: 2, padding: '80px 96px 64px', display: 'flex', flexDirection: 'column', gap: 48 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <Label text="WHO IS NOA" />
-          <h2 className="anim-heading">
-            <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 40, color: '#000', letterSpacing: '-1px', lineHeight: 1.2, display: 'block' }}>
-                More than an energy company
-              </span>
-            </MaskLine>
-          </h2>
-        </div>
+      <section style={{ background: '#fff', borderRadius: '30px 30px 0 0', marginTop: -30, position: 'relative', zIndex: 2, padding: '96px 96px 80px', display: 'flex', gap: 64, alignItems: 'flex-start' }}>
 
-        {/* Text cards grid */}
-        <div className="anim-card-group" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div style={{ display: 'flex', gap: 16 }}>
-            {WHO_CARDS.slice(0, 2).map((text, i) => (
-              <div key={i} className="anim-card" style={{ flex: '1 0 0', border: '1px solid #e1e4ed', borderRadius: 10, padding: '32px 24px', boxShadow: '0 1px 4px rgba(25,33,61,0.08)' }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#6d758f', lineHeight: 1.5, margin: 0 }}>{text}</p>
-              </div>
-            ))}
+        {/* Left: eyebrow + heading + text */}
+        <div style={{ flex: '1 0 0', display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <Label text="WHO IS NOA" />
+            <h2 className="anim-heading-words" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(40px, 4.5vw, 60px)', color: '#000b0d', letterSpacing: '-2px', lineHeight: 1.05, margin: 0 }}>
+              More than an energy company
+            </h2>
           </div>
-          <div style={{ display: 'flex', gap: 16 }}>
-            {WHO_CARDS.slice(2, 4).map((text, i) => (
-              <div key={i} className="anim-card" style={{ flex: '1 0 0', border: '1px solid #e1e4ed', borderRadius: 10, padding: '32px 24px', boxShadow: '0 1px 4px rgba(25,33,61,0.08)' }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#6d758f', lineHeight: 1.5, margin: 0 }}>{text}</p>
-              </div>
-            ))}
-          </div>
-          <div style={{ display: 'flex' }}>
-            <div className="anim-card" style={{ width: '50%', border: '1px solid #e1e4ed', borderRadius: 10, padding: '32px 24px', boxShadow: '0 1px 4px rgba(25,33,61,0.08)' }}>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 16, color: '#6d758f', lineHeight: 1.5, margin: 0 }}>{WHO_CARDS[4]}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Hero photo */}
-        <div className="anim-image" style={{ width: '100%', height: 424, borderRadius: 30, overflow: 'hidden', position: 'relative' }}>
-          <img src={imgHeroPhoto} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        </div>
-      </section>
-
-      {/* ═══ WHO WE WORK WITH ════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '88px 64px', display: 'flex', flexDirection: 'column', gap: 60 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <Label text="WHO WE WORK WITH" />
-          <div className="anim-heading">
-            <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.05, display: 'block', maxWidth: 1007 }}>
-                Bringing together key stakeholders across the energy ecosystem.
-              </span>
-            </MaskLine>
-          </div>
-        </div>
-
-        <div className="anim-card-group" style={{ display: 'flex', gap: 12 }}>
-          {STAKEHOLDERS.map(s => (
-            <div
-              key={s.num}
-              className="anim-card"
-              style={{
-                flex: '1 0 0', height: 350, borderRadius: 24, padding: 40,
-                background: s.dark ? '#013436' : 'rgba(0,0,0,0.05)',
-                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 24, color: s.dark ? '#fff' : 'rgba(0,0,0,0.5)', lineHeight: 1 }}>{s.num}</span>
-                <div style={{ width: 30, height: 30 }}>
-                  <img src={s.dark ? imgArrowUpRight : imgArrowUpRight2} alt="" style={{ width: '100%', height: '100%' }} />
-                </div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: s.dark ? '#fff' : '#00696e', letterSpacing: '-0.4px', lineHeight: 1, margin: 0 }}>{s.name}</p>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: s.dark ? 300 : 500, fontSize: 16, color: s.dark ? '#fff' : 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{s.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══ VISION / MISSION ════════════════════════════════════════════════ */}
-      <section style={{ background: '#e9f2f2', borderRadius: '30px 30px 0 0', padding: '88px 96px', display: 'flex', gap: 88, alignItems: 'flex-start' }}>
-        <div style={{ paddingTop: 16, flexShrink: 0 }}>
-          <Label text="VISION / MISSION" />
-        </div>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 64 }}>
-          <div className="anim-heading">
-            <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#00696e', letterSpacing: '-4.8px', lineHeight: 1.05, display: 'block' }}>
-                What drives us forward
-              </span>
-            </MaskLine>
-          </div>
-          <div className="anim-card-group" style={{ display: 'flex', gap: 64 }}>
-            {[
-              { icon: imgEarth,  title: 'Vision',  text: 'As a proud South African company, NOA believes in a post-load-shedding future with a vibrant, growing economy fuelled by access to reliable renewable energy.' },
-              { icon: imgAward,  title: 'Mission', text: 'NOA supplies businesses across South Africa with clean, cost-effective renewable energy. We aim to develop, finance and operate a portfolio exceeding 2.5GW of renewable energy assets over time.' },
-            ].map(item => (
-              <div key={item.title} className="anim-card" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}>
-                <img src={item.icon} alt="" style={{ width: 32, height: 32 }} />
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#00696e', letterSpacing: '-0.4px', lineHeight: 1, margin: 0 }}>{item.title}</p>
-                <div style={{ height: 1, background: 'rgba(0,0,0,0.15)' }} />
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ ESG / SUSTAINABILITY ════════════════════════════════════════════ */}
-      <section data-parallax-section style={{ position: 'relative', background: '#013436', overflow: 'hidden', minHeight: 700, display: 'flex', alignItems: 'stretch' }}>
-        {/* Full bg city photo */}
-        <img src={imgCityBg} alt="" className="anim-parallax" style={{ position: 'absolute', inset: 0, width: '100%', height: '116%', top: '-8%', objectFit: 'cover', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(1,52,54,0.55)', pointerEvents: 'none' }} />
-
-        {/* Left text */}
-        <div style={{ position: 'relative', zIndex: 1, flex: 1, padding: '120px 64px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', gap: 24 }}>
-          <Label text="ESG / SUSTAINABILITY SNAPSHOT" dark />
-          <div className="anim-heading">
-            <MaskLine>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', letterSpacing: '-1px', lineHeight: 1.1, display: 'block', maxWidth: 400 }}>
-                Scaling renewable energy in South Africa
-              </span>
-            </MaskLine>
-          </div>
-        </div>
-
-        {/* Right frosted glass card with stat */}
-        <div className="anim-fade" style={{ position: 'relative', zIndex: 1, width: 662, margin: '80px 64px 80px 0', borderRadius: 54, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(54px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px 40px 40px', flexShrink: 0 }}>
-          {/* Top: icon + label */}
-          <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
-            <img src={imgWindIcon} alt="" style={{ width: 60, height: 60, objectFit: 'contain' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#99ddd8', lineHeight: 1 }}>Wind</span>
-              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', lineHeight: 1 }}>Acme Capital</span>
-            </div>
-          </div>
-
-          {/* Big stat */}
-          <div>
-            <p style={{
-              fontFamily: 'Switzer, sans-serif', fontWeight: 200, fontSize: 'clamp(120px,16vw,220px)',
-              color: 'transparent', lineHeight: 0.85, margin: 0, letterSpacing: '-20px',
-              backgroundImage: 'linear-gradient(to bottom, #fff, #99ddd8)',
-              WebkitBackgroundClip: 'text', backgroundClip: 'text',
-            }}>
-              37%
+          <div className="anim-fade" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#737373', lineHeight: 1.65, margin: 0 }}>
+              Established in 2022, NOA is a leading renewable energy independent power producer, aggregator and energy trader, with a trading license from the National Energy Regulator of South Africa.
+            </p>
+            <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#737373', lineHeight: 1.65, margin: 0 }}>
+              NOA&apos;s best-in-class management team has extensive experience in building and scaling large-scale energy businesses. NOA has raised R3.9 billion in equity capital from Old Mutual&apos;s African Infrastructure Investment Managers, enabling NOA Trading to expedite the purchase of electrons from trusted independent power producers and fast-track the construction of its fleet of generation facilities.
+            </p>
+            <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#737373', lineHeight: 1.65, margin: 0 }}>
+              NOA Trading procures energy from NOA-owned wind, solar PV and battery energy storage sites and trusted third-party IPPs to offer market-leading renewable energy solutions — with customised flexibility in size, contract tenor and security requirements.
             </p>
           </div>
+        </div>
 
-          {/* Learn more */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 24, color: '#fff', whiteSpace: 'nowrap' }}>LEARN MORE</span>
-            <div style={{ width: 30, height: 30, transform: 'rotate(180deg)' }}>
-              <img src={imgArrowLearnMore} alt="" style={{ width: '100%', height: '100%' }} />
-            </div>
-          </div>
-
-          {/* Blurred overlay photo */}
-          <div style={{ position: 'absolute', bottom: 0, right: 0, width: '60%', height: '35%', borderRadius: '0 0 54px 0', overflow: 'hidden', opacity: 0.7 }}>
-            <img src={imgEsgOverlay} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
+        {/* Right: decorative circles + hero image */}
+        <div className="anim-image" style={{ flexShrink: 0, width: '46%', position: 'relative', aspectRatio: '1 / 1.05' }}>
+          {/* Decorative ellipses */}
+          <img src={imgEllipse25} alt="" style={{ position: 'absolute', top: '-8%', right: '-5%', width: '55%', pointerEvents: 'none', zIndex: 0 }} />
+          <img src={imgEllipse26} alt="" style={{ position: 'absolute', bottom: '8%', left: '-4%', width: '40%', pointerEvents: 'none', zIndex: 0 }} />
+          <img src={imgEllipse27} alt="" style={{ position: 'absolute', bottom: '-4%', right: '10%', width: '30%', pointerEvents: 'none', zIndex: 0 }} />
+          {/* Main group image */}
+          <img src={imgGroup1} alt="" style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 32, display: 'block' }} />
         </div>
       </section>
 
-      {/* ═══ WHY NOA? ════════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', borderRadius: '30px 30px 0 0', marginTop: -30, position: 'relative', zIndex: 2, padding: '88px 64px 124px', display: 'flex', flexDirection: 'column', gap: 80 }}>
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-          <Label text="WHY NOA?" />
-          <p className="anim-fade" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: 'rgba(0,0,0,0.5)', letterSpacing: '-1px', lineHeight: 1.28, textAlign: 'right', maxWidth: 637, margin: 0 }}>
-            NOA differentiates itself by offering its portfolio of customers cutting-edge solutions.
-          </p>
+      {/* ═══ WHO WE WORK WITH — shared Stakeholders component ══════════════ */}
+      <Stakeholders />
+
+      {/* ═══ VISION / MISSION BENTO ══════════════════════════════════════════ */}
+      <section style={{ background: '#f4f0eb', padding: '88px 96px', display: 'flex', gap: 24, alignItems: 'stretch' }}>
+
+        {/* Left: large image card with overlay text */}
+        <div className="anim-image" style={{ flex: '0 0 52%', borderRadius: 32, overflow: 'hidden', position: 'relative', minHeight: 500 }}>
+          <img src={imgRectangle} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={imgRectangle1} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply', opacity: 0.5 }} />
+          {/* Overlay text */}
+          <div style={{ position: 'absolute', inset: 0, padding: '48px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', background: 'linear-gradient(to top, rgba(1,52,54,0.85) 0%, transparent 60%)' }}>
+            <div style={{ marginBottom: 16 }}>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 13, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase' }}>Vision / Mission</span>
+            </div>
+            <h2 className="anim-heading" style={{ margin: 0 }}>
+              <MaskLine>
+                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(36px, 3.8vw, 52px)', color: '#fff', letterSpacing: '-2px', lineHeight: 1.1, display: 'block' }}>
+                  What drives us forward
+                </span>
+              </MaskLine>
+            </h2>
+          </div>
         </div>
 
-        {/* Differentiator switcher */}
-        <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-between', gap: 64 }}>
-          {/* Left: list */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingBottom: 16, flexShrink: 0, minWidth: 620 }}>
-            {DIFFERENTIATORS.map((d, i) => (
-              <div
-                key={d.label}
-                onClick={() => handleDiffClick(i)}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, cursor: 'pointer' }}
-              >
-                {i === activeDiff && (
-                  <div style={{ width: 30, height: 30, transform: 'rotate(-135deg)', flexShrink: 0 }}>
-                    <img src={imgArrowDownLeft} alt="" style={{ width: '100%', height: '100%' }} />
-                  </div>
-                )}
-                <p style={{
-                  fontFamily: 'Switzer, sans-serif', fontWeight: 400,
-                  fontSize: 'clamp(36px, 3.8vw, 52px)',
-                  color: i === activeDiff ? '#00696e' : 'rgba(125,151,152,0.5)',
-                  letterSpacing: '-1px', lineHeight: 1.25, margin: 0, whiteSpace: 'nowrap',
-                  transition: 'color 0.3s ease',
-                }}>
-                  {d.label}
-                </p>
-              </div>
-            ))}
+        {/* Right: Vision + Mission stacked cards */}
+        <div className="anim-card-group" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+          {/* Vision card */}
+          <div className="anim-card" style={{ flex: 1, background: '#fff', borderRadius: 32, padding: '40px 40px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <img src={imgEarth} alt="" style={{ width: 32, height: 32, flexShrink: 0 }} />
+            <div>
+              <h3 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 28, color: '#000b0d', letterSpacing: '-0.5px', margin: '0 0 16px' }}>Vision</h3>
+              <img src={imgVector25} alt="" style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 16 }} />
+              <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 15, color: '#737373', lineHeight: 1.65, margin: 0 }}>
+                As a proud South African company, NOA believes in a post-load-shedding future with a vibrant, growing economy fuelled by access to reliable renewable energy.
+              </p>
+            </div>
           </div>
 
-          {/* Right: content panel */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 40 }}>
-            {/* CTA pill */}
-            <div className="anim-fade" style={{ position: 'relative', height: 86, borderRadius: 24 }}>
-              <div style={{ position: 'absolute', inset: 0, background: '#e9f2f2', borderRadius: 24 }} />
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px' }}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#00696e', letterSpacing: '-1px' }}>See what&apos;s possible</span>
-                <div style={{ width: 30, height: 30, transform: 'rotate(-135deg)' }}>
-                  <img src={imgArrowSeeWhat} alt="" style={{ width: '100%', height: '100%' }} />
-                </div>
-              </div>
-            </div>
-
-            {/* Abstract image */}
-            <div className="anim-image" style={{ width: '100%', height: 360, borderRadius: '20px 0 0 20px', overflow: 'hidden', position: 'relative' }}>
-              <img src={imgAbstractBg} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-
-            {/* Description */}
-            <div id="diff-desc">
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 20, color: '#5f7374', letterSpacing: '-1px', lineHeight: 1.4, margin: 0 }}>
-                {DIFFERENTIATORS[activeDiff].desc}
+          {/* Mission card */}
+          <div className="anim-card" style={{ flex: 1, background: '#fff', borderRadius: 32, padding: '40px 40px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <img src={imgAward01} alt="" style={{ width: 32, height: 32, flexShrink: 0 }} />
+            <div>
+              <h3 style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 28, color: '#000b0d', letterSpacing: '-0.5px', margin: '0 0 16px' }}>Mission</h3>
+              <img src={imgVector26} alt="" style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 16 }} />
+              <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 15, color: '#737373', lineHeight: 1.65, margin: 0 }}>
+                NOA supplies businesses across South Africa with clean, cost-effective renewable energy. We aim to develop, finance and operate a portfolio exceeding 2.5 GW of renewable energy assets over time.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ TEAM ════════════════════════════════════════════════════════════ */}
-      <section style={{ background: '#e9f2f2', borderRadius: 30, padding: '100px 64px 64px', display: 'flex', flexDirection: 'column', gap: 64, overflow: 'hidden' }}>
-        {/* Heading */}
-        <div className="anim-heading" style={{ textAlign: 'center' }}>
-          <h2 style={{ margin: 0 }}>
-            {['Built by energy experts with', 'decades of experience.'].map((line, i) => (
-              <MaskLine key={i}>
-                <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)', color: 'transparent', letterSpacing: '-4.8px', lineHeight: 0.85, display: 'block', backgroundImage: 'linear-gradient(to top, #00696e, rgba(0,105,110,0.24))', WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>
-                  {line}
-                </span>
-              </MaskLine>
-            ))}
-          </h2>
+      {/* ═══ ESG / SUSTAINABILITY ════════════════════════════════════════════ */}
+      <section data-parallax-section style={{ position: 'relative', background: '#013436', overflow: 'hidden', padding: '96px 96px', display: 'flex', gap: 48, alignItems: 'stretch', minHeight: 560 }}>
+        {/* Parallax bg */}
+        <img src={imgJoshHild} alt="" className="anim-parallax" style={{ position: 'absolute', inset: 0, width: '100%', height: '116%', top: '-8%', objectFit: 'cover', pointerEvents: 'none', opacity: 0.55 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(1,30,32,0.5)', pointerEvents: 'none' }} />
+
+        {/* Left: text */}
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 24 }}>
+          <Label text="ESG / SUSTAINABILITY SNAPSHOT" dark />
+          <div className="anim-heading">
+            <MaskLine>
+              <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(28px, 3.2vw, 44px)', color: '#fff', letterSpacing: '-1px', lineHeight: 1.15, display: 'block', maxWidth: 420 }}>
+                Scaling renewable energy in South Africa
+              </span>
+            </MaskLine>
+          </div>
         </div>
 
-        {/* Team cards */}
-        <div className="anim-card-group" style={{ display: 'flex', gap: 12 }}>
-          {TEAM.map((member) => (
-            <div
-              key={member.name}
-              className="anim-card"
-              style={{
-                flex: '0 0 372px', height: 541, borderRadius: 24, overflow: 'hidden', position: 'relative',
-                background: member.dark ? '#013436' : 'rgba(0,0,0,0.05)',
-                display: 'flex', flexDirection: 'column',
-                justifyContent: member.dark ? 'space-between' : 'flex-end',
-                padding: member.dark ? 40 : 16,
-              }}
-            >
-              {/* Background photo for non-dark cards */}
-              {!member.dark && (
-                <img src={imgTeamPhoto} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-              )}
+        {/* Right: two frosted glass stat cards */}
+        <div className="anim-card-group" style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 16, flexShrink: 0, width: 480 }}>
 
-              {member.dark ? (
-                <>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#82dfda', letterSpacing: '-0.4px', margin: 0 }}>{member.name}</p>
-                    <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 24, color: 'rgba(255,255,248,0.5)', letterSpacing: '-0.4px', lineHeight: 1, margin: 0 }}>{member.title}</p>
-                  </div>
-                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>
-                    {member.bio} <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>Read more</span>
-                  </p>
-                </>
-              ) : (
-                <div style={{ position: 'relative', zIndex: 1, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', borderRadius: 24, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 24, color: '#fff', letterSpacing: '-0.4px', margin: 0 }}>{member.name}</p>
-                  <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#fff', letterSpacing: '-0.4px', lineHeight: 1.5, margin: 0 }}>{member.title}</p>
-                </div>
-              )}
+          {/* Stat 1: 600+ MW */}
+          <div className="anim-card" style={{ flex: 1, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)', borderRadius: 28, padding: '36px 40px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <img src={img3DScale} alt="" style={{ width: 40, height: 40, objectFit: 'contain' }} />
+            <div>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 'clamp(52px, 5.5vw, 72px)', color: '#fff', letterSpacing: '-3px', lineHeight: 0.95, margin: '0 0 8px' }}>600+ MW</p>
+              <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 15, color: 'rgba(255,255,255,0.65)', lineHeight: 1.5, margin: 0 }}>
+                Of NOA-owned renewable energy assets currently under construction
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Team footer */}
-        <div className="anim-fade" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-          <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: 'rgba(0,0,0,0.5)', letterSpacing: '-0.4px', lineHeight: 1.5, maxWidth: 504, margin: 0 }}>
-            Our team brings together industry veterans, and driven professionals and specialists that are united by a shared purpose: to make a meaningful impact by shaping Africa&apos;s energy future.
-          </p>
-          <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-            <div style={{ width: 42, height: 42, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-              <img src={imgArrowDownLeft} alt="" style={{ width: 30, height: 30, transform: 'rotate(-45deg) scaleY(-1)' }} />
-            </div>
-            <div style={{ width: 42, height: 42, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-              <img src={imgArrowDownLeft} alt="" style={{ width: 30, height: 30, transform: 'rotate(-135deg)' }} />
+          {/* Stat 2: 3.9+ Billion */}
+          <div className="anim-card" style={{ flex: 1, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)', borderRadius: 28, padding: '36px 40px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <img src={imgCoins02} alt="" style={{ width: 40, height: 40, objectFit: 'contain' }} />
+            <div>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 'clamp(52px, 5.5vw, 72px)', color: '#fff', letterSpacing: '-3px', lineHeight: 0.95, margin: '0 0 8px' }}>R3.9+ Bn</p>
+              <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 15, color: 'rgba(255,255,255,0.65)', lineHeight: 1.5, margin: 0 }}>
+                Raised in equity capital from African Infrastructure Investment Managers
+              </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ═══ WHY NOA — shared component ══════════════════════════════════════ */}
+      <WhyNoa />
+
+      {/* ═══ MEET THE TEAM ═══════════════════════════════════════════════════ */}
+      <section style={{ background: '#e9f2f2', padding: '96px 96px 80px', display: 'flex', flexDirection: 'column', gap: 56 }}>
+
+        {/* Header row */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 48 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <Label text="MEET THE TEAM" />
+            <h2 className="anim-heading-words" style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(36px, 4vw, 52px)', color: '#000b0d', letterSpacing: '-2px', lineHeight: 1.05, margin: 0, maxWidth: 600 }}>
+              Built by energy experts with decades of experience
+            </h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 32, flexShrink: 0, maxWidth: 380, alignItems: 'flex-end' }}>
+            <p className="anim-fade" style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 16, color: '#4a5f60', lineHeight: 1.65, margin: 0, textAlign: 'right' }}>
+              Our team brings together industry veterans, driven professionals and specialists united by a shared purpose: to make a meaningful impact by shaping Africa&apos;s energy future.
+            </p>
+            {/* Nav arrows */}
+            <div className="anim-fade" style={{ display: 'flex', gap: 12 }}>
+              <button style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(0,0,0,0.08)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src={imgArrowDownLeft} alt="prev" style={{ width: 22, height: 22 }} />
+              </button>
+              <button style={{ width: 52, height: 52, borderRadius: '50%', background: '#013436', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src={imgArrowDownLeft1} alt="next" style={{ width: 22, height: 22 }} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Team cards */}
+        <div className="anim-card-group" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          {TEAM.map((member) => (
+            <div
+              key={member.name}
+              className="anim-card"
+              style={{
+                borderRadius: 24, overflow: 'hidden', position: 'relative',
+                aspectRatio: '3 / 4',
+                background: member.dark ? '#013436' : 'transparent',
+                display: 'flex', flexDirection: 'column',
+                justifyContent: member.dark ? 'space-between' : 'flex-end',
+              }}
+            >
+              {/* Background photo */}
+              {!member.dark && (
+                <img src={imgItem2} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              )}
+              {member.dark && (
+                <img src={imgItem1} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }} />
+              )}
+
+              {member.dark ? (
+                <div style={{ position: 'relative', zIndex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 22, color: '#82dfda', letterSpacing: '-0.5px', margin: 0 }}>{member.name}</p>
+                    <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 15, color: 'rgba(255,255,255,0.55)', letterSpacing: '-0.3px', lineHeight: 1.3, margin: 0 }}>{member.title}</p>
+                  </div>
+                  {member.bio && (
+                    <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 14, color: 'rgba(255,255,255,0.75)', letterSpacing: '-0.2px', lineHeight: 1.6, margin: 0 }}>
+                      {member.bio} <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>Read more</span>
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div style={{ position: 'relative', zIndex: 1, margin: 16 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderRadius: 16, padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 20, color: '#fff', letterSpacing: '-0.3px', margin: 0 }}>{member.name}</p>
+                    <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 14, color: 'rgba(255,255,255,0.7)', letterSpacing: '-0.2px', lineHeight: 1.4, margin: 0 }}>{member.title}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ═══ TEAM CONTACT ════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '64px 96px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="anim-fade" style={{ width: '100%', border: '1px solid #e1e4ed', borderRadius: 10, padding: '48px 24px', display: 'flex', justifyContent: 'space-between', boxShadow: '0 1px 4px rgba(25,33,61,0.08)' }}>
+      <section style={{ background: '#fff', padding: '80px 96px' }}>
+        <div className="anim-card-group" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 24, overflow: 'hidden' }}>
+
           {[
-            { heading: 'Team contact',   sub: 'Your go-to for all team-related inquiries.', cta: 'Derik Coetzer, Head of Growth' },
-            { heading: 'Email',          sub: 'Lorem ipsum',                                 cta: 'derik@noagroup.africa' },
-            { heading: 'Phone',          sub: 'Mon-Fri from\n8am to 5pm.',                   cta: '021 010 0480' },
+            { icon: imgUserSharing, heading: 'Team contact',  sub: 'Your go-to for all team-related inquiries.', cta: 'Derik Coetzer, Head of Growth' },
+            { icon: imgMail01,      heading: 'Email',          sub: 'Drop us a line any time.',                   cta: 'derik@noagroup.africa' },
+            { icon: imgTelephone1,  heading: 'Phone',          sub: 'Mon–Fri from 8am to 5pm.',                   cta: '021 010 0480' },
           ].map((col, i, arr) => (
             <div
               key={col.heading}
+              className="anim-card"
               style={{
-                flex: 1, display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'center', textAlign: 'center',
-                borderRight: i < arr.length - 1 ? '1px solid #e1e4ed' : 'none',
-                padding: '0 24px',
+                padding: '48px 40px',
+                display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start',
+                borderRight: i < arr.length - 1 ? '1px solid rgba(0,0,0,0.1)' : 'none',
               }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 24, color: '#6d758f', lineHeight: 1.5, margin: 0 }}>{col.heading}</p>
-                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 300, fontSize: 20, color: '#6d758f', lineHeight: 1.5, margin: 0, whiteSpace: 'pre-line' }}>{col.sub}</p>
+              <div style={{ width: 48, height: 48, borderRadius: 12, background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <img src={col.icon} alt="" style={{ width: 24, height: 24 }} />
               </div>
-              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 20, color: '#6d758f', margin: 0 }}>{col.cta}</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 18, color: '#000b0d', letterSpacing: '-0.3px', margin: 0 }}>{col.heading}</p>
+                <p style={{ fontFamily: 'Inter, Switzer, sans-serif', fontWeight: 300, fontSize: 15, color: '#868686', lineHeight: 1.55, margin: 0 }}>{col.sub}</p>
+              </div>
+              <p style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 16, color: '#013436', margin: 0 }}>{col.cta}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ═══ CAREERS CTA ═════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '0 32px 32px' }}>
-        <div className="anim-fade" style={{ position: 'relative', height: 463, borderRadius: 30, overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: 64 }}>
-          <img src={imgCareers} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 30 }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(1,52,54,0.45)', borderRadius: 30 }} />
-          <p style={{ position: 'relative', zIndex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(56px, 6.5vw, 96px)', color: '#82dfda', letterSpacing: '-4.8px', lineHeight: 0.96, maxWidth: 764, margin: 0 }}>
+      <section style={{ background: '#fff', padding: '0 0 0' }}>
+        <div className="anim-fade" style={{ position: 'relative', minHeight: 480, borderRadius: '40px 40px 0 0', overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '72px 96px' }}>
+          <img src={imgContact} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(1,52,54,0.75) 0%, rgba(0,0,0,0.3) 100%)' }} />
+          {/* Heading */}
+          <p style={{ position: 'relative', zIndex: 1, fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 'clamp(44px, 5vw, 72px)', color: '#fff', letterSpacing: '-3px', lineHeight: 1.05, maxWidth: 680, margin: 0 }}>
             Want to join our team? Have a look at our open roles.
           </p>
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 24, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', borderRadius: 24, width: 376, flexShrink: 0 }}>
-            <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 400, fontSize: 32, color: '#fff', letterSpacing: '-1px', lineHeight: 1.25 }}>See what&apos;s possible</span>
-            <div style={{ width: 30, height: 30, transform: 'rotate(180deg)' }}>
-              <img src={imgArrowCareers} alt="" style={{ width: '100%', height: '100%' }} />
-            </div>
-          </div>
+          {/* Gold CTA button */}
+          <Link href="/careers" style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 16, padding: '20px 32px', borderRadius: 20, background: '#beaa3d', textDecoration: 'none', flexShrink: 0 }}>
+            <span style={{ fontFamily: 'Switzer, sans-serif', fontWeight: 500, fontSize: 20, color: '#fff', letterSpacing: '-0.3px', whiteSpace: 'nowrap' }}>See what&apos;s possible</span>
+            <img src={imgPath513} alt="" style={{ width: 20, height: 20 }} />
+          </Link>
         </div>
       </section>
 
-      {/* ═══ FOOTER ══════════════════════════════════════════════════════════ */}
+      {/* ═══ FOOTER REVEAL SPACER + FOOTER ══════════════════════════════════ */}
+      <div style={{ height: 821 }} />
       <Footer />
     </div>
   );

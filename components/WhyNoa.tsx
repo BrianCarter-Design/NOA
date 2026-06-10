@@ -11,21 +11,21 @@ const imgCodesandbox = 'https://www.figma.com/api/mcp/asset/d1e3028f-94d4-4db8-b
 const imgSpeedometer = 'https://www.figma.com/api/mcp/asset/55de787f-8c3f-4bad-9982-b16bc9d4ace8';
 const imgChartPie    = 'https://www.figma.com/api/mcp/asset/3c8ad642-f19c-4f21-95d6-783414587d65';
 
-const imgRow1 = 'https://www.figma.com/api/mcp/asset/5a591f10-f370-4f7a-81f3-e391e290773b';
-const imgRow2 = 'https://www.figma.com/api/mcp/asset/2a68dff4-5490-4fb8-949b-4a9de44b8dae';
-const imgRow3 = 'https://www.figma.com/api/mcp/asset/0c763b4b-6e89-4708-9a8a-a72593763e84';
-const imgRow4 = 'https://www.figma.com/api/mcp/asset/ced74584-16b1-432e-bf2a-5f6f68f7c6b0';
-const imgRow5 = 'https://www.figma.com/api/mcp/asset/e1f96bab-18af-4008-95a5-70995bb76719';
+const imgRow1 = '/assets/item.png';
+const imgRow2 = '/assets/item-1.png';
+const imgRow3 = '/assets/item-2.png';
+const imgRow4 = '/assets/item-3.png';
+const imgRow5 = '/assets/item-4.png';
 
 /* ── Data ────────────────────────────────────────────────────────────────── */
 type Row = { icon: string; label: string; desc: string; img: string; imgWidth: number; imgGap: number };
 
 const ROWS: Row[] = [
-  { icon: imgArrowsMerge, imgWidth: 466, imgGap: 58, label: 'Aggregator model',      desc: 'NOA aggregates renewable energy from wind, solar PV and battery energy generation facilities situated in optimal locations across South Africa to provide significantly higher and consistent volumes of renewable energy.',                                                                                                                                img: imgRow1 },
-  { icon: imgGearSix,     imgWidth: 466, imgGap: 58, label: 'Customisation',          desc: "By investing time to understand each customer's unique energy needs and objectives, NOA can develop customised solutions. Our data-focused approach enables us to model future demand around various scenarios. NOA then customises energy solutions that maximise energy availability and cost savings.",                                                   img: imgRow2 },
-  { icon: imgCodesandbox, imgWidth: 466, imgGap: 58, label: 'Flexible solutions',     desc: 'With many independent power producers (IPPs) requiring a long-term commitment of up to 25 years in their PPAs, NOA can offer 1 to 25+ year power purchase contracts with the added benefit of flexibility to scale supply up or down based on energy needs.',                                                                                           img: imgRow3 },
-  { icon: imgSpeedometer, imgWidth: 466, imgGap: 58, label: 'Speed of supply',        desc: 'NOA is well capitalised through equity investments by the Old Mutual Group via the AIIF 4 Fund and the Ideas Managed Fund, both managed by AIIM. With its R3.9 billion investment from AIIM, NOA has the equity capital to ramp up its energy supply quickly.',                                                                                           img: imgRow4 },
-  { icon: imgChartPie,    imgWidth: 466, imgGap: 58, label: 'Balance sheet friendly', desc: 'Our flexible security requirements allow customers to save money by not needing to invest in onsite energy projects or installations.',                                                                                                                                                                                                                   img: imgRow5 },
+  { icon: imgArrowsMerge, imgWidth: 466, imgGap: 58, label: 'Aggregated for reliability', desc: 'No single generation source produces energy around the clock. Wind peaks at night and in winter. Solar peaks during the day. Battery energy storage fills the gaps. By combining multiple technologies across multiple locations, NOA delivers a more consistent supply profile than any single asset can - reducing your exposure to the variability of any one source or technology.', img: imgRow1 },
+  { icon: imgGearSix,     imgWidth: 466, imgGap: 58, label: 'Built for your business',    desc: "We invest time upfront to understand each customer's energy profile, ESG commitments, and current and future operational needs. The result is an energy supply solution designed specifically for your business, not a generic off-the-shelf power purchase agreement. We understand the operational realities you face, and the urgency of the transition.",                            img: imgRow2 },
+  { icon: imgCodesandbox, imgWidth: 466, imgGap: 58, label: 'Flexibility by design',      desc: 'From 1 to 25+ year contracts, with the ability to scale supply. NOA offers genuine flexibility in tenor, volume and security requirements.',                                                                                                                                                                                                                                         img: imgRow3 },
+  { icon: imgSpeedometer, imgWidth: 466, imgGap: 58, label: 'Capitalised to deliver',     desc: 'Backed by $245 million in total equity capital from Africa Infrastructure Investment Managers (AIIM), a subsidiary of Old Mutual, and supported by Standard Bank as primary debt partner, NOA has the financial strength to acquire, build and deliver on time.',                                                                                                                       img: imgRow4 },
+  { icon: imgChartPie,    imgWidth: 466, imgGap: 58, label: "You're in good company",     desc: "NOA's customer solutions span sectors such as mining, manufacturing, data centres, commercial real estate, healthcare and agriculture. This diversity allows us to balance supply and demand more effectively - different sectors have different usage profiles, which means the portfolio performs more consistently for everyone.",                                                      img: imgRow5 },
 ];
 
 /* ── Layout constants ────────────────────────────────────────────────────── */
@@ -131,7 +131,7 @@ export default function WhyNoa() {
               color: '#000b0d', letterSpacing: '-0.96px', lineHeight: '60px',
               margin: 0,
             }}>
-              Cutting-edge solutions
+              Here&apos;s where we&apos;re different
             </h2>
             <button type="button" className="anim-fade" style={{
               background: '#f5f5f5', border: 'none', borderRadius: 16,

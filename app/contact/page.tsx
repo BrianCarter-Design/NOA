@@ -208,7 +208,7 @@ export default function Contact() {
         </section>
 
       {/* ── Footer spacer + footer ─────────────────────────────────────────── */}
-      <div style={{ height: 582 }} />
+      <div style={{ height: 821 }} />
       <Footer />
     </div>
   );

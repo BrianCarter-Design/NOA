@@ -8,7 +8,7 @@ import { SplitText } from 'gsap/SplitText';
 
 /* ── Assets ──────────────────────────────────────────────────────────────── */
 // Background: sunset highway with light streaks (Figma node 486-5016)
-const imgBg = 'https://www.figma.com/api/mcp/asset/127bf6bf-96ec-4834-9977-d1cc8bbc54bc';
+const imgBg = '/assets/REW2.jpg';
 
 /* ── Data ────────────────────────────────────────────────────────────────── */
 const STEPS = [
