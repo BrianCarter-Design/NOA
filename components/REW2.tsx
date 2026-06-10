@@ -19,7 +19,7 @@ const STEPS = [
 
 /* ── Layout constants (from Figma 486-5126) ─────────────────────────────── */
 const CARD_GAP    = 215;
-const CARD_WIDTHS = [362, 416, 401];
+const CARD_WIDTHS = [362, 416, 520];
 // X offset of each card's left edge, relative to card 1's start (also where
 // each dot is positioned on the progress line above).
 const CARD_STARTS = [
@@ -235,7 +235,7 @@ export default function REW2() {
               and a dots-track that translates with the cards. Each dot sits
               directly above its corresponding card's content; as a dot enters
               the static circle it turns teal. */}
-          <div className="rew2-fade" style={{ position: 'relative', width: '100%', height: 64, padding: '20px 0', boxSizing: 'border-box' }}>
+          <div className="rew2-fade" style={{ position: 'relative', width: '100%', height: 64, padding: '20px 0', boxSizing: 'border-box', marginTop: 20 }}>
             {/* Solid horizontal line — extends left of the static circle and
                 far enough right to cover all dot positions (clipped by the
                 section's overflow:hidden at the rounded corners). */}
@@ -383,7 +383,8 @@ export default function REW2() {
                 <p
                   style={{
                     ...it, fontWeight: 300, fontSize: 16, lineHeight: '24px',
-                    color: '#fff', margin: 0, maxWidth: 460,
+                    color: '#fff', margin: 0,
+                    maxWidth: i === 2 ? 560 : 460,
                   }}
                 >
                   {step.desc}
