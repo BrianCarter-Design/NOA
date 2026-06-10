@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 /* ── Assets ──────────────────────────────────────────────────────────────── */
-const imgChevronDown  = 'https://www.figma.com/api/mcp/asset/2e41c385-e05e-4da9-acbe-4b9f87e26d57';
-const imgChevronRight = 'https://www.figma.com/api/mcp/asset/f2f25c36-f81b-4696-a4d5-2a2f39af9921';
+const imgChevronDown  = '/assets/down_arrow.svg';
+const imgChevronRight = '/assets/down_arrow.svg';
 
 /* ── Styles ─────────────────────────────────────────────────────────────── */
 const sw: React.CSSProperties = { fontFamily: 'Switzer, sans-serif' };
@@ -39,7 +39,7 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
                 <img
                   src={openIdx === i ? imgChevronDown : imgChevronRight}
                   alt=""
-                  style={{ width: 32, height: 22, flexShrink: 0, transition: 'transform 0.3s', transform: openIdx === i ? 'none' : 'rotate(180deg)' }}
+                  style={{ width: 14, height: 14, flexShrink: 0, transition: 'transform 0.3s', transform: openIdx === i ? 'none' : 'rotate(180deg)', filter: 'brightness(0) saturate(100%) invert(40%)' }}
                 />
               </button>
               <div style={{ overflow: 'hidden', maxHeight: openIdx === i ? 200 : 0, transition: 'max-height 0.45s cubic-bezier(0.4,0,0.2,1)' }}>

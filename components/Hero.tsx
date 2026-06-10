@@ -71,24 +71,17 @@ export default function Hero() {
             ref={subRef}
             style={{ ...it, fontWeight: 400, fontSize: 20, lineHeight: '30px', color: '#fff', margin: 0, maxWidth: 474, opacity: 0 }}
           >
-            Reduce energy costs and reliance on unreliable power with scalable renewable energy solutions.
+            Renewable | Reliable | Scalable
           </p>
         </div>
 
-        <div ref={ctasRef} style={{ display: 'flex', gap: 24, alignItems: 'center', opacity: 0 }}>
-          <Link href="/contact" style={{
+        <div ref={ctasRef} style={{ display: 'flex', opacity: 0 }}>
+          <Link href="/solutions" style={{
             display: 'inline-flex', alignItems: 'center', height: 60, padding: '0 25px',
             background: '#fff', backdropFilter: 'blur(21.5px)', WebkitBackdropFilter: 'blur(21.5px)',
             borderRadius: 16, textDecoration: 'none', flexShrink: 0,
           }}>
-            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#000b0d', whiteSpace: 'nowrap' }}>Talk to an expert</span>
-          </Link>
-          <Link href="/solutions" style={{
-            display: 'inline-flex', alignItems: 'center', height: 60, padding: '0 34px 0 25px',
-            background: 'rgba(0,0,0,0.17)', backdropFilter: 'blur(21.5px)', WebkitBackdropFilter: 'blur(21.5px)',
-            borderRadius: 16, textDecoration: 'none', flexShrink: 0,
-          }}>
-            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#fff', whiteSpace: 'nowrap' }}>Explore solutions</span>
+            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#000b0d', whiteSpace: 'nowrap' }}>See what&apos;s possible</span>
           </Link>
         </div>
 

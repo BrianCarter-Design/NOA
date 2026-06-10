@@ -185,14 +185,6 @@ export default function REW2() {
           pointerEvents: 'none',
         }}
       />
-      {/* Subtle vertical wash so the white text holds */}
-      <div
-        style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.35) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
 
       {/* ── Static layer ───────────────────────────────────────────────── */}
       <div

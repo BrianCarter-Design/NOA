@@ -21,14 +21,14 @@ const imgArrowUpRight2 = 'https://www.figma.com/api/mcp/asset/7ff455a6-dd82-4e9e
 const imgESGBg         = 'https://www.figma.com/api/mcp/asset/a49dd77c-ec56-4db0-9520-47bab68778da'; // solar panel bg
 const imgESGRing       = 'https://www.figma.com/api/mcp/asset/2eb7f0d3-7f8a-430f-aa7d-5c0f06ef428a'; // thin arc ring
 // Projects
-const imgProjCard1  = 'https://www.figma.com/api/mcp/asset/419793e3-ecca-412e-904a-7b931831ef3f'; // from Figma 474-1558
-const imgProjCard2  = '/assets/p1.jpg';
-const imgProjArrow  = 'https://www.figma.com/api/mcp/asset/9cc21ad1-c352-4644-9371-8f8b5d1d1e21'; // diagonal arrow
+const imgProjCard1  = '/assets/windy.jpg';
+const imgProjCard2  = '/assets/sunny.jpg';
+const imgProjArrow  = '/assets/arrow-up-right-03.svg';
 // Insights — local assets (no expiry)
 const imgArticle1      = '/assets/insight1.jpg'; // man on phone
 const imgArticle2      = '/assets/insight2.jpg'; // two women
 const imgArticle3      = '/assets/insight3.jpg'; // woman, curly hair
-const imgArrowDown01   = 'https://www.figma.com/api/mcp/asset/c6efd98d-5546-4def-b88d-aab746b33ae4'; // Figma node 462-5036
+const imgArrowDown01   = '/assets/down_arrow.svg';
 // Form ring/loader logo at top of the contact CTA
 const imgFormLogo      = 'https://www.figma.com/api/mcp/asset/f087ad06-7f0a-49f7-af75-513b4ffd62bb';
 
@@ -44,13 +44,13 @@ const PROJECTS = [
   {
     img:   imgProjCard2,
     title: 'Khauta solar energy facility',
-    desc:  'Our Khauta solar energy facility is under construction near Welkom. Find project information here',
+    desc:  'In the Free State, our 507 MW Khauta solar cluster, is set to become one of South Africa\'s largest standalone solar PV projects, will produce over 1,073 GWh of clean electricity each year, while creating jobs and supporting economic growth in and around Welkom. Khauta has cleared outstanding tuition debt for more than 25 Goldfields TVET learners and are undertaking on-site skills development learnerships in partnership with our construction contractor.',
     stats: [['Location', 'Welkom'], ['Status', 'In progress'], ['Capacity (MW)', '504MW'], ['Date', 'Feb, May, 2026']] as [string, string][],
   },
   {
     img:   imgProjCard1,
     title: 'Wind Garden energy facility',
-    desc:  'A landmark wind energy facility in the heart of the Eastern Cape.',
+    desc:  'Take the Wind Garden facility, 18 km north-west of Makhanda in the Eastern Cape. During construction, it created over 300 jobs — many of them filled by local workers. It also helped clear outstanding tuition debt for more than 10 Rhodes University students and is opening doors for local entrepreneurs to reach bigger markets.',
     stats: [['Location', 'Makhanda, EC'], ['Status', 'Completed'], ['Capacity', '86 MW'], ['Date', 'Feb 2026']] as [string, string][],
   },
 ];
@@ -125,7 +125,7 @@ function StatNumber({ value }: { value: string }) {
 }
 
 /* ── Glow card ───────────────────────────────────────────────────────────── */
-function GlowCard({ children, className }: { children: React.ReactNode; className?: string }) {
+function GlowCard({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -173,6 +173,7 @@ function GlowCard({ children, className }: { children: React.ReactNode; classNam
         background: '#D4D4D4',
         width: 296,
         height: 282,
+        ...style,
         flexShrink: 0,
         boxSizing: 'border-box',
       }}
@@ -260,7 +261,8 @@ export default function Home() {
       const tl = gsap.timeline({
         scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 40%', scrub: 1 },
       });
-      tl.to(split.words, { color: '#262626', stagger: 0.1, ease: 'none' });
+      tl.to(split.words, { color: '#00c0b5', stagger: 0.04, duration: 0.01, ease: 'none' })
+        .to(split.words, { color: '#262626', stagger: 0.1,  duration: 1,    ease: 'none' });
     });
 
     /* ── Hero kill — unmount once stats section fully covers it ── */
@@ -384,9 +386,9 @@ export default function Home() {
               {/* 01 — dark teal */}
               <div
                 className="anim-card"
-                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#00c0b5'; }}
                 onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
-                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#737373'; }}
                 style={{ flex: '1 0 0', background: '#00676d', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
               >
                 <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#00c0b5', lineHeight: '34px', margin: 0 }}>01</p>
@@ -401,9 +403,9 @@ export default function Home() {
               {/* 02 — white */}
               <div
                 className="anim-card"
-                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#00c0b5'; }}
                 onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
-                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#737373'; }}
                 style={{ flex: '1 0 0', background: '#fff', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
               >
                 <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#737373', lineHeight: '34px', margin: 0 }}>02</p>
@@ -415,9 +417,9 @@ export default function Home() {
               {/* 03 — white */}
               <div
                 className="anim-card"
-                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#00c0b5'; }}
                 onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
-                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#737373'; }}
                 style={{ flex: '1 0 0', background: '#fff', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
               >
                 <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#737373', lineHeight: '34px', margin: 0 }}>03</p>
@@ -429,9 +431,9 @@ export default function Home() {
               {/* 04 — white */}
               <div
                 className="anim-card"
-                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; }}
+                onMouseEnter={e => { e.currentTarget.style.transition = 'transform 0.12s linear, box-shadow 0.35s ease'; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#00c0b5'; }}
                 onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; e.currentTarget.style.transform = `translateY(-6px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`; }}
-                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; }}
+                onMouseLeave={e => { e.currentTarget.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease'; e.currentTarget.style.transform = ''; (e.currentTarget.firstElementChild as HTMLElement).style.color = '#737373'; }}
                 style={{ flex: '1 0 0', background: '#fff', borderRadius: 24, padding: 32, height: 350, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', transformStyle: 'preserve-3d', willChange: 'transform' }}
               >
                 <p style={{ ...sw, fontWeight: 400, fontSize: 24, color: '#737373', lineHeight: '34px', margin: 0 }}>04</p>
@@ -444,14 +446,14 @@ export default function Home() {
           </div>
 
           {/* Intro paragraph */}
-          <p className="anim-text-reveal" style={{ ...sw, fontWeight: 500, fontSize: 32, color: '#d4d4d4', lineHeight: '42px', textAlign: 'center', maxWidth: 1100, margin: 0 }}>
+          <p className="anim-text-reveal" style={{ ...sw, fontWeight: 400, fontSize: 32, color: '#d4d4d4', lineHeight: '42px', textAlign: 'center', maxWidth: 1100, margin: 0, marginTop: 80 }}>
             NOA generates clean electricity, aggregates it from a national portfolio of wind, solar and battery energy storage assets, and delivers it to commercial and industrial customers through customised energy supply agreements. We are a fully integrated renewable energy independent power producer, aggregator and NERSA-licensed energy trader.
           </p>
 
           {/* Stat cards */}
           <div className="anim-card-group" style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
-            {STATS.map(s => (
-              <GlowCard key={s.label} className="anim-card">
+            {STATS.map((s, i) => (
+              <GlowCard key={s.label} className="anim-card" style={i === 1 ? { width: 380 } : undefined}>
                 <p style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', lineHeight: '24px', textAlign: 'center', margin: 0, whiteSpace: 'nowrap' }}>{s.label}</p>
                 <StatNumber value={s.display} />
                 <p style={{ ...it, fontWeight: 400, fontSize: 16, color: '#525252', lineHeight: '24px', margin: 0, textAlign: 'center' }}>{s.desc}</p>
@@ -478,7 +480,7 @@ export default function Home() {
         overflow: 'clip',
         display: 'flex', alignItems: 'flex-end',
         justifyContent: 'space-between',
-        padding: '64px 64px 105px',
+        padding: '64px 64px 185px',
         boxSizing: 'border-box',
       }}>
         {/* Background photo */}
@@ -577,15 +579,6 @@ export default function Home() {
                   {proj.desc}
                 </p>
 
-                {/* 2×2 stats grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 32px' }}>
-                  {proj.stats.map(([k, v]) => (
-                    <div key={k}>
-                      <p style={{ ...it, fontWeight: 400, fontSize: 12, color: 'rgba(255,255,255,0.5)', margin: 0, letterSpacing: '0.06em', textTransform: 'uppercase' }}>{k}</p>
-                      <p style={{ ...it, fontWeight: 500, fontSize: 16, color: '#fff', margin: '6px 0 0' }}>{v}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           ))}
@@ -598,79 +591,53 @@ export default function Home() {
             background: '#fff', borderRadius: 16, textDecoration: 'none',
           }}>
             <span style={{ ...it, fontWeight: 500, fontSize: 18, color: '#000b0d', whiteSpace: 'nowrap' }}>See all projects</span>
-            <img src={imgArrowUpRight} alt="" style={{ width: 18, height: 18 }} />
           </Link>
         </div>
 
       </section>
 
       {/* ══ INSIGHTS ══════════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '96px 96px', display: 'flex', flexDirection: 'column', gap: 48 }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 48 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <p className="anim-fade" style={{ ...it, fontWeight: 400, fontSize: 16, color: '#737373', margin: 0 }}>Insights</p>
-            <h2 className="anim-heading-words" style={{ ...sw, fontWeight: 400, fontSize: 52, color: '#000b0d', letterSpacing: '-1.6px', lineHeight: '60px', margin: 0 }}>
-              Thinking beyond the grid
-            </h2>
-          </div>
-          <div className="anim-fade">
-            <Link href="/insights" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 10, height: 52, padding: '0 22px',
-              background: '#f4f0eb', borderRadius: 14, textDecoration: 'none',
-            }}>
-              <span style={{ ...it, fontWeight: 500, fontSize: 16, color: '#000b0d', letterSpacing: '-0.3px', whiteSpace: 'nowrap' }}>View all insights</span>
-              <img src={imgArrowUpRight} alt="" style={{ width: 18, height: 18 }} />
-            </Link>
-          </div>
+      <section style={{ background: '#fff', padding: '44px 64px 80px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 58 }}>
+
+        {/* Centred header */}
+        <div className="anim-fade" style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'center', textAlign: 'center', maxWidth: 746 }}>
+          <p style={{ ...it, fontWeight: 400, fontSize: 20, color: '#737373', lineHeight: '30px', margin: 0 }}>News and insights</p>
+          <h2 style={{ ...sw, fontWeight: 400, fontSize: 48, color: '#000b0d', letterSpacing: '-0.96px', lineHeight: '60px', margin: 0 }}>
+            Catch up on all things NOA
+          </h2>
+          <p style={{ ...it, fontWeight: 400, fontSize: 18, color: '#737373', lineHeight: '24px', margin: 0 }}>
+            NOA is not just participating in South Africa&apos;s energy transition — we are helping to build it. Read the latest news, deals and thinking from the team at the front of the market.
+          </p>
         </div>
 
-        {/*
-          Figma 481-1906: no card background — open layout.
-          Portrait image (aspect 431.75 / 539.69) with borderRadius 24.
-          Text below: date 14px #000b0d · title 20px Inter #404040 · gap 7px.
-          Grid gap 10px.
-        */}
-        <div className="anim-card-group" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+        {/* 3-column card grid */}
+        <div className="anim-card-group" style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 1190 }}>
           {[
-            { href: '/insights/1', date: '10.31.25', title: 'Community connect: The people powered by Wind Garden',  img: imgArticle1 },
-            { href: '/insights/2', date: '10.31.25', title: 'NERSA grants trading license to NOA Trading',            img: imgArticle2 },
-            { href: '/insights/3', date: '10.31.25', title: "Reasons to be optimistic about SA's energy future",     img: imgArticle3 },
+            { href: '/insights/1', date: '10.31.25', title: 'Community connect: The people powered by Wind Garden', img: imgArticle1 },
+            { href: '/insights/2', date: '10.31.25', title: 'NERSA grants trading license to NOA Trading',           img: imgArticle2 },
+            { href: '/insights/3', date: '10.31.25', title: "Reasons to be optimistic about SA's energy future",    img: imgArticle3 },
           ].map((a, i) => (
-            <Link
-              key={i}
-              href={a.href}
-              className="anim-card"
-              style={{ display: 'flex', flexDirection: 'column', gap: 16, textDecoration: 'none' }}
-            >
-              {/* Portrait image — fixed 540px height matches Figma (539.69px).
-                  No percentage tricks; the container establishes its own block-axis size. */}
-              <div style={{
-                position: 'relative',
-                width: '100%',
-                height: 540,
-                borderRadius: 24,
-                overflow: 'hidden',
-                flexShrink: 0,
-              }}>
-                <img
-                  src={a.img}
-                  alt={a.title}
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                />
+            <Link key={i} href={a.href} className="anim-card" style={{ flex: '1 0 0', display: 'flex', flexDirection: 'column', gap: 16, textDecoration: 'none' }}>
+              <div style={{ position: 'relative', width: '100%', height: 540, borderRadius: 24, overflow: 'hidden', flexShrink: 0 }}>
+                <img src={a.img} alt={a.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-
-              {/* Text below image — no card background */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 7, maxWidth: 400 }}>
-                <span style={{ ...it, fontWeight: 400, fontSize: 14, color: '#000b0d', lineHeight: '20px' }}>
-                  {a.date}
-                </span>
-                <p style={{ ...it, fontWeight: 400, fontSize: 20, color: '#404040', lineHeight: '24px', margin: 0 }}>
-                  {a.title}
-                </p>
+                <span style={{ ...it, fontWeight: 400, fontSize: 14, color: '#000b0d', lineHeight: '20px' }}>{a.date}</span>
+                <p style={{ ...it, fontWeight: 400, fontSize: 20, color: '#404040', lineHeight: '24px', margin: 0 }}>{a.title}</p>
               </div>
             </Link>
           ))}
         </div>
+
+        {/* Centred CTA */}
+        <Link href="/insights" className="anim-fade" style={{
+          display: 'inline-flex', alignItems: 'center', height: 60, padding: '0 24px',
+          background: '#f4f0eb', borderRadius: 16, textDecoration: 'none',
+          backdropFilter: 'blur(54px)', WebkitBackdropFilter: 'blur(54px)',
+        }}>
+          <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#000b0d', whiteSpace: 'nowrap' }}>View all news and insights</span>
+        </Link>
+
       </section>
 
       {/* ══ FAQ ════════════════════════════════════════════════════════════════ */}
@@ -692,16 +659,13 @@ export default function Home() {
       }}>
         <div style={{ width: '100%', maxWidth: 1010, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 34 }}>
 
-          {/* Ring/loader logo */}
-          <img className="anim-fade" src={imgFormLogo} alt="" style={{ width: 70, height: 70 }} />
-
           {/* Heading */}
           <h2 className="anim-heading-words" style={{
             ...sw, fontWeight: 400, fontSize: 48, color: '#fff',
             letterSpacing: '-0.96px', lineHeight: '60px',
-            textAlign: 'center', margin: 0, width: '100%',
+            textAlign: 'center', margin: 0, maxWidth: 772,
           }}>
-            Take the next step toward reliable energy
+            Start a conversation today,<br />shape your energy future tomorrow.
           </h2>
 
           {/* Form — two 500px columns, 10px gap */}
@@ -739,7 +703,7 @@ export default function Home() {
                   <option value="general">General Enquiry</option>
                 </select>
                 <img src={imgArrowDown01} alt=""
-                  style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', width: 24, height: 24, pointerEvents: 'none' }} />
+                  style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', width: 14, height: 14, pointerEvents: 'none' }} />
               </div>
               {/* Email */}
               <input placeholder="Email address *" type="email" value={form.email}
@@ -769,12 +733,13 @@ export default function Home() {
             </div>
 
             {/* Right column — Message + Button */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10, justifyContent: 'center', alignSelf: 'stretch' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10, alignSelf: 'stretch' }}>
               <textarea placeholder="Message" value={form.message}
                 onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                 style={{
                   ...formInput,
-                  height: 316, minHeight: 316,
+                  flex: 1,
+                  height: 'auto', minHeight: 0,
                   paddingTop: 18, paddingBottom: 18,
                   resize: 'none', fontFamily: 'Inter, sans-serif',
                 }} />

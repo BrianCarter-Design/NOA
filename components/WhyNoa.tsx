@@ -5,11 +5,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /* ── Assets ──────────────────────────────────────────────────────────────── */
-const imgArrowsMerge = '/assets/icons/arrows-merge.svg';
-const imgGearSix     = 'https://www.figma.com/api/mcp/asset/30989e82-94a5-4adc-91e1-765fb020c0a9';
-const imgCodesandbox = 'https://www.figma.com/api/mcp/asset/d1e3028f-94d4-4db8-b32b-53c2ed078fdb';
-const imgSpeedometer = 'https://www.figma.com/api/mcp/asset/55de787f-8c3f-4bad-9982-b16bc9d4ace8';
-const imgChartPie    = 'https://www.figma.com/api/mcp/asset/3c8ad642-f19c-4f21-95d6-783414587d65';
+const imgArrowsMerge = '/assets/ArrowsMerge.svg';
+const imgGearSix     = '/assets/ArrowsMerge-1.svg';
+const imgCodesandbox = '/assets/ArrowsMerge-2.svg';
+const imgSpeedometer = '/assets/ArrowsMerge-3.svg';
+const imgChartPie    = '/assets/ArrowsMerge-4.svg';
 
 const imgRow1 = '/assets/item.png';
 const imgRow2 = '/assets/item-1.png';
@@ -175,7 +175,7 @@ export default function WhyNoa() {
                 height: HEADER_HEIGHT,
                 boxSizing: 'border-box',
               }}>
-                <div style={{ width: 28, height: 28, flexShrink: 0 }}>
+                <div style={{ width: 48, height: 48, flexShrink: 0 }}>
                   <img src={row.icon} alt="" style={{ width: '100%', height: '100%' }} />
                 </div>
                 <h3 style={{
