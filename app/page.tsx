@@ -255,14 +255,14 @@ export default function Home() {
 
     const splitInstances: SplitText[] = [];
     gsap.utils.toArray<Element>('.anim-text-reveal').forEach(el => {
-      const split = new SplitText(el, { type: 'words' });
+      const split = new SplitText(el, { type: 'chars,words' });
       splitInstances.push(split);
-      gsap.set(split.words, { color: '#d4d4d4' });
+      gsap.set(split.chars, { color: '#d4d4d4' });
       const tl = gsap.timeline({
         scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 40%', scrub: 1 },
       });
-      tl.to(split.words, { color: '#00c0b5', stagger: 0.04, duration: 0.01, ease: 'none' })
-        .to(split.words, { color: '#262626', stagger: 0.1,  duration: 1,    ease: 'none' });
+      tl.to(split.chars, { color: '#00c0b5', stagger: 0.005, duration: 0.01, ease: 'none' })
+        .to(split.chars, { color: '#262626', stagger: 0.008, duration: 1,    ease: 'none' });
     });
 
     /* ── Hero kill — unmount once stats section fully covers it ── */
@@ -376,9 +376,9 @@ export default function Home() {
           <div className="anim-fade" style={{ background: '#f5f5f5', borderRadius: 40, padding: '100px 60px', display: 'flex', flexDirection: 'column', gap: 73, alignItems: 'center', width: '100%', boxSizing: 'border-box' }}>
 
             {/* Heading */}
-            <p style={{ ...sw, fontWeight: 400, fontSize: 48, color: '#000b0d', letterSpacing: '-0.96px', lineHeight: '60px', textAlign: 'center', maxWidth: 946, margin: 0 }}>
+            <h2 className="anim-heading-words" style={{ ...sw, fontWeight: 400, fontSize: 48, color: '#000b0d', letterSpacing: '-0.96px', lineHeight: '60px', textAlign: 'center', maxWidth: 946, margin: 0 }}>
               Something has changed in the way businesses think about energy. It had to.
-            </p>
+            </h2>
 
             {/* 4 cards */}
             <div className="anim-card-group" style={{ display: 'flex', gap: 12, width: '100%', perspective: '1400px' }}>

@@ -12,9 +12,9 @@ const imgBg = '/assets/REW2.jpg';
 
 /* ── Data ────────────────────────────────────────────────────────────────── */
 const STEPS = [
-  { num: '01', label: 'Energy source',     desc: 'Wheeling is the transportation of energy from a renewable energy generating source, such as a wind or solar PV plant' },
-  { num: '02', label: 'Grid transmission', desc: 'The renewable energy is transmitted through the national grid from the generation site to the point of consumption.' },
-  { num: '03', label: 'End user delivery', desc: 'The renewable energy is allocated to the end user, enabling businesses to offset their electricity use with clean energy.' },
+  { num: 'Step 1', label: 'Energy source',     desc: 'NOA generates renewable energy from our own wind and solar facilities, and procures additional electrons from trusted independent power producers (IPPs) across South Africa.' },
+  { num: 'Step 2', label: 'Grid transmission', desc: 'We aggregate this diversified portfolio - combining wind, solar and battery storage from multiple sites - to create a more consistent and reliable supply than any single source can deliver.' },
+  { num: 'Step 3', label: 'End user delivery', desc: 'Your business draws electricity from the grid as it usually does. Through an energy supply agreement with NOA, the renewable energy generated on your behalf is tracked and allocated to your account, offsetting your grid consumption with clean electricity. No on-site generation required.' },
 ];
 
 /* ── Layout constants (from Figma 486-5126) ─────────────────────────────── */
@@ -206,7 +206,7 @@ export default function REW2() {
               color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.4px', margin: 0,
             }}
           >
-            How it works
+            What we do
           </p>
           <h2
             className="rew2-heading-words"
@@ -215,7 +215,7 @@ export default function REW2() {
               color: '#fff', letterSpacing: '-1.2px', margin: 0,
             }}
           >
-            Renewable energy wheeling
+            We make renewable energy<br />simple to access, and built to last
           </h2>
           <p
             className="rew2-fade"
@@ -224,7 +224,7 @@ export default function REW2() {
               color: 'rgba(255,255,255,0.6)', margin: 0, maxWidth: 740,
             }}
           >
-            In South Africa, Eskom plays a critical role in allowing the private sector to use its transmission infrastructure for wheeling. NOA wheels renewable energy from its owned generating assets and via power purchase agreements with other independent power producers. Thanks to diversified energy sources and locations, we can supply a larger percentage of our portfolio of customers’ energy needs.
+            NOA gives large commercial and industrial energy users access to utility-scale renewable energy - clean, cost-effective and structured around the long-term needs of your business.
           </p>
         </div>
 
@@ -235,7 +235,7 @@ export default function REW2() {
               and a dots-track that translates with the cards. Each dot sits
               directly above its corresponding card's content; as a dot enters
               the static circle it turns teal. */}
-          <div className="rew2-fade" style={{ position: 'relative', width: '100%', height: 24 }}>
+          <div className="rew2-fade" style={{ position: 'relative', width: '100%', height: 64, padding: '20px 0', boxSizing: 'border-box' }}>
             {/* Solid horizontal line — extends left of the static circle and
                 far enough right to cover all dot positions (clipped by the
                 section's overflow:hidden at the rounded corners). */}
@@ -243,7 +243,7 @@ export default function REW2() {
               style={{
                 position: 'absolute',
                 top: '50%',
-                left: -50,
+                left: 0,
                 width: 3000,
                 height: 1,
                 background: 'rgba(255,255,255,0.25)',
@@ -312,7 +312,7 @@ export default function REW2() {
               borderRadius: 16, textDecoration: 'none', flexShrink: 0,
             }}
           >
-            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#000', whiteSpace: 'nowrap' }}>Get expert advice</span>
+            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#000', whiteSpace: 'nowrap' }}>Talk to an energy expert</span>
           </Link>
           <Link
             href="/solutions"
@@ -322,7 +322,7 @@ export default function REW2() {
               borderRadius: 16, textDecoration: 'none', flexShrink: 0,
             }}
           >
-            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#fff', whiteSpace: 'nowrap' }}>Learn more</span>
+            <span style={{ ...it, fontWeight: 500, fontSize: 20, color: '#fff', whiteSpace: 'nowrap' }}>Explore more</span>
           </Link>
         </div>
       </div>
@@ -336,7 +336,7 @@ export default function REW2() {
         style={{
           position: 'absolute',
           left: 101,                // matches static padding-left
-          bottom: 91 + 58 + 92,     // padding-bottom + CTA height + gap to cards
+          bottom: 91 + 58 + 16,     // padding-bottom + CTA height + gap to cards
           zIndex: 1,
           pointerEvents: 'none',
         }}
@@ -364,7 +364,7 @@ export default function REW2() {
               >
                 <p
                   style={{
-                    ...it, fontWeight: 500, fontSize: 16, lineHeight: '22px',
+                    ...it, fontWeight: 600, fontSize: 16, lineHeight: '22px',
                     color: isActive ? '#00c0b5' : '#fff',
                     margin: 0,
                     transition: 'color 0.4s ease',
@@ -383,7 +383,7 @@ export default function REW2() {
                 <p
                   style={{
                     ...it, fontWeight: 300, fontSize: 16, lineHeight: '24px',
-                    color: '#fff', margin: 0, maxWidth: 398,
+                    color: '#fff', margin: 0, maxWidth: 460,
                   }}
                 >
                   {step.desc}

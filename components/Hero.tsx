@@ -69,7 +69,7 @@ export default function Hero() {
           </h1>
           <p
             ref={subRef}
-            style={{ ...it, fontWeight: 400, fontSize: 20, lineHeight: '30px', color: '#fff', margin: 0, maxWidth: 474, opacity: 0 }}
+            style={{ ...it, fontWeight: 200, fontSize: 20, lineHeight: '30px', color: '#fff', margin: 0, maxWidth: 474, opacity: 0 }}
           >
             Renewable | Reliable | Scalable
           </p>
